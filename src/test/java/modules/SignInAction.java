@@ -1,5 +1,5 @@
 package modules;
-import helpers.Log;
+//import helpers.Log;
 import java.util.HashMap;
 import org.openqa.selenium.WebDriver;
 import org.testng.Reporter;
@@ -13,17 +13,17 @@ public class SignInAction {
         Thread.sleep(3000);
 
         Header.sign_in.click();
-        Log.info("Click action is performed on My Account link" );
+//        Log.info("Click action is performed on My Account link" );
 
         Body.LoginPage.email.sendKeys((CharSequence) map.get("username"));
-        Log.info(" is entered in UserName text box" );
+//        Log.info(" is entered in UserName text box" );
 
         Body.LoginPage.password.sendKeys((CharSequence) map.get("password"));
-        Log.info(" is entered in Password text box" );
+//        Log.info(" is entered in Password text box" );
 
         Body.LoginPage.signin_button.click();
-        Log.info("Click action is performed on Submit button");
+ //       Log.info("Click action is performed on Submit button");
 
-        Reporter.log("SignIn Action is successfully performed");
+ //       Reporter.log("SignIn Action is successfully performed");
     }
 }

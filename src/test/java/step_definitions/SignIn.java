@@ -1,6 +1,6 @@
 package step_definitions;
 
-import helpers.Log;
+//import helpers.Log;
 import helpers.PropertiesUtil;
 import helpers.WebUtil;
 import io.cucumber.java.en.And;

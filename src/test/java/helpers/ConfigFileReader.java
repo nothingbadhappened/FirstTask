@@ -1,7 +1,5 @@
 package helpers;
 
-import org.apache.log4j.PropertyConfigurator;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -24,7 +22,7 @@ public class ConfigFileReader {
             properties.load(props);
             properties.load(logProps);
             //load log4j
-            PropertyConfigurator.configure(logProps);
+            //PropertyConfigurator.configure(logProps);
 
 
         } catch (IOException e) {
