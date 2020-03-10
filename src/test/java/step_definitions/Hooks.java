@@ -1,19 +1,16 @@
-package stepDefinitions;
+package step_definitions;
 
-import helpers.ConfigFileReader;
 import helpers.PropertiesUtil;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.BeforeStep;
 import io.cucumber.java.Scenario;
-import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 
 import static helpers.PropertiesUtil.getDriverImplicitlyWait;
 

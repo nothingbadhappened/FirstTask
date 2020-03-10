@@ -1,5 +1,6 @@
 package pageObjects;
 
+import javafx.beans.binding.When;
 import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -17,6 +18,9 @@ public class Header extends BaseClass {
 
     @FindBy(how = How.LINK_TEXT, using="Sign in")
     public static WebElement sign_in;
+
+    @FindBy(how = How.CLASS_NAME, using = "page-heading")
+    public static WebElement my_account;
 
     @FindBy(how = How.LINK_TEXT, using="Contact us")
     public static WebElement contact_us;
