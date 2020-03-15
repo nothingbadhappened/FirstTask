@@ -1,13 +1,21 @@
 package helpers;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.jetbrains.annotations.NotNull;
+import org.openqa.selenium.*;
 
 public class WebUtil {
-    public static boolean isElementTextCorrect(WebDriver driver, WebElement element, String text){
-
-        if(element.getText().equals(text)){
+    public static boolean isElementTextCorrect(WebDriver driver, @NotNull WebElement element, String text) throws Exception {
+        Log.debug("VERIFY ELEMENT TEXT START");
+        Log.debug("ELEMENT: getText() = " + element.getText());
+        if (element.getText().equals(text)) {
+            Log.debug("VERIFY ELEMENT TEXT: Verified - SUCCESS");
             return true;
-        } else return false;
+        } else {
+            Log.debug("VERIFY ELEMENT TEXT: Verified - FAIL");
+            Log.debug("VERIFY ELEMENT TEXT END");
+            return false;
+        }
     }
+
+
 }

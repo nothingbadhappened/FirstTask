@@ -8,9 +8,12 @@ import org.openqa.selenium.safari.SafariDriver;
 //TEST PROPERTIES LOAD
 
 public class TestLocal {
-    public static void testProperties() throws Exception {
+    public static void propsTest() throws Exception {
 
+        System.out.println("================ Props start: ================\n");
         PropertiesUtil.loadConfiguration();
+        System.out.println("\n================ Props  end. ================");
+
         WebDriver driver = null;
         System.out.println("Driver in config file is: " + PropertiesUtil.getDriver());
 

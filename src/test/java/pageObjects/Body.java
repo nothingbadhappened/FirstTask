@@ -20,6 +20,9 @@ public class Body extends BaseClass {
         @FindBy(how=How.ID, using="SubmitLogin")
         public static WebElement signin_button;
 
+        @FindBy(how=How.XPATH, using="//*[@id=\"center_column\"]/div[1]/ol/li")
+        public static WebElement login_error;
+
         @FindBy(how=How.ID, using="email_create")
         public static WebElement email_create;
 

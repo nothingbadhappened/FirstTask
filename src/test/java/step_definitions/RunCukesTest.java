@@ -13,9 +13,9 @@ import org.junit.runner.RunWith;
 //      plugin = { "com.cucumber.listener.ExtentCucumberFormatter:target/cucumber-reports/report.html" },
 
         plugin = { "pretty",
-              "json:target/cucumber-reports/Cucumber.json",
+                "json:target/cucumber-reports/Cucumber.json",
                 "junit:target/cucumber-reports/Cucumber.xml",
-                "html:target/cucumber-reports"
+                "html:target/cucumber-reports/"
         },
         monochrome = true,
         tags = {}
