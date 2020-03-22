@@ -1,0 +1,326 @@
+[
+  {
+    "line": 1,
+    "elements": [
+      {
+        "line": 2,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 4825000000,
+              "status": "passed"
+            },
+            "line": 3,
+            "name": "user navigates to website",
+            "match": {
+              "location": "step_definitions.SignIn.userNavigatesToWebsite()"
+            },
+            "keyword": "Given "
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2020-03-22T21:53:18.100Z",
+        "before": [
+          {
+            "result": {
+              "duration": 9971000000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "step_definitions.Hooks.setUp(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 5,
+        "name": "Registered user login with valid credentials",
+        "description": "",
+        "id": "sign-in;registered-user-login-with-valid-credentials",
+        "after": [
+          {
+            "result": {
+              "duration": 1629000000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "step_definitions.Hooks$teardown.embedScreenshot(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 3000000,
+              "status": "passed"
+            },
+            "line": 6,
+            "name": "user is \"registered\" on the website",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"registered\"",
+                  "offset": 8
+                }
+              ],
+              "location": "step_definitions.SignIn.userIsRegistered(java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 6358000000,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "user signs in with valid username \"elchupakabra@mailinator.com\" and password \"Test1234!\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"elchupakabra@mailinator.com\"",
+                  "offset": 34
+                },
+                {
+                  "val": "\"Test1234!\"",
+                  "offset": 77
+                }
+              ],
+              "location": "step_definitions.SignIn.userSignIn(java.lang.String,java.lang.String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 1521000000,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "user is redirected to \"MY ACCOUNT\" page",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"MY ACCOUNT\"",
+                  "offset": 22
+                }
+              ],
+              "location": "step_definitions.SignIn.myAccountPageLoaded(java.lang.String)"
+            },
+            "keyword": "Then "
+          }
+        ]
+      },
+      {
+        "line": 2,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 4919000000,
+              "status": "passed"
+            },
+            "line": 3,
+            "name": "user navigates to website",
+            "match": {
+              "location": "step_definitions.SignIn.userNavigatesToWebsite()"
+            },
+            "keyword": "Given "
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2020-03-22T21:53:42.471Z",
+        "before": [
+          {
+            "result": {
+              "duration": 9535000000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "step_definitions.Hooks.setUp(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 10,
+        "name": "User login with invalid credentials",
+        "description": "",
+        "id": "sign-in;user-login-with-invalid-credentials",
+        "after": [
+          {
+            "result": {
+              "duration": 1634000000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "step_definitions.Hooks$teardown.embedScreenshot(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 11,
+            "name": "user is \"not registered\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"not registered\"",
+                  "offset": 8
+                }
+              ],
+              "location": "step_definitions.SignIn.userIsNotRegistered(java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 5501000000,
+              "status": "passed"
+            },
+            "line": 12,
+            "name": "user enters invalid username \"ratatui@ne.em\" and password \"badPassword\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"ratatui@ne.em\"",
+                  "offset": 29
+                },
+                {
+                  "val": "\"badPassword\"",
+                  "offset": 58
+                }
+              ],
+              "location": "step_definitions.SignIn.invalidUserSignIn(java.lang.String,java.lang.String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 1544000000,
+              "status": "passed"
+            },
+            "line": 13,
+            "name": "login error \"Authentication failed.\" is displayed",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"Authentication failed.\"",
+                  "offset": 12
+                }
+              ],
+              "location": "step_definitions.SignIn.loginError(java.lang.String)"
+            },
+            "keyword": "Then "
+          }
+        ]
+      },
+      {
+        "line": 2,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 4852000000,
+              "status": "passed"
+            },
+            "line": 3,
+            "name": "user navigates to website",
+            "match": {
+              "location": "step_definitions.SignIn.userNavigatesToWebsite()"
+            },
+            "keyword": "Given "
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2020-03-22T21:54:05.607Z",
+        "before": [
+          {
+            "result": {
+              "duration": 9502000000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "step_definitions.Hooks.setUp(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 15,
+        "name": "Registered user sign out",
+        "description": "",
+        "id": "sign-in;registered-user-sign-out",
+        "after": [
+          {
+            "result": {
+              "duration": 1641000000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "step_definitions.Hooks$teardown.embedScreenshot(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 7147000000,
+              "status": "passed"
+            },
+            "line": 16,
+            "name": "user is logged in",
+            "match": {
+              "location": "step_definitions.SignIn.userLoggedIn()"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 2489000000,
+              "status": "passed"
+            },
+            "line": 17,
+            "name": "user clicks sign out button",
+            "match": {
+              "location": "step_definitions.SignIn.userSignOut()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 1049000000,
+              "status": "passed"
+            },
+            "line": 18,
+            "name": "user is logged out",
+            "match": {
+              "location": "step_definitions.SignIn.verifyUserSignedOut()"
+            },
+            "keyword": "Then "
+          }
+        ]
+      }
+    ],
+    "name": "Sign In",
+    "description": "",
+    "id": "sign-in",
+    "keyword": "Feature",
+    "uri": "file:src/test/resources/features/SignIn.feature",
+    "tags": []
+  }
+]

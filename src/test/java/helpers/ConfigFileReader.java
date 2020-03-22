@@ -25,6 +25,10 @@ public class ConfigFileReader {
             //load log4j properties
             PropertyConfigurator.configure(logProps);
 
+            //set driver path (if needed)
+            System.setProperty("webdriver.chrome.driver", properties.getProperty("webdriver.chrome.driver"));
+            System.setProperty("webdriver.gecko.driver", properties.getProperty("webdriver.gecko.driver"));
+
         } catch (IOException e) {
             System.out.println("Properties file not found");
             e.printStackTrace();

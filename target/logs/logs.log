@@ -1,0 +1,132 @@
+2020-03-22 23:33:48 DEBUG Log:30 - >>> BEFORE HOOK START <<<
+2020-03-22 23:33:48 INFO  Log:18 - SCENARIO: START - [Registered user sign out]
+2020-03-22 23:33:48 INFO  Log:18 - CONFIG: Configuration Loaded
+2020-03-22 23:33:48 INFO  Log:18 - BROWSER: Clean start
+2020-03-22 23:33:52 DEBUG Log:30 - >>> BEFORE HOOK END <<<
+2020-03-22 23:33:52 INFO  Log:18 - STEP: Given user navigates to http://automationpractice.com/ website
+2020-03-22 23:33:57 INFO  Log:18 - STEP: And user is logged in
+2020-03-22 23:33:58 INFO  Log:18 - STEP: When user signs in with valid username: elchupakabra@mailinator.com and password:Test1234!
+2020-03-22 23:34:03 INFO  Log:18 -    -> Click My Account link
+2020-03-22 23:34:03 INFO  Log:18 -    -> Username field is populated
+2020-03-22 23:34:03 INFO  Log:18 -    -> Password field is populated
+2020-03-22 23:34:04 INFO  Log:18 -    -> Click Submit button
+2020-03-22 23:34:04 INFO  Log:18 -    -> SIGN IN ACTION COMPLETE
+2020-03-22 23:34:04 INFO  Log:18 - STEP: When user clicks sign out button
+2020-03-22 23:34:05 INFO  Log:18 -    -> Click Sign Out button
+2020-03-22 23:34:07 INFO  Log:18 -    -> SIGN OUT: ACTION COMPLETE
+2020-03-22 23:34:07 INFO  Log:18 - STEP: Then user is logged out
+2020-03-22 23:34:08 INFO  Log:18 - User is redirected to Sign In page
+2020-03-22 23:34:08 INFO  Log:18 - SCENARIO: FAIL - user is still on MY ACCOUNT page
+2020-03-22 23:34:08 DEBUG Log:30 - >>> AFTER HOOK START <<<
+2020-03-22 23:34:08 INFO  Log:18 - SCENARIO: FAIL - Current Page URL is http://automationpractice.com/index.php?controller=authentication&back=my-account
+2020-03-22 23:34:08 INFO  Log:18 - SCENARIO: FAIL - Attaching Screenshot
+2020-03-22 23:34:09 INFO  Log:18 - SCENARIO: COMPLETED - [Registered user sign out]
+2020-03-22 23:34:11 INFO  Log:18 - BROWSER: Closed
+2020-03-22 23:34:11 DEBUG Log:30 - >>> AFTER HOOK END <<<
+
+
+
+2020-03-22 23:45:53 DEBUG Log:30 - >>> BEFORE HOOK START <<<
+2020-03-22 23:45:53 INFO  Log:18 - SCENARIO: START - [Registered user sign out]
+2020-03-22 23:45:53 INFO  Log:18 - CONFIG: Configuration Loaded
+2020-03-22 23:45:53 INFO  Log:18 - BROWSER: Clean start
+2020-03-22 23:45:57 DEBUG Log:30 - >>> BEFORE HOOK END <<<
+2020-03-22 23:45:57 INFO  Log:18 - STEP: Given user navigates to http://automationpractice.com/ website
+2020-03-22 23:46:02 INFO  Log:18 - STEP: And user is logged in
+2020-03-22 23:46:03 INFO  Log:18 - STEP: When user signs in with valid username: elchupakabra@mailinator.com and password:Test1234!
+2020-03-22 23:46:07 INFO  Log:18 -    -> Click My Account link
+2020-03-22 23:46:08 INFO  Log:18 -    -> Username field is populated
+2020-03-22 23:46:08 INFO  Log:18 -    -> Password field is populated
+2020-03-22 23:46:09 INFO  Log:18 -    -> Click Submit button
+2020-03-22 23:46:09 INFO  Log:18 -    -> SIGN IN ACTION COMPLETE
+2020-03-22 23:46:09 INFO  Log:18 - STEP: When user clicks sign out button
+2020-03-22 23:46:10 INFO  Log:18 -    -> Click Sign Out button
+2020-03-22 23:46:11 INFO  Log:18 -    -> SIGN OUT: ACTION COMPLETE
+2020-03-22 23:46:11 INFO  Log:18 - STEP: Then user is logged out
+2020-03-22 23:46:12 INFO  Log:18 - User is redirected to Sign In page
+2020-03-22 23:46:12 INFO  Log:18 - SCENARIO: FAIL - My Account is still present
+2020-03-22 23:46:12 DEBUG Log:30 - >>> AFTER HOOK START <<<
+2020-03-22 23:46:12 INFO  Log:18 - SCENARIO: FAIL - Current Page URL is http://automationpractice.com/index.php?controller=authentication&back=my-account
+2020-03-22 23:46:12 INFO  Log:18 - SCENARIO: FAIL - Attaching Screenshot
+2020-03-22 23:46:13 INFO  Log:18 - SCENARIO: COMPLETED - [Registered user sign out]
+2020-03-22 23:46:15 INFO  Log:18 - BROWSER: Closed
+2020-03-22 23:46:15 DEBUG Log:30 - >>> AFTER HOOK END <<<
+
+
+
+2020-03-22 23:53:23 DEBUG Log:30 - >>> BEFORE HOOK START <<<
+2020-03-22 23:53:23 INFO  Log:18 - SCENARIO: START - [Registered user login with valid credentials]
+2020-03-22 23:53:23 INFO  Log:18 - CONFIG: Configuration Loaded
+2020-03-22 23:53:23 INFO  Log:18 - BROWSER: Clean start
+2020-03-22 23:53:28 DEBUG Log:30 - >>> BEFORE HOOK END <<<
+2020-03-22 23:53:28 INFO  Log:18 - STEP: Given user navigates to http://automationpractice.com/ website
+2020-03-22 23:53:32 INFO  Log:18 - STEP: And user is registered on the website
+2020-03-22 23:53:32 INFO  Log:18 - STEP: When user signs in with valid username: elchupakabra@mailinator.com and password:Test1234!
+2020-03-22 23:53:37 INFO  Log:18 -    -> Click My Account link
+2020-03-22 23:53:37 INFO  Log:18 -    -> Username field is populated
+2020-03-22 23:53:38 INFO  Log:18 -    -> Password field is populated
+2020-03-22 23:53:39 INFO  Log:18 -    -> Click Submit button
+2020-03-22 23:53:39 INFO  Log:18 -    -> SIGN IN ACTION COMPLETE
+2020-03-22 23:53:40 INFO  Log:18 - STEP: Then user is redirected to MY ACCOUNT page
+2020-03-22 23:53:40 INFO  Log:18 - SCENARIO: Passed
+2020-03-22 23:53:40 DEBUG Log:30 - >>> AFTER HOOK START <<<
+2020-03-22 23:53:40 INFO  Log:18 - SCENARIO: COMPLETED - [Registered user login with valid credentials]
+2020-03-22 23:53:42 INFO  Log:18 - BROWSER: Closed
+2020-03-22 23:53:42 DEBUG Log:30 - >>> AFTER HOOK END <<<
+
+
+
+2020-03-22 23:53:47 DEBUG Log:30 - >>> BEFORE HOOK START <<<
+2020-03-22 23:53:47 INFO  Log:18 - SCENARIO: START - [User login with invalid credentials]
+2020-03-22 23:53:47 INFO  Log:18 - CONFIG: Configuration Loaded
+2020-03-22 23:53:47 INFO  Log:18 - BROWSER: Clean start
+2020-03-22 23:53:52 DEBUG Log:30 - >>> BEFORE HOOK END <<<
+2020-03-22 23:53:52 INFO  Log:18 - STEP: Given user navigates to http://automationpractice.com/ website
+2020-03-22 23:53:56 INFO  Log:18 - STEP: And user is not registered on the website
+2020-03-22 23:53:56 INFO  Log:18 - STEP: When user enters invalid username: ratatui@ne.em and password:badPassword
+2020-03-22 23:54:01 INFO  Log:18 -    -> Click My Account link
+2020-03-22 23:54:01 INFO  Log:18 -    -> Username field is populated
+2020-03-22 23:54:01 INFO  Log:18 -    -> Password field is populated
+2020-03-22 23:54:02 INFO  Log:18 -    -> Click Submit button
+2020-03-22 23:54:02 INFO  Log:18 -    -> SIGN IN ACTION COMPLETE
+2020-03-22 23:54:03 INFO  Log:18 - STEP: Then login error is displayed: [  Authentication failed. ]
+2020-03-22 23:54:03 DEBUG Log:30 - >>> AFTER HOOK START <<<
+2020-03-22 23:54:03 INFO  Log:18 - SCENARIO: COMPLETED - [User login with invalid credentials]
+2020-03-22 23:54:05 INFO  Log:18 - BROWSER: Closed
+2020-03-22 23:54:05 DEBUG Log:30 - >>> AFTER HOOK END <<<
+
+
+
+2020-03-22 23:54:10 DEBUG Log:30 - >>> BEFORE HOOK START <<<
+2020-03-22 23:54:10 INFO  Log:18 - SCENARIO: START - [Registered user sign out]
+2020-03-22 23:54:10 INFO  Log:18 - CONFIG: Configuration Loaded
+2020-03-22 23:54:10 INFO  Log:18 - BROWSER: Clean start
+2020-03-22 23:54:15 DEBUG Log:30 - >>> BEFORE HOOK END <<<
+2020-03-22 23:54:15 INFO  Log:18 - STEP: Given user navigates to http://automationpractice.com/ website
+2020-03-22 23:54:19 INFO  Log:18 - STEP: And user is logged in
+2020-03-22 23:54:20 INFO  Log:18 - STEP: When user signs in with valid username: elchupakabra@mailinator.com and password:Test1234!
+2020-03-22 23:54:25 INFO  Log:18 -    -> Click My Account link
+2020-03-22 23:54:25 INFO  Log:18 -    -> Username field is populated
+2020-03-22 23:54:25 INFO  Log:18 -    -> Password field is populated
+2020-03-22 23:54:27 INFO  Log:18 -    -> Click Submit button
+2020-03-22 23:54:27 INFO  Log:18 -    -> SIGN IN ACTION COMPLETE
+2020-03-22 23:54:27 INFO  Log:18 - STEP: When user clicks sign out button
+2020-03-22 23:54:28 INFO  Log:18 -    -> Click Sign Out button
+2020-03-22 23:54:29 INFO  Log:18 -    -> SIGN OUT: ACTION COMPLETE
+2020-03-22 23:54:29 INFO  Log:18 - STEP: Then user is logged out
+2020-03-22 23:54:30 INFO  Log:18 - User is redirected to Sign In page
+2020-03-22 23:54:30 DEBUG Log:30 - >>> AFTER HOOK START <<<
+2020-03-22 23:54:30 INFO  Log:18 - SCENARIO: COMPLETED - [Registered user sign out]
+2020-03-22 23:54:32 INFO  Log:18 - BROWSER: Closed
+2020-03-22 23:54:32 DEBUG Log:30 - >>> AFTER HOOK END <<<
+
+
+
+2020-03-22 23:56:17 DEBUG Log:30 - >>> BEFORE HOOK START <<<
+2020-03-22 23:56:17 INFO  Log:18 - SCENARIO: START - [Registered user login with valid credentials]
+2020-03-22 23:56:17 INFO  Log:18 - CONFIG: Configuration Loaded
+2020-03-22 23:56:17 INFO  Log:18 - BROWSER: Clean start
+2020-03-22 23:56:21 DEBUG Log:30 - >>> BEFORE HOOK END <<<
+2020-03-22 23:56:21 INFO  Log:18 - STEP: Given user navigates to http://automationpractice.com/ website
+2020-03-22 23:56:26 INFO  Log:18 - STEP: And user is registered on the website
+2020-03-22 23:56:26 INFO  Log:18 - STEP: When user signs in with valid username: elchupakabra@mailinator.com and password:Test1234!

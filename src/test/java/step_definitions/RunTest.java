@@ -20,6 +20,6 @@ import org.junit.runner.RunWith;
         monochrome = true,
         tags = {}
 )
-public class RunCukesTest{
+public class RunTest {
 
 }

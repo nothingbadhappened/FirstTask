@@ -15,11 +15,11 @@ public class PropertiesUtil {
     static Logger log = Logger.getLogger("PropertiesUtil");
 
     //Load  properties file
-    public static void loadConfiguration(){
+    public static void loadConfiguration() {
         configFileReader.loadProperties();
     }
 
-    public static String getDriver(){
+    public static String getDriver() {
         return configFileReader.properties.getProperty("driver");
     }
 
@@ -52,11 +52,11 @@ public class PropertiesUtil {
 
 
     // Get other fields from the properties file
-    public static String getUrl(){
+    public static String getUrl() {
         return configFileReader.properties.getProperty("url");
     }
 
-    public static int getDriverImplicitlyWait(){
+    public static int getDriverImplicitlyWait() {
         return Integer.parseInt(configFileReader.properties.getProperty("driver.implicitlyWait"));
     }
 

@@ -30,7 +30,7 @@ public class Hooks {
             e.printStackTrace();
         }
 
-        Log.info(">>> BEFORE HOOK START <<<");
+        Log.debug(">>> BEFORE HOOK START <<<");
         Log.info("SCENARIO: START - [" + scenario.getName() + "]");
         Log.info("CONFIG: Configuration Loaded");
 
@@ -38,7 +38,7 @@ public class Hooks {
         driver.manage().deleteAllCookies();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(getDriverImplicitlyWait(), TimeUnit.SECONDS);
-        Log.info(">>> BEFORE HOOK END <<<");
+        Log.debug(">>> BEFORE HOOK END <<<");
     }
 
     public static class teardown {
@@ -60,6 +60,7 @@ public class Hooks {
 
                 } catch (WebDriverException somePlatformsDontSupportScreenshots) {
                     System.err.println(somePlatformsDontSupportScreenshots.getMessage());
+                    Log.error("BROWSER: Cannot capture screen", somePlatformsDontSupportScreenshots);
                 }
 
             }
