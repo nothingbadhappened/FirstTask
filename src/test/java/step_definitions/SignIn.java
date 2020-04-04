@@ -74,7 +74,7 @@ public class SignIn {
             Log.info("SCENARIO: Passed");
         } catch (AssertionError e) {
             Log.info("!!! SCENARIO: Failed !!! " + e.getMessage());
-            Assert.fail();
+            Assert.fail(e.getMessage());
         }
 
     }

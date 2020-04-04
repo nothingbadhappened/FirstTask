@@ -1,0 +1,8 @@
+pageObjects\Body$AccountPage.class
+pageObjects\Body$HomePage.class
+pageObjects\Footer.class
+pageObjects\Body.class
+pageObjects\SideBar.class
+pageObjects\BaseClass.class
+pageObjects\Header.class
+users\User.class

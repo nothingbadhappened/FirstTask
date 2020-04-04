@@ -55,11 +55,11 @@ formatter.match({
   "location": "step_definitions.SignIn.myAccountPageLoaded(java.lang.String)"
 });
 formatter.result({
-  "error_message": "java.lang.AssertionError: null\r\n\tat org.testng.Assert.fail(Assert.java:94)\r\n\tat org.testng.Assert.fail(Assert.java:101)\r\n\tat step_definitions.SignIn.myAccountPageLoaded(SignIn.java:77)\r\n\tat ✽.user is redirected to \"MY ACCOUNT!\" page(file:///C:/Users/User/IdeaProjects/FirstTask/src/test/resources/features/SignIn.feature:8)\r\n",
+  "error_message": "java.lang.AssertionError: expected [MY ACCOUNT!] but found [MY ACCOUNT]\r\n\tat org.testng.Assert.fail(Assert.java:94)\r\n\tat step_definitions.SignIn.myAccountPageLoaded(SignIn.java:77)\r\n\tat ✽.user is redirected to \"MY ACCOUNT!\" page(file:///C:/Users/User/IdeaProjects/FirstTask/src/test/resources/features/SignIn.feature:8)\r\n",
   "status": "failed"
 });
 formatter.write("Current Page URL is http://automationpractice.com/index.php?controller\u003dmy-account");
-formatter.embedding("image/png", "embedded0.png", "Screenshot_1586025134105_IRegistered user login with valid credentialsI");
+formatter.embedding("image/png", "embedded0.png", "Screenshot1586032096826_Registered user login with valid credentials.png");
 formatter.after({
   "status": "passed"
 });

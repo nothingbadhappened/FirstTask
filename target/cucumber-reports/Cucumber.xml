@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<testsuite errors="0" failures="1" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="27.744">
-    <testcase classname="Sign In" name="Registered user login with valid credentials" time="27.619">
-        <failure message="null" type="java.lang.AssertionError"><![CDATA[Given user navigates to website.............................................passed
+<testsuite errors="0" failures="1" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="27.803">
+    <testcase classname="Sign In" name="Registered user login with valid credentials" time="27.665">
+        <failure message="expected [MY ACCOUNT!] but found [MY ACCOUNT]" type="java.lang.AssertionError"><![CDATA[Given user navigates to website.............................................passed
 And user is "registered" on the website.....................................passed
 When user signs in with valid username "elchupakabra@mailinator.com" and password "Test1234!".passed
 Then user is redirected to "MY ACCOUNT!" page...............................failed
 
 StackTrace:
-java.lang.AssertionError: null
+java.lang.AssertionError: expected [MY ACCOUNT!] but found [MY ACCOUNT]
 	at org.testng.Assert.fail(Assert.java:94)
-	at org.testng.Assert.fail(Assert.java:101)
 	at step_definitions.SignIn.myAccountPageLoaded(SignIn.java:77)
 	at ✽.user is redirected to "MY ACCOUNT!" page(file:///C:/Users/User/IdeaProjects/FirstTask/src/test/resources/features/SignIn.feature:8)
 ]]></failure>

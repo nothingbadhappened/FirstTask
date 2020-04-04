@@ -10,4 +10,3 @@ helpers\Log.class
 helpers\ConfigFileReader.class
 modules\SignOutAction.class
 helpers\ScreenShotUtil.class
-users\User.class

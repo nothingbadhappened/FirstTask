@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 public class ScreenShotUtil {
 
@@ -23,14 +24,14 @@ public class ScreenShotUtil {
     public ScreenShotUtil(WebDriver driver) throws IOException {
         ScreenShotUtil.driver = driver;
         doScreenshot();
-        toByteScreenshot();
+        captureFullScreenAsByte(screenshot);
     }
 
     public ScreenShotUtil(WebDriver driver, Scenario scenario) throws IOException {
         ScreenShotUtil.driver = driver;
         fileName = "Screenshot" + System.currentTimeMillis() + "_" + scenario.getName() + ".png";
         doScreenshot();
-        toByteScreenshot();
+        captureFullScreenAsByte(screenshot);
     }
 
     //Getters
@@ -44,11 +45,6 @@ public class ScreenShotUtil {
         return screenshot;
     }
 
-    //
-    public void toByteScreenshot() throws IOException {
-        ScreenShotUtil.byteScreenshot = captureFullScreenAsByte(captureFullScreen(driver));
-    }
-
     private Screenshot doScreenshot() throws IOException {
         return captureFullScreen(driver);
     }
@@ -59,13 +55,12 @@ public class ScreenShotUtil {
         ScreenShotUtil.screenshot = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(100))
                 .takeScreenshot(driver);
 
-        Log.info("SCREENSHOT: Saving to file \"" + fileName +"\"");
         saveScreenshotToFile(screenshot);
         return screenshot;
     }
 
     // Capture full image in BYTE format method (needed for Cucumber appender as it only consumes Byte)
-    private static byte[] captureFullScreenAsByte(Screenshot screenshot) throws IOException {
+    private static void captureFullScreenAsByte(Screenshot screenshot) throws IOException {
         Log.info("SCREENSHOT: Capture started [BYTE]");
         BufferedImage image = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(100)).takeScreenshot(driver).getImage();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -73,16 +68,19 @@ public class ScreenShotUtil {
         ImageIO.write(image, "png", byteArrayOutputStream);
 
         byteArrayOutputStream.flush();
-        byte[] imageInByte = byteArrayOutputStream.toByteArray();
+        ScreenShotUtil.byteScreenshot = byteArrayOutputStream.toByteArray();
         byteArrayOutputStream.close();
 
-        return imageInByte;
     }
 
     // Save the screenshot in desired location
     private static void saveScreenshotToFile(Screenshot screenshot) throws IOException {
 
         Log.info("SCREENSHOT: Writing to file " + fileName);
+
+        //Create screenshot directory if not present
+        new File("./target/screenshots/").mkdirs();
+
         ImageIO.write(screenshot.getImage(), "PNG",
                 new File("./target/screenshots/" + fileName));
 

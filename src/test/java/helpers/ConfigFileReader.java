@@ -26,8 +26,9 @@ public class ConfigFileReader {
             PropertyConfigurator.configure(logProps);
 
             //set driver path (if needed)
-            System.setProperty("webdriver.chrome.driver", properties.getProperty("webdriver.chrome.driver"));
-            System.setProperty("webdriver.gecko.driver", properties.getProperty("webdriver.gecko.driver"));
+            String path = System.getProperty("user.dir");
+            System.setProperty("webdriver.chrome.driver", path + properties.getProperty("webdriver.chrome.driver"));
+            System.setProperty("webdriver.gecko.driver", path + properties.getProperty("webdriver.gecko.driver"));
 
         } catch (IOException e) {
             System.out.println("Properties file not found");
