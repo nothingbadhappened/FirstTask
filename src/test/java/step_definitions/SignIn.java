@@ -110,8 +110,8 @@ public class SignIn {
             Thread.sleep(1500);
             Log.info("STEP: Then login error is displayed: [  " + errorText + " ]");
             Assert.assertEquals(Body.AccountPage.login_error.getText(), errorText);
-        } catch (Exception e) {
-            Log.error(e);
+        } catch (AssertionError e) {
+            Log.info("!!! SCENARIO: Failed !!! " + e.getMessage());
             Assert.fail();
         }
     }
@@ -149,8 +149,8 @@ public class SignIn {
             Thread.sleep(1000);
             Assert.assertEquals(driver.getCurrentUrl().toString(), "http://automationpractice.com/index.php?controller=authentication&back=my-account");
             Log.info("User is redirected to Sign In page");
-        } catch (Exception e) {
-            Log.error("SCENARIO: FAIL - user is not redirected to Sign In page", e);
+        } catch (AssertionError | InterruptedException e) {
+            Log.info("!!! SCENARIO: Failed !!! User is not redirected to Sign In page - " + e.getMessage());
         }
 
         if (Header.pageHeading.getText().equals("MY ACCOUNT")) {

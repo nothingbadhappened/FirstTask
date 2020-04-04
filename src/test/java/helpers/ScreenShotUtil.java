@@ -19,6 +19,7 @@ public class ScreenShotUtil {
     private static byte[] byteScreenshot;
     private static Screenshot screenshot;
 
+    //Constructors
     public ScreenShotUtil(WebDriver driver) throws IOException {
         ScreenShotUtil.driver = driver;
         doScreenshot();
@@ -32,23 +33,23 @@ public class ScreenShotUtil {
         toByteScreenshot();
     }
 
+    //Getters
     public String getScreenshotName() {
         return fileName;
     }
-
     public byte[] getByteScreenshotFullPage() {
         return byteScreenshot;
     }
-
     public Screenshot getScreenshotFullPage() {
         return screenshot;
     }
 
+    //
     public void toByteScreenshot() throws IOException {
         ScreenShotUtil.byteScreenshot = captureFullScreenAsByte(captureFullScreen(driver));
     }
 
-    public Screenshot doScreenshot() throws IOException {
+    private Screenshot doScreenshot() throws IOException {
         return captureFullScreen(driver);
     }
 
@@ -58,14 +59,15 @@ public class ScreenShotUtil {
         ScreenShotUtil.screenshot = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(100))
                 .takeScreenshot(driver);
 
+        Log.info("SCREENSHOT: Saving to file \"" + fileName +"\"");
         saveScreenshotToFile(screenshot);
         return screenshot;
     }
 
-    // Capture full image in BYTE format
+    // Capture full image in BYTE format method (needed for Cucumber appender as it only consumes Byte)
     private static byte[] captureFullScreenAsByte(Screenshot screenshot) throws IOException {
-        Log.info("SCREENSHOT: Capture stated [BYTE]");
-        BufferedImage image = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(200)).takeScreenshot(driver).getImage();
+        Log.info("SCREENSHOT: Capture started [BYTE]");
+        BufferedImage image = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(100)).takeScreenshot(driver).getImage();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
         ImageIO.write(image, "png", byteArrayOutputStream);
