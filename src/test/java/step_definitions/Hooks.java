@@ -2,13 +2,11 @@ package step_definitions;
 
 import helpers.Log;
 import helpers.PropertiesUtil;
+import helpers.ScreenShotUtil;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
 
 import java.util.concurrent.TimeUnit;
 
@@ -49,18 +47,22 @@ public class Hooks {
             Log.debug(">>> AFTER HOOK START <<<");
             if (scenario.isFailed()) {
                 try {
-
                     Log.info("SCENARIO: FAIL - " + "Current Page URL is " + driver.getCurrentUrl());
-
                     scenario.write("Current Page URL is " + driver.getCurrentUrl());
+
                     Log.info("SCENARIO: FAIL - Attaching Screenshot");
+                    //Screenshot helper captures screen shot and saves file
+                    ScreenShotUtil screenShotUtil = new ScreenShotUtil(driver, scenario);
+                    //Embed screenshot to Cucumber report
+                    scenario.embed(
+                            screenShotUtil.getByteScreenshotFullPage(),
+                            "image/png",
+                            screenShotUtil.getScreenshotName()
+                    );
 
-                    byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-                    scenario.embed(screenshot, "image/png", "Screen");
-
-                } catch (WebDriverException somePlatformsDontSupportScreenshots) {
-                    System.err.println(somePlatformsDontSupportScreenshots.getMessage());
-                    Log.error("BROWSER: Cannot capture screen", somePlatformsDontSupportScreenshots);
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                    Log.error("BROWSER: Cannot capture screen", e);
                 }
 
             }
@@ -70,9 +72,6 @@ public class Hooks {
             Log.info("BROWSER: Closed");
             Log.debug(">>> AFTER HOOK END <<<\n\n\n");
         }
-
-
-
 
 //    public static void writeExtentReport() {
 //        Reporter.loadXMLConfig();

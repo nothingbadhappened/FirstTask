@@ -72,10 +72,9 @@ public class SignIn {
             Log.info("STEP: Then user is redirected to " + text + " page");
             Assert.assertEquals(Header.pageHeading.getText(), text);
             Log.info("SCENARIO: Passed");
-        } catch (Exception e) {
-            Log.error("SCENARIO: Failed\n", e);
-            Log.info("This is info: " + e.toString());
-            //Assert.fail();
+        } catch (AssertionError e) {
+            Log.info("!!! SCENARIO: Failed !!! " + e.getMessage());
+            Assert.fail();
         }
 
     }
