@@ -16,13 +16,13 @@ public class SignInAction {
             Header.signIn.click();
             Log.info("   -> Click My Account link" );
 
-            Body.LoginPage.email.sendKeys(user.getUserName());
+            Body.AccountPage.email.sendKeys(user.getUserName());
             Log.info("   -> Username field is populated" );
 
-            Body.LoginPage.password.sendKeys(user.getPassword());
+            Body.AccountPage.password.sendKeys(user.getPassword());
             Log.info("   -> Password field is populated");
 
-            Body.LoginPage.signin_button.click();
+            Body.AccountPage.signin_button.click();
             Log.info("   -> Click Submit button");
 
             Log.info("   -> SIGN IN ACTION COMPLETE");

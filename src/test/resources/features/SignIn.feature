@@ -5,7 +5,7 @@ Feature: Sign In
   Scenario: Registered user login with valid credentials
     And user is "registered" on the website
     When user signs in with valid username "elchupakabra@mailinator.com" and password "Test1234!"
-    Then user is redirected to "MY ACCOUNT" page
+    Then user is redirected to "MY ACCOUNT!" page
 
   Scenario: User login with invalid credentials
     And user is "not registered"

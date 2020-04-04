@@ -10,7 +10,7 @@ public class Body extends BaseClass {
         super(driver);
     }
 
-    public static class LoginPage{
+    public static class AccountPage {
         @FindBy(how= How.ID, using="email")
         public static WebElement email;
 
@@ -28,6 +28,10 @@ public class Body extends BaseClass {
 
         @FindBy(how=How.ID, using="SubmitCreate")
         public static WebElement submit_create;
+    }
+
+    public static class HomePage {
+        //todo: list Home Page body elements
     }
 
 }

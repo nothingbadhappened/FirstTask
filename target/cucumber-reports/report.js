@@ -48,15 +48,18 @@ formatter.result({
   "status": "passed"
 });
 formatter.step({
-  "name": "user is redirected to \"MY ACCOUNT\" page",
+  "name": "user is redirected to \"MY ACCOUNT!\" page",
   "keyword": "Then "
 });
 formatter.match({
   "location": "step_definitions.SignIn.myAccountPageLoaded(java.lang.String)"
 });
 formatter.result({
-  "status": "passed"
+  "error_message": "java.lang.AssertionError: expected [MY ACCOUNT!] but found [MY ACCOUNT]\r\n\tat org.testng.Assert.fail(Assert.java:94)\r\n\tat org.testng.Assert.failNotEquals(Assert.java:494)\r\n\tat org.testng.Assert.assertEquals(Assert.java:123)\r\n\tat org.testng.Assert.assertEquals(Assert.java:176)\r\n\tat org.testng.Assert.assertEquals(Assert.java:186)\r\n\tat step_definitions.SignIn.myAccountPageLoaded(SignIn.java:73)\r\n\tat ✽.user is redirected to \"MY ACCOUNT!\" page(file:///C:/Users/User/IdeaProjects/FirstTask/src/test/resources/features/SignIn.feature:8)\r\n",
+  "status": "failed"
 });
+formatter.write("Current Page URL is http://automationpractice.com/index.php?controller\u003dmy-account");
+formatter.embedding("image/png", "embedded0.png", "Screen");
 formatter.after({
   "status": "passed"
 });

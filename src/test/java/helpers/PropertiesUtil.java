@@ -58,6 +58,6 @@ public class PropertiesUtil {
 
     public static int getDriverImplicitlyWait() {
         return Integer.parseInt(configFileReader.properties.getProperty("driver.implicitlyWait"));
-    }
+}
 
 }
