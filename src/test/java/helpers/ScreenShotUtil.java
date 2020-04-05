@@ -45,6 +45,7 @@ public class ScreenShotUtil {
         return screenshot;
     }
 
+    // Screen capture logic
     private Screenshot doScreenshot() throws IOException {
         return captureFullScreen(driver);
     }
@@ -76,11 +77,12 @@ public class ScreenShotUtil {
     // Save the screenshot in desired location
     private static void saveScreenshotToFile(Screenshot screenshot) throws IOException {
 
-        Log.info("SCREENSHOT: Writing to file " + fileName);
-
         //Create screenshot directory if not present
-        new File("./target/screenshots/").mkdirs();
+        if (new File("./target/screenshots/").mkdirs()){
+        Log.info("SCREENSHOT: Directory not found, creating new directory: target\\/screenshots");
+        }
 
+        Log.info("SCREENSHOT: Writing to file " + fileName);
         ImageIO.write(screenshot.getImage(), "PNG",
                 new File("./target/screenshots/" + fileName));
 
