@@ -22,7 +22,7 @@ public class SignIn {
 
     //Generic Step used in all scenarios
     @Given("user navigates to website")
-    public void userNavigatesToWebsite() throws Throwable {
+    public void userNavigatesToWebsite() {
         try {
             Log.info("STEP: Given user navigates to " + PropertiesUtil.getUrl() + " website");
             driver = Hooks.driver;
@@ -37,7 +37,7 @@ public class SignIn {
     //Other Steps
     //SCENARIO 1
     @And("user is {string} on the website")
-    public void userIsRegistered(String registrationStatus) throws Throwable {
+    public void userIsRegistered(String registrationStatus) {
         try {
             Log.info("STEP: And user is " + registrationStatus + " on the website");
             user.setRegistrationStatus(registrationStatus);
@@ -47,7 +47,7 @@ public class SignIn {
     }
 
     @When("user signs in with valid username {string} and password {string}")
-    public void userSignIn(String username, String password) throws Throwable {
+    public void userSignIn(String username, String password) {
 
         try {
             Log.info("STEP: When user signs in with valid username: " + username + " and password:" + password);
