@@ -63,7 +63,7 @@ public class ScreenShotUtil {
     // Capture full image in BYTE format method (needed for Cucumber appender as it only consumes Byte)
     private static void captureFullScreenAsByte(Screenshot screenshot) throws IOException {
         Log.info("SCREENSHOT: Capture started [BYTE]");
-        BufferedImage image = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(100)).takeScreenshot(driver).getImage();
+        BufferedImage image = screenshot.getImage();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
         ImageIO.write(image, "png", byteArrayOutputStream);

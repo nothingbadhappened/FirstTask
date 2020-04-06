@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<testsuite errors="0" failures="1" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="27.803">
-    <testcase classname="Sign In" name="Registered user login with valid credentials" time="27.665">
+<testsuite errors="0" failures="2" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="3" time="77.936">
+    <testcase classname="Sign In" name="Registered user login with valid credentials" time="28.185">
         <failure message="expected [MY ACCOUNT!] but found [MY ACCOUNT]" type="java.lang.AssertionError"><![CDATA[Given user navigates to website.............................................passed
 And user is "registered" on the website.....................................passed
 When user signs in with valid username "elchupakabra@mailinator.com" and password "Test1234!".passed
@@ -12,5 +12,50 @@ java.lang.AssertionError: expected [MY ACCOUNT!] but found [MY ACCOUNT]
 	at step_definitions.SignIn.myAccountPageLoaded(SignIn.java:77)
 	at ✽.user is redirected to "MY ACCOUNT!" page(file:///C:/Users/User/IdeaProjects/FirstTask/src/test/resources/features/SignIn.feature:8)
 ]]></failure>
+    </testcase>
+    <testcase classname="Sign In" name="User login with invalid credentials" time="20.705">
+        <failure message="no such window: target window already closed&#10;from unknown error: web view not found&#10;  (Session info: chrome=80.0.3987.163)&#10;Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'&#10;System info: host: 'FABULOUS-PC', ip: '192.168.0.8', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '14'&#10;Driver info: org.openqa.selenium.chrome.ChromeDriver&#10;Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 80.0.3987.163, chrome: {chromedriverVersion: 80.0.3987.106 (f68069574609..., userDataDir: C:\Users\User\AppData\Local...}, goog:chromeOptions: {debuggerAddress: localhost:56804}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}&#10;Session ID: 0985b9691f08e88bc0249104b4987bd1&#10;*** Element info: {Using=xpath, value=//*[@id=&quot;center_column&quot;]/div[1]/ol/li}" type="org.openqa.selenium.NoSuchWindowException"><![CDATA[Given user navigates to website.............................................passed
+And user is "not registered"................................................passed
+When user enters invalid username "ratatui@ne.em" and password "badPassword".passed
+Then login error "Authentication failed." is displayed......................failed
+
+StackTrace:
+org.openqa.selenium.NoSuchWindowException: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=80.0.3987.163)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'FABULOUS-PC', ip: '192.168.0.8', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '14'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 80.0.3987.163, chrome: {chromedriverVersion: 80.0.3987.106 (f68069574609..., userDataDir: C:\Users\User\AppData\Local...}, goog:chromeOptions: {debuggerAddress: localhost:56804}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: 0985b9691f08e88bc0249104b4987bd1
+*** Element info: {Using=xpath, value=//*[@id="center_column"]/div[1]/ol/li}
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:323)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:428)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:353)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:315)
+	at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:69)
+	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
+	at com.sun.proxy.$Proxy20.getText(Unknown Source)
+	at step_definitions.SignIn.loginError(SignIn.java:112)
+	at ✽.login error "Authentication failed." is displayed(file:///C:/Users/User/IdeaProjects/FirstTask/src/test/resources/features/SignIn.feature:13)
+]]></failure>
+    </testcase>
+    <testcase classname="Sign In" name="Registered user sign out" time="28.881">
+        <system-out><![CDATA[Given user navigates to website.............................................passed
+And user is logged in.......................................................passed
+When user clicks sign out button............................................passed
+Then user is logged out.....................................................passed
+]]></system-out>
     </testcase>
 </testsuite>
