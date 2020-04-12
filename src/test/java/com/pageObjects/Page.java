@@ -1,4 +1,4 @@
-package springTest.pageObjects;
+package com.pageObjects;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

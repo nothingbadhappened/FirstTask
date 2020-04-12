@@ -1,4 +1,4 @@
-package springTest.users;
+package com.users;
 
 public class User {
     private String userEmail;

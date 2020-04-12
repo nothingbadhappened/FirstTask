@@ -1,14 +1,14 @@
-package springTest.actions.common;
+package com.actions.common;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.openqa.selenium.WebDriver;
-import springTest.helpers.util.ObjectManipulator;
-import springTest.pageObjects.Body;
-import springTest.pageObjects.Header;
-import springTest.users.User;
+import com.helpers.util.ObjectManipulator;
+import com.pageObjects.Body;
+import com.pageObjects.Header;
+import com.users.User;
 
 @Component
 public class SignInAction {

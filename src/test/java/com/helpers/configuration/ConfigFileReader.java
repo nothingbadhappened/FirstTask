@@ -1,7 +1,6 @@
-package springTest.helpers.configuration;
+package com.helpers.configuration;
 
 import ch.qos.logback.classic.util.ContextInitializer;
-import org.apache.log4j.PropertyConfigurator;
 import org.junit.Test;
 
 import java.io.IOException;

@@ -1,11 +1,11 @@
-package springTest.scenarioContext;
+package com.scenarioContext;
 
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import springTest.pageObjects.Page;
-import springTest.users.User;
-import static springTest.step_definitions.Hooks.driver;
+import com.pageObjects.Page;
+import com.users.User;
+import static com.step_definitions.Hooks.driver;
 
 
 public class ScenarioContext {

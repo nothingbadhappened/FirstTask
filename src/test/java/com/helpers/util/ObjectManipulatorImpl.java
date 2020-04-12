@@ -1,4 +1,4 @@
-package springTest.helpers.util;
+package com.helpers.util;
 
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebElement;
@@ -6,9 +6,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import springTest.pageObjects.*;
+import com.pageObjects.*;
 
-import static springTest.step_definitions.Hooks.driver;
+import static com.step_definitions.Hooks.driver;
 
 @Component
 public class ObjectManipulatorImpl implements ObjectManipulator {

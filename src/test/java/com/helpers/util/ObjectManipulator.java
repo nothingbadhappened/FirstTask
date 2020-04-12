@@ -1,4 +1,4 @@
-package springTest.helpers.util;
+package com.helpers.util;
 
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebElement;

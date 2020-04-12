@@ -1,4 +1,4 @@
-package springTest.helpers.util;
+package com.helpers.util;
 
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.WebDriver;

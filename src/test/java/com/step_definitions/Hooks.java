@@ -1,19 +1,19 @@
-package springTest.step_definitions;
+package com.step_definitions;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import springTest.actions.common.SignInAction;
-import springTest.helpers.configuration.ConfigFileReader;
-import springTest.helpers.util.WebDriverLoader;
-import springTest.helpers.util.ScreenShotUtil;
+import com.actions.common.SignInAction;
+import com.helpers.configuration.ConfigFileReader;
+import com.helpers.util.WebDriverLoader;
+import com.helpers.util.ScreenShotUtil;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.WebDriver;
 
-import springTest.helpers.configuration.SpringConfig;
+import com.helpers.configuration.SpringConfig;
 
 public class Hooks {
 

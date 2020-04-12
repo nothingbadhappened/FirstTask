@@ -1,22 +1,21 @@
-package springTest.step_definitions;
+package com.step_definitions;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import springTest.helpers.configuration.ConfigFileReader;
+import com.helpers.configuration.ConfigFileReader;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import springTest.actions.common.SignInAction;
-import springTest.actions.common.SignOutAction;
+import com.actions.common.SignInAction;
+import com.actions.common.SignOutAction;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
-import springTest.pageObjects.Body;
-import springTest.pageObjects.Header;
-import springTest.users.User;
-import static springTest.step_definitions.Hooks.driver;
+import com.pageObjects.Body;
+import com.pageObjects.Header;
+import com.users.User;
+import static com.step_definitions.Hooks.driver;
 
 @Component
 public class CommonSteps {
