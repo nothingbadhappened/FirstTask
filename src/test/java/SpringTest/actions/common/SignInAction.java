@@ -5,9 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.openqa.selenium.WebDriver;
-import org.springframework.stereotype.Service;
 import springTest.helpers.util.ObjectManipulator;
-import springTest.helpers.util.ObjectManipulatorImpl;
 import springTest.pageObjects.Body;
 import springTest.pageObjects.Header;
 import springTest.users.User;
@@ -15,8 +13,8 @@ import springTest.users.User;
 @Component
 public class SignInAction {
 
-        // == fields ===
-        //this works
+//      == fields ===
+//      this works
 //      private static ObjectManipulatorImpl executor = new ObjectManipulatorImpl();
 
 //      this does not work, find the reason why...
