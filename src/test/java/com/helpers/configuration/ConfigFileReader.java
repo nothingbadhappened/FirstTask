@@ -27,13 +27,13 @@ public class ConfigFileReader {
                 System.out.println("Cannot load properties file:\n" + new NullPointerException().toString());
             }
 
-            //load logback Config
-            System.setProperty(ContextInitializer.CONFIG_FILE_PROPERTY, properties.getProperty("loggerConfigPath"));
-
             //set driver path (if needed)
             String path = System.getProperty("user.dir");
             System.setProperty("webdriver.chrome.driver", path + properties.getProperty("webdriver.chrome.driver"));
             System.setProperty("webdriver.gecko.driver", path + properties.getProperty("webdriver.gecko.driver"));
+
+            //load logback Config
+            System.setProperty(ContextInitializer.CONFIG_FILE_PROPERTY, path + properties.getProperty("loggerConfigPath"));
 
         } catch (IOException e) {
             System.out.println("Properties file not found");
@@ -63,6 +63,7 @@ public class ConfigFileReader {
     public void test(){
         loadProperties();
         showProps();
+        System.out.println("Logger XML file location: " + System.getProperty(ContextInitializer.CONFIG_FILE_PROPERTY));
     }
 
 }

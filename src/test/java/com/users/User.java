@@ -1,42 +1,41 @@
 package com.users;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class User {
     private String userEmail;
-    private String password;
-    private boolean isRegistered;
-
-    public User(){
-
-    }
+    private String userPassword;
+    private boolean isUserRegistered;
 
     public String getUserEmail(){
         return userEmail;
     }
 
-    public String getPassword(){
-        return password;
+    public String getUserPassword(){
+        return userPassword;
     }
 
     public boolean getRegistrationStatus(){
-        return isRegistered;
+        return isUserRegistered;
     }
 
     public void setUserEmail(String userEmail){
         this.userEmail = userEmail;
     }
 
-    public void setPassword(String password){
-        this.password = password;
+    public void setUserPassword(String userPassword){
+        this.userPassword = userPassword;
     }
 
     public void setRegistrationStatus(String isRegistered){
         switch(isRegistered){
             case "registered":
-                this.isRegistered = true;
+                this.isUserRegistered = true;
                 break;
 
             case "not registered":
-                this.isRegistered = false;
+                this.isUserRegistered = false;
                 break;
         }
     }

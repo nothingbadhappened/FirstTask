@@ -6,7 +6,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import com.actions.common.SignInAction;
 import com.helpers.configuration.ConfigFileReader;
-import com.helpers.util.WebDriverLoader;
+import com.helpers.util.WebDriverFactory;
 import com.helpers.util.ScreenShotUtil;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -14,7 +14,9 @@ import io.cucumber.java.Scenario;
 import org.openqa.selenium.WebDriver;
 
 import com.helpers.configuration.SpringConfig;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Hooks {
 
     public static WebDriver driver;
@@ -29,14 +31,12 @@ public class Hooks {
 
         try {
             log.info("Loading configurations");
-            WebDriverLoader.loadConfiguration();
+            ConfigFileReader.loadProperties();
 
             log.info("Start browser invoked");
-            driver = WebDriverLoader.startBrowser();
+            driver = WebDriverFactory.startBrowser(ConfigFileReader.getBrowser());
             log.info("Browser instance created for " + ConfigFileReader.getBrowser());
-            log.info("\n----------------------\n"
-                    + WebDriverLoader.getInstanceInfo(driver)
-                    +"\n----------------------");
+            log.info(WebDriverFactory.getWebDriverInstanceInfo(driver));
 
         } catch (Exception e) {
             log.error(String.valueOf(e));
@@ -57,7 +57,11 @@ public class Hooks {
         log.info("   -> Maximizing browser window");
 
         log.debug("   --- BEFORE HOOK END ---   ");
-        log.info("\n~~~~~~~~~~ Starting scenario - [" + scenario.getName() + "]" + " ~~~~~~~~~~\n");
+        log.info("Starting scenario:"
+                + "\n##################################################################################################"
+                + "\n                            [" + scenario.getName() + "]"
+                + "\n##################################################################################################"
+        );
     }
 
     public static class teardown {

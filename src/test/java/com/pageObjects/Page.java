@@ -1,21 +1,18 @@
 package com.pageObjects;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import static com.step_definitions.Hooks.driver;
 
 public abstract class Page {
 
-    private WebElement webElement;
-    private WebDriver driver;
-
-    // == constructors ==
-
-    public Page(){}
-
-    public Page(WebDriver driver){
-        this.driver = driver;
+    // == This is to instantiate any extended Page Object ==
+    public Page(){
         PageFactory.initElements(driver, this);
        }
+
+    // PageObject getter, i.e. to pass it to the ScenarioContext
+    public Page getPage(){
+        return this;
+    }
 
 }
