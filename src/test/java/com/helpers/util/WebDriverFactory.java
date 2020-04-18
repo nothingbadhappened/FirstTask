@@ -9,8 +9,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class WebDriverFactory {
 
     private static WebDriver driver;

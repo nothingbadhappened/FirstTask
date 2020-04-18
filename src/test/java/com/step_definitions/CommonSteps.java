@@ -1,7 +1,6 @@
 package com.step_definitions;
 
-import com.actions.common.BaseAction;
-import com.scenarioContext.ScenarioContext;
+import com.actions.common.NavigateHome;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +11,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import com.actions.common.SignInAction;
-import com.actions.common.SignOutAction;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
-import com.pageObjects.Body;
 import com.pageObjects.Header;
 import com.users.User;
 import static com.step_definitions.Hooks.driver;
@@ -24,9 +20,6 @@ import static com.step_definitions.Hooks.driver;
 public class CommonSteps {
 
     //Fields
-    @Autowired
-    static BaseAction baseActions;
-
     @Autowired
     static User user;
 
@@ -37,7 +30,7 @@ public class CommonSteps {
     public void userNavigatesToWebsite() {
         try {
             log.info("STEP: Given user navigates to " + ConfigFileReader.getUrl() + " website");
-            baseActions.navigateToHomePage();
+            NavigateHome.navigateToHomePage();
         } catch (Exception e) {
             log.error(e.getMessage());
         }
@@ -69,7 +62,7 @@ public class CommonSteps {
 //            PageFactory.initElements(driver, Header.class);
 //            PageFactory.initElements(driver, Body.AccountPage.class);
 
-            SignInAction.Execute(driver, user);
+            SignInAction.Execute(user);
 
         } catch (Exception e) {
             log.error(e.getMessage());

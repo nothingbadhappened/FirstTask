@@ -1,7 +1,6 @@
 com\helpers\util\ObjectManipulator.class
-com\scenarioContext\ScenarioContext.class
 com\helpers\configuration\ConfigFileReader.class
-com\step_definitions\RunTest.class
+com\step_definitions\Runner.class
 com\actions\common\SignOutAction.class
 com\pageObjects\Body.class
 com\pageObjects\Header.class
@@ -11,8 +10,8 @@ com\step_definitions\CommonSteps.class
 com\step_definitions\Hooks$teardown.class
 com\helpers\util\ScreenShotUtil.class
 com\pageObjects\Page.class
+com\actions\common\NavigateHome.class
 com\users\User.class
 com\step_definitions\Hooks.class
 com\helpers\configuration\SpringConfig.class
 com\helpers\util\WebDriverFactory.class
-com\actions\common\BaseAction.class

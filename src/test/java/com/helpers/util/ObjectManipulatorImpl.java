@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import static com.step_definitions.Hooks.driver;
 
-@Component
+@Component("manipulator")
 public class ObjectManipulatorImpl implements ObjectManipulator {
 
     private static final WebDriverWait wait = new WebDriverWait(driver,  5, 100);

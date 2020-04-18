@@ -16,6 +16,7 @@ import org.openqa.selenium.WebDriver;
 import com.helpers.configuration.SpringConfig;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class Hooks {
 
@@ -91,11 +92,15 @@ public class Hooks {
                 }
 
             }
-            log.info("SCENARIO: COMPLETED - [" + scenario.getName() + "]");
+            log.info("Completed scenario:"
+                    + "\n##################################################################################################"
+                    + "\n                            [" + scenario.getName() + "]"
+                    + "\n##################################################################################################"
+            );
             Thread.sleep(1000);
             driver.quit();
             log.info("BROWSER: Closed");
-            log.debug("   --- BEFORE HOOK END ---   \n\n\n");
+            log.debug("   --- AFTER HOOK END ---   \n\n\n");
         }
 
 //    public static void writeExtentReport() {

@@ -1,6 +1,5 @@
 package com.actions.common;
 
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +8,11 @@ import com.helpers.util.ObjectManipulator;
 import com.pageObjects.Body;
 import com.pageObjects.Header;
 import com.users.User;
-import static com.step_definitions.Hooks.driver;
 
 @Component
 public class SignInAction {
 
-//      == fields ===
+    // == fields ===
     @Autowired
     private static ObjectManipulator executor;
 
@@ -24,11 +22,10 @@ public class SignInAction {
     @Autowired
     private static Body body;
 
-    private static User user;
     private static final Logger log = LoggerFactory.getLogger(SignInAction.class);
 
     // == methods ==
-    public static void Execute(WebDriver driver, User user) throws Exception {
+    public static void Execute(User user) throws Exception {
 
         log.info("----> Sign In Action Start: ");
 
