@@ -5,10 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Component;
-
 import static com.step_definitions.Hooks.driver;
 
-@Component("manipulator")
+@Component
 public class ObjectManipulatorImpl implements ObjectManipulator {
 
     private static final WebDriverWait wait = new WebDriverWait(driver,  5, 100);

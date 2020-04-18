@@ -16,14 +16,13 @@ import com.pageObjects.Header;
 import com.users.User;
 import static com.step_definitions.Hooks.driver;
 
-@Component
 public class CommonSteps {
 
     //Fields
-    @Autowired
-    static User user;
-
     private static final Logger log = LoggerFactory.getLogger(CommonSteps.class);
+
+    private User user = Hooks.context.getBean(User.class);
+    private SignInAction signInAction = Hooks.context.getBean(SignInAction.class);
 
     //Generic Step used in all scenarios - Background
     @Given("user navigates to website")
@@ -45,8 +44,9 @@ public class CommonSteps {
             log.info("STEP: And user is " + registrationStatus + " on the website");
             user.setRegistrationStatus(registrationStatus);
             //toDO: static User user = getRegisteredUserFromDB();
-        } catch (Exception e) {
-            log.error(e.getMessage());
+        } catch (Exception | Error e) {
+            log.error("Could not set user registration status! info: " + e.toString());
+            Assert.fail("Could not set user registration status! info: " + e.toString());
         }
     }
 
@@ -62,7 +62,7 @@ public class CommonSteps {
 //            PageFactory.initElements(driver, Header.class);
 //            PageFactory.initElements(driver, Body.AccountPage.class);
 
-            SignInAction.Execute(user);
+            signInAction.Execute(user);
 
         } catch (Exception e) {
             log.error(e.getMessage());

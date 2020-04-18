@@ -1,5 +1,6 @@
 package com.step_definitions;
 
+import com.pageObjects.Header;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -16,39 +17,37 @@ import org.openqa.selenium.WebDriver;
 import com.helpers.configuration.SpringConfig;
 import org.springframework.stereotype.Component;
 
-
 @Component
 public class Hooks {
 
     public static WebDriver driver;
-    public static Scenario scenario;
+    public static ConfigurableApplicationContext context;
     private static final Logger log = LoggerFactory.getLogger(SignInAction.class);
 
     @Before
     public void setUp(Scenario scenario) throws Exception {
 
         log.debug("   --- BEFORE HOOK START ---   ");
-
-
         try {
             log.info("Loading configurations");
             ConfigFileReader.loadProperties();
+            log.info("CONFIG: Configuration Loaded");
 
             log.info("Start browser invoked");
             driver = WebDriverFactory.startBrowser(ConfigFileReader.getBrowser());
             log.info("Browser instance created for " + ConfigFileReader.getBrowser());
             log.info(WebDriverFactory.getWebDriverInstanceInfo(driver));
 
+            // == setup Spring config ==
+            log.debug("Setting Spring context");
+            context = new AnnotationConfigApplicationContext(SpringConfig.class);
+            log.debug("Spring configuration has loaded");
+
         } catch (Exception e) {
             log.error(String.valueOf(e));
             e.printStackTrace();
         }
 
-        // == setup Spring config ==
-        log.debug("Setting Spring context");
-        ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
-
-        log.info("CONFIG: Configuration Loaded");
         log.info("BROWSER: Clean start:");
 
         driver.manage().deleteAllCookies();

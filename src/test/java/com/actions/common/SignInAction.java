@@ -1,31 +1,32 @@
 package com.actions.common;
 
+import com.helpers.util.ObjectManipulator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.helpers.util.ObjectManipulator;
 import com.pageObjects.Body;
 import com.pageObjects.Header;
 import com.users.User;
+import static com.step_definitions.Hooks.context;
 
 @Component
 public class SignInAction {
 
     // == fields ===
     @Autowired
-    private static ObjectManipulator executor;
+    ObjectManipulator executor;
 
     @Autowired
-    private static Header header;
+    private Header header;
 
     @Autowired
-    private static Body body;
+    private Body body;
 
     private static final Logger log = LoggerFactory.getLogger(SignInAction.class);
 
     // == methods ==
-    public static void Execute(User user) throws Exception {
+    public void Execute(User user) throws Exception {
 
         log.info("----> Sign In Action Start: ");
 
