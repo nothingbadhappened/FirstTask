@@ -24,12 +24,12 @@ public class Body extends Page {
     public static WebElement signInButton;
 
     @FindBy(how = How.XPATH, using = "//*[@id=\"center_column\"]/div[1]/ol/li")
-    public static WebElement login_error;
+    public static WebElement loginError;
 
     @FindBy(how = How.ID, using = "email_create")
-    public static WebElement email_create;
+    public static WebElement emailCreate;
 
     @FindBy(how = How.ID, using = "SubmitCreate")
-    public static WebElement submit_create;
+    public static WebElement submitCreate;
 
 }

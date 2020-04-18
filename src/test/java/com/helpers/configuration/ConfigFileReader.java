@@ -1,7 +1,10 @@
 package com.helpers.configuration;
 
+import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.util.ContextInitializer;
+import ch.qos.logback.core.util.StatusPrinter;
 import org.junit.Test;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,6 +14,8 @@ public class ConfigFileReader {
 
 
     private static Properties properties = new Properties();
+    private static String path = System.getProperty("user.dir");
+    private static LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
 
 
     public static void loadProperties() {
@@ -27,8 +32,7 @@ public class ConfigFileReader {
                 System.out.println("Cannot load properties file:\n" + new NullPointerException().toString());
             }
 
-            //set driver path (if needed)
-            String path = System.getProperty("user.dir");
+            //set driver path
             System.setProperty("webdriver.chrome.driver", path + properties.getProperty("webdriver.chrome.driver"));
             System.setProperty("webdriver.gecko.driver", path + properties.getProperty("webdriver.gecko.driver"));
 
@@ -61,9 +65,11 @@ public class ConfigFileReader {
 
     @Test
     public void test(){
+        System.out.println("User dir path: " + path);
         loadProperties();
         showProps();
         System.out.println("Logger XML file location: " + System.getProperty(ContextInitializer.CONFIG_FILE_PROPERTY));
+        StatusPrinter.print(context);
     }
 
 }

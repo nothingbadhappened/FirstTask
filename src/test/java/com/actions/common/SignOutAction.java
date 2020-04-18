@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.helpers.util.ObjectManipulatorImpl;
 import org.openqa.selenium.WebDriver;
 import com.pageObjects.Header;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SignOutAction {
     private static Logger log = LoggerFactory.getLogger(SignOutAction.class);
 

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import com.pageObjects.Body;
 import com.pageObjects.Header;
 import com.users.User;
-import static com.step_definitions.Hooks.context;
 
 @Component
 public class SignInAction {
@@ -43,24 +42,6 @@ public class SignInAction {
         log.info("   -> Click Submit button");
 
         log.info("Sign In action complete");
-
-// ~~~~~~~~~~~~~~~~~~~~~~~           OLD CODE             ~~~~~~~~~~~~~~~~~~~~~~~
-//
-//            Header.signInLink.click();
-//            Log.info("   -> Click My Account link" );
-//
-//            Body.AccountPage.userEmailField.sendKeys(user.getUserEmail());
-//            Log.info("   -> Username field is populated" );
-//
-//            Body.AccountPage.passwordField.sendKeys(user.getPassword());
-//            Log.info("   -> Password field is populated");
-//
-//            Body.AccountPage.signInButton.click();
-//            Log.info("   -> Click Submit button");
-//
-//            Log.info("----> Sign In Action complete");
-//
-// ~~~~~~~~~~~~~~~~~~~~~~~           OLD CODE             ~~~~~~~~~~~~~~~~~~~~~~~
 
     }
 

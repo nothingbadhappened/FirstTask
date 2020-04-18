@@ -1,10 +1,9 @@
 package com.step_definitions;
 
 import com.actions.common.NavigateHome;
+import com.pageObjects.Body;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import com.helpers.configuration.ConfigFileReader;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -14,7 +13,6 @@ import com.actions.common.SignInAction;
 import org.testng.Assert;
 import com.pageObjects.Header;
 import com.users.User;
-import static com.step_definitions.Hooks.driver;
 
 public class CommonSteps {
 
@@ -23,6 +21,7 @@ public class CommonSteps {
 
     private User user = Hooks.context.getBean(User.class);
     private SignInAction signInAction = Hooks.context.getBean(SignInAction.class);
+    private Body body = Hooks.context.getBean(Body.class);
 
     //Generic Step used in all scenarios - Background
     @Given("user navigates to website")
@@ -33,7 +32,6 @@ public class CommonSteps {
         } catch (Exception e) {
             log.error(e.getMessage());
         }
-
     }
 
     //Other Steps
@@ -53,19 +51,15 @@ public class CommonSteps {
     @When("user signs in with valid username {string} and password {string}")
     public void userSignIn(String username, String password) {
 
-        //todo: move the logic to SignIn action
         try {
             log.info("STEP: When user signs in with valid username: " + username + " and password:" + password);
             user.setUserEmail(username);
             user.setUserPassword(password);
             //todo: fetched DB user.getUserName, user.getUserPassword & remove username/password param from feature file
-//            PageFactory.initElements(driver, Header.class);
-//            PageFactory.initElements(driver, Body.AccountPage.class);
-
             signInAction.Execute(user);
-
-        } catch (Exception e) {
-            log.error(e.getMessage());
+        } catch (Exception | Error e) {
+            log.error("Could not set user credentials! info: " + e.toString());
+            Assert.fail("Could not set user credentials! info: " + e.toString());
         }
     }
 
@@ -83,44 +77,40 @@ public class CommonSteps {
 
     }
 
-    // SCENARIO 2
-//    @And("user is {string}")
-//    public void userIsNotRegistered(String registrationStatus) {
-//        log.info("STEP: And user is " + registrationStatus + " on the website");
-//        user.setRegistrationStatus(registrationStatus);
-//    }
-//
-//    @When("user enters invalid username {string} and password {string}")
-//    public void invalidUserSignIn(String username, String password) throws Throwable {
-//
-//        try {
-//            log.info("STEP: When user enters invalid username: " + username + " and password:" + password);
-//            user.setUserEmail(username);
-//            user.setUserPassword(password);
-//
-//            PageFactory.initElements(driver, Header.class);
-//            PageFactory.initElements(driver, Body.class);
-//
-//            SignInAction.Execute(driver, user);
-//        } catch (Exception e) {
-//            log.error(e.getMessage());
-//        }
-//
-//    }
-//
-//    @Then("login error {string} is displayed")
-//    public void loginError(String errorText) throws Exception {
-//        try {
-//            Thread.sleep(1500);
-//            log.info("STEP: Then login error is displayed: [  " + errorText + " ]");
-//            Assert.assertEquals(Body.AccountPage.login_error.getText(), errorText);
-//        } catch (AssertionError e) {
-//            log.info("!!! SCENARIO: Failed !!! " + e.getMessage());
-//            Assert.fail();
-//        }
-//    }
-//
-//
+    //SCENARIO 2
+    @And("user is {string}")
+    public void userIsNotRegistered(String registrationStatus) {
+        log.info("STEP: And user is " + registrationStatus + " on the website");
+        user.setRegistrationStatus(registrationStatus);
+    }
+
+    @When("user enters invalid username {string} and password {string}")
+    public void invalidUserSignIn(String username, String password) {
+
+        try {
+            log.info("STEP: When user enters invalid username: " + username + " and password:" + password);
+            user.setUserEmail(username);
+            user.setUserPassword(password);
+
+            signInAction.Execute(user);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+
+    }
+
+    @Then("login error {string} is displayed")
+    public void loginError(String errorText) {
+        try {
+            log.info("STEP: Then login error is displayed: [  " + errorText + " ]");
+            Assert.assertEquals(body.loginError.getText(), errorText);
+        } catch (AssertionError e) {
+            log.info("!!! SCENARIO: Failed !!! " + e.getMessage());
+            Assert.fail();
+        }
+    }
+
+
 //    // SCENARIO 3
 //    @And("user is logged in")
 //    public void userLoggedIn() throws Throwable {
