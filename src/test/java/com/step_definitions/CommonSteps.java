@@ -116,7 +116,7 @@ public class CommonSteps {
             log.info("STEP: Then login error is displayed: [  " + errorText + " ]");
             Assert.assertEquals(body.loginError.getText(), errorText);
         } catch (AssertionError e) {
-            log.info("!!! SCENARIO: Failed !!! " + e.getMessage());
+            log.info("~~~ SCENARIO: Failed ~~~ " + e.getMessage());
             Assert.fail();
         }
     }
@@ -152,11 +152,11 @@ public class CommonSteps {
             Assert.assertEquals(driver.getCurrentUrl().toString(), "http://automationpractice.com/index.php?controller=authentication&back=my-account");
             log.info("User is redirected to Sign In page");
         } catch (AssertionError e) {
-            log.info("!!! SCENARIO: Failed !!! User is not redirected to Sign In page - " + e.getMessage());
+            log.info("~~~ SCENARIO: Failed ~~~ \nUser is not redirected to Sign In page - " + e.getMessage());
         }
 
         if (Header.pageHeading.getText().equals("MY ACCOUNT")) {
-            log.info("SCENARIO: FAIL - My Account is still present");
+            log.info("~~~ SCENARIO: FAIL ~~~ \nMy Account is still present");
             Assert.fail();
         }
     }
