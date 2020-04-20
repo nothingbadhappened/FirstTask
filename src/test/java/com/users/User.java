@@ -7,11 +7,15 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class User {
     // == fields ==
+    private int userId;
     private String userEmail;
     private String userPassword;
     private boolean isUserRegistered;
 
     // == getters ==
+    public int getUserId(){
+        return userId;
+    }
     public String getUserEmail(){
         return userEmail;
     }
@@ -23,6 +27,9 @@ public class User {
     }
 
     // == setters ==
+    public void setUserId (int userId){
+        this.userId = userId;
+    }
     public void setUserEmail(String userEmail){
         this.userEmail = userEmail;
     }
@@ -32,9 +39,11 @@ public class User {
     public void setRegistrationStatus(String isRegistered){
         switch(isRegistered){
             case "registered":
+            case "1": {
                 this.isUserRegistered = true;
                 break;
-
+            }
+            case "0":
             case "not registered":
                 this.isUserRegistered = false;
                 break;

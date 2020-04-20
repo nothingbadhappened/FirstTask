@@ -1,6 +1,7 @@
 package com.step_definitions;
 
 import com.actions.common.NavigateHome;
+import com.helpers.util.UserFactory;
 import com.pageObjects.Body;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ public class CommonSteps {
     private static final Logger log = LoggerFactory.getLogger(CommonSteps.class);
 
     private User user = Hooks.context.getBean(User.class);
+    private UserFactory userFactory = Hooks.context.getBean(UserFactory.class);
     private SignInAction signInAction = Hooks.context.getBean(SignInAction.class);
     private Body body = Hooks.context.getBean(Body.class);
 
@@ -32,6 +34,12 @@ public class CommonSteps {
         } catch (Exception e) {
             log.error(e.getMessage());
         }
+    }
+
+    @And("{string} user  is pulled from the Database")
+    public void userIsPulledFromTheDatabase(String registrationStatus) {
+        user.setRegistrationStatus(registrationStatus);
+
     }
 
     //Other Steps
@@ -149,5 +157,15 @@ public class CommonSteps {
 //            Assert.fail();
 //        }
 //    }
+
+    @When("user status is {string}")
+    public void getRegisteredUserFromDatabase(String userRegistrationStatus){
+        user = userFactory.getUser(userRegistrationStatus);
+    }
+
+    @And("user signs in")
+    public void userSignsIn() throws Exception {
+        signInAction.Execute(user);
+    }
 
 }

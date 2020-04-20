@@ -12,12 +12,12 @@ public class SignOutAction {
     private static Logger log = LoggerFactory.getLogger(SignOutAction.class);
 
     @Autowired
-    private static ObjectManipulatorImpl executor;
+    private ObjectManipulatorImpl executor;
 
     @Autowired
-    private static Header header;
+    private Header header;
 
-    public static void execute(WebDriver driver) throws Exception{
+    public void execute(WebDriver driver) throws Exception{
         log.info("   -> Click Sign Out button");
         executor.click(header.signOutButton);
         log.info("   -> SIGN OUT: ACTION COMPLETE");

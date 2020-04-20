@@ -11,6 +11,7 @@ Feature: Sign In
     And user is "not registered"
     When user enters invalid username "ratatui@ne.em" and password "badPassword"
     Then login error "Authentication failed." is displayed
+
 #
 #  Scenario: Registered user sign out
 #    And user is logged in
