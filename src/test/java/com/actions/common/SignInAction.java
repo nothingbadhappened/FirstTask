@@ -41,7 +41,7 @@ public class SignInAction {
         executor.click(body.signInButton);
         log.info("   -> Click Submit button");
 
-        log.info("Sign In action complete");
+        log.info("----> Sign In action complete");
 
     }
 

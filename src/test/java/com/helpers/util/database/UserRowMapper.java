@@ -14,16 +14,26 @@ public class UserRowMapper implements RowMapper {
 
     @Autowired
     User user;
+    private ResultSet resultSet;
     private static Logger log = LoggerFactory.getLogger(UserRowMapper.class);
 
     @Override
     public User mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-        log.debug("Mapping DB entry (rownum:" + rowNum + " data to User object: \n" + resultSet.toString());
+        this.resultSet = resultSet;
+        log.debug("Mapping DB entry (rownum:" + rowNum + ")" + " data to User object: \n" + toString(resultSet));
         user.setUserId(resultSet.getInt("user_id"));
         user.setUserEmail(resultSet.getString("user_email"));
         user.setUserPassword(resultSet.getString("user_password"));
         user.setRegistrationStatus(resultSet.getString("is_registered"));
 
         return user;
+    }
+
+    private String toString(ResultSet resultSet) throws SQLException {
+        String s = "user_id: " + resultSet.getString(1)
+                 + " | user_email: " + resultSet.getString(2)
+                 + " | user_password: " + resultSet.getString(3)
+                 + " | is_registered: " + resultSet.getString(4);
+        return s;
     }
 }
