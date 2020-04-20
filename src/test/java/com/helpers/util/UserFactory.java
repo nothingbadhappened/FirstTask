@@ -12,9 +12,7 @@ public class UserFactory {
 
     @Autowired
     private UserDaoImpl userDaoImpl;
-
     private static final Logger log = LoggerFactory.getLogger(UserFactory.class);
-
 
     // User object dispenser - returns a Registered or Not Registered user
     public User getUser(String userRegistrationStatus){

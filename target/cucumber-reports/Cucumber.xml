@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="4" time="63.596">
+    <testcase classname="Sign In" name="Registered user login with valid credentials" time="16.855">
+        <system-out><![CDATA[Given user navigates to website.............................................passed
+And user is "registered" on the website.....................................passed
+When user signs in with valid username "elchupakabra@mailinator.com" and password "Test1234!".passed
+Then user is redirected to "MY ACCOUNT" page................................passed
+]]></system-out>
+    </testcase>
+    <testcase classname="Sign In" name="User login with invalid credentials" time="14.585">
+        <system-out><![CDATA[Given user navigates to website.............................................passed
+And user is "not registered"................................................passed
+When user enters invalid username "ratatui@ne.em" and password "badPassword".passed
+Then login error "Authentication failed." is displayed......................passed
+]]></system-out>
+    </testcase>
+    <testcase classname="Sign In" name="Registered user sign out" time="17.409">
+        <system-out><![CDATA[Given user navigates to website.............................................passed
+And user is logged in.......................................................passed
+When user clicks sign out button............................................passed
+Then user is logged out.....................................................passed
+]]></system-out>
+    </testcase>
+    <testcase classname="Sign In with user fetched from Database" name="Registered user login with valid credentials" time="14.619">
+        <system-out><![CDATA[Given user navigates to website.............................................passed
+When user status is "registered"............................................passed
+And user signs in...........................................................passed
+Then user is redirected to "MY ACCOUNT" page................................passed
+]]></system-out>
+    </testcase>
+</testsuite>

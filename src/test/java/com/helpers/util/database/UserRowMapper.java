@@ -1,6 +1,7 @@
 package com.helpers.util.database;
 
 import com.users.User;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +30,11 @@ public class UserRowMapper implements RowMapper {
         return user;
     }
 
+    @NotNull
     private String toString(ResultSet resultSet) throws SQLException {
-        String s = "user_id: " + resultSet.getString(1)
+        return "user_id: " + resultSet.getString(1)
                  + " | user_email: " + resultSet.getString(2)
                  + " | user_password: " + resultSet.getString(3)
                  + " | is_registered: " + resultSet.getString(4);
-        return s;
     }
 }

@@ -1,6 +1,7 @@
 package com.step_definitions;
 
 import com.actions.common.NavigateHome;
+import com.actions.common.SignOutAction;
 import com.helpers.util.UserFactory;
 import com.pageObjects.Body;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import com.actions.common.SignInAction;
 import org.testng.Assert;
 import com.pageObjects.Header;
 import com.users.User;
+import static com.step_definitions.Hooks.driver;
 
 public class CommonSteps {
 
@@ -23,6 +25,7 @@ public class CommonSteps {
     private User user = Hooks.context.getBean(User.class);
     private UserFactory userFactory = Hooks.context.getBean(UserFactory.class);
     private SignInAction signInAction = Hooks.context.getBean(SignInAction.class);
+    private SignOutAction signOutAction = Hooks.context.getBean(SignOutAction.class);
     private Body body = Hooks.context.getBean(Body.class);
 
     //Generic Step used in all scenarios - Background
@@ -118,46 +121,46 @@ public class CommonSteps {
         }
     }
 
+////////////////////////////////////////////////////////
+    // SCENARIO 3
+    @And("user is logged in")
+    public void userLoggedIn() throws Throwable {
+        try {
+            log.info("STEP: And user is logged in");
+            userSignIn("elchupakabra@mailinator.com", "Test1234!");
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+    }
 
-//    // SCENARIO 3
-//    @And("user is logged in")
-//    public void userLoggedIn() throws Throwable {
-//        try {
-//            log.info("STEP: And user is logged in");
-//            userSignIn("elchupakabra@mailinator.com", "Test1234!");
-//        } catch (Exception e) {
-//            log.error(e.getMessage());
-//        }
-//    }
-//
-//    @When("user clicks sign out button")
-//    public void userSignOut() {
-//        try {
-//            log.info("STEP: When user clicks sign out button");
-//            SignOutAction.execute(driver);
-//        } catch (Exception e) {
-//            log.error(e.getMessage());
-//            Assert.fail();
-//        }
-//
-//    }
-//
-//    @Then("user is logged out")
-//    public void verifyUserSignedOut() {
-//        try {
-//            log.info("STEP: Then user is logged out");
-//            Assert.assertEquals(driver.getCurrentUrl().toString(), "http://automationpractice.com/index.php?controller=authentication&back=my-account");
-//            log.info("User is redirected to Sign In page");
-//        } catch (AssertionError e) {
-//            log.info("!!! SCENARIO: Failed !!! User is not redirected to Sign In page - " + e.getMessage());
-//        }
-//
-//        if (Header.pageHeading.getText().equals("MY ACCOUNT")) {
-//            log.info("SCENARIO: FAIL - My Account is still present");
-//            Assert.fail();
-//        }
-//    }
+    @When("user clicks sign out button")
+    public void userSignOut() {
+        try {
+            log.info("STEP: When user clicks sign out button");
+            signOutAction.execute(driver);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            Assert.fail();
+        }
 
+    }
+
+    @Then("user is logged out")
+    public void verifyUserSignedOut() {
+        try {
+            log.info("STEP: Then user is logged out");
+            Assert.assertEquals(driver.getCurrentUrl().toString(), "http://automationpractice.com/index.php?controller=authentication&back=my-account");
+            log.info("User is redirected to Sign In page");
+        } catch (AssertionError e) {
+            log.info("!!! SCENARIO: Failed !!! User is not redirected to Sign In page - " + e.getMessage());
+        }
+
+        if (Header.pageHeading.getText().equals("MY ACCOUNT")) {
+            log.info("SCENARIO: FAIL - My Account is still present");
+            Assert.fail();
+        }
+    }
+////////////////////////////////////////////////////////////
 
     // Spring JDBC test steps See SignInWithDatabasePulledUser.feature
     @When("user status is {string}")
