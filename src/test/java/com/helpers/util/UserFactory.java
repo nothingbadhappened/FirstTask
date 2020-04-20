@@ -1,6 +1,6 @@
 package com.helpers.util;
 
-import com.helpers.util.database.UserJDBCTemplate;
+import com.helpers.util.database.UserDaoImpl;
 import com.users.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class UserFactory {
 
     @Autowired
-    private UserJDBCTemplate userJDBCTemplate;
+    private UserDaoImpl userDaoImpl;
 
     private static final Logger log = LoggerFactory.getLogger(UserFactory.class);
 
@@ -23,12 +23,12 @@ public class UserFactory {
         switch (userRegistrationStatus){
             case "registered": {
                 log.info("Generating registered user.");
-                user = userJDBCTemplate.getRegisteredUser();
+                user = userDaoImpl.getRegisteredUser();
                 break;
             }
             case "not registered": {
                 log.info("Generating not registered user.");
-                user = userJDBCTemplate.getNotRegisteredUser();
+                user = userDaoImpl.getNotRegisteredUser();
                 break;
             }
         }

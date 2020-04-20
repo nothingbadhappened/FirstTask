@@ -158,6 +158,8 @@ public class CommonSteps {
 //        }
 //    }
 
+
+    // Spring JDBC test steps See SignInWithDatabasePulledUser.feature
     @When("user status is {string}")
     public void getRegisteredUserFromDatabase(String userRegistrationStatus){
         user = userFactory.getUser(userRegistrationStatus);

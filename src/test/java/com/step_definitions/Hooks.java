@@ -27,7 +27,12 @@ public class Hooks {
     @Before
     public void setUp(Scenario scenario) throws Exception {
 
-        log.debug("   --- BEFORE HOOK START ---   ");
+        log.info("Starting scenario:"
+                + "\n##################################################################################################"
+                + "\n                            [" + scenario.getName() + "]"
+                + "\n##################################################################################################"
+        );
+        log.debug("----- BEFORE HOOK START -----");
         try {
             log.info("Loading configurations");
             ConfigFileReader.loadProperties();
@@ -56,12 +61,7 @@ public class Hooks {
         driver.manage().window().maximize();
         log.info("   -> Maximizing browser window");
 
-        log.debug("   --- BEFORE HOOK END ---   ");
-        log.info("Starting scenario:"
-                + "\n##################################################################################################"
-                + "\n                            [" + scenario.getName() + "]"
-                + "\n##################################################################################################"
-        );
+        log.debug(" ----- BEFORE HOOK END -----");
     }
 
     public static class teardown {
@@ -69,7 +69,7 @@ public class Hooks {
         //Capture screen for the failed scenario
         @After
         public void embedScreenshot(Scenario scenario) throws InterruptedException {
-            log.debug("   --- AFTER HOOK START ---   ");
+            log.debug("----- AFTER HOOK START -----");
             if (scenario.isFailed()) {
                 try {
                     log.info("SCENARIO: FAIL - " + "Current Page URL is " + driver.getCurrentUrl());
@@ -91,15 +91,15 @@ public class Hooks {
                 }
 
             }
-            log.info("Completed scenario:"
-                    + "\n##################################################################################################"
-                    + "\n                            [" + scenario.getName() + "]"
-                    + "\n##################################################################################################"
-            );
-            Thread.sleep(1000);
+
             driver.quit();
             log.info("BROWSER: Closed");
-            log.debug("   --- AFTER HOOK END ---   \n\n\n");
+            log.debug("----- AFTER HOOK END -----");
+            log.info("Completed scenario:"
+                    + "\n##################################################################################################"
+                    + "\n           [" + scenario.getName() + "] --> Status:" + scenario.getStatus()
+                    + "\n##################################################################################################\n\n\n"
+            );
         }
 
 //    public static void writeExtentReport() {

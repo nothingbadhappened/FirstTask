@@ -12,11 +12,10 @@ com\helpers\util\ObjectManipulatorImpl.class
 com\step_definitions\Hooks$teardown.class
 com\users\User.class
 com\step_definitions\Hooks.class
-com\helpers\configuration\MySQLDataSource.class
-com\helpers\util\database\UserJDBCTemplate.class
 com\step_definitions\CommonSteps.class
 com\helpers\util\ScreenShotUtil.class
 com\pageObjects\Page.class
 com\actions\common\NavigateHome.class
+com\helpers\util\database\UserDaoImpl.class
 com\helpers\configuration\SpringConfig.class
 com\helpers\util\WebDriverFactory.class

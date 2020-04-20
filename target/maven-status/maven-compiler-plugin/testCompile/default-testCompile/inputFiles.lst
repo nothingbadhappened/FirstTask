@@ -1,4 +1,3 @@
-C:\Users\User\IdeaProjects\FirstTask\src\test\java\com\helpers\configuration\MySQLDataSource.java
 C:\Users\User\IdeaProjects\FirstTask\src\test\java\com\helpers\configuration\SpringConfig.java
 C:\Users\User\IdeaProjects\FirstTask\src\test\java\com\users\User.java
 C:\Users\User\IdeaProjects\FirstTask\src\test\java\com\helpers\util\ObjectManipulator.java
@@ -16,6 +15,6 @@ C:\Users\User\IdeaProjects\FirstTask\src\test\java\com\helpers\util\database\Use
 C:\Users\User\IdeaProjects\FirstTask\src\test\java\com\step_definitions\CommonSteps.java
 C:\Users\User\IdeaProjects\FirstTask\src\test\java\com\step_definitions\Runner.java
 C:\Users\User\IdeaProjects\FirstTask\src\test\java\com\actions\common\SignOutAction.java
-C:\Users\User\IdeaProjects\FirstTask\src\test\java\com\helpers\util\database\UserJDBCTemplate.java
+C:\Users\User\IdeaProjects\FirstTask\src\test\java\com\helpers\util\database\UserDaoImpl.java
 C:\Users\User\IdeaProjects\FirstTask\src\test\java\com\helpers\util\ScreenShotUtil.java
 C:\Users\User\IdeaProjects\FirstTask\src\test\java\com\pageObjects\Page.java

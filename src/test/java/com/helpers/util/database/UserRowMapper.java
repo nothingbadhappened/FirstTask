@@ -18,7 +18,7 @@ public class UserRowMapper implements RowMapper {
 
     @Override
     public User mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-        log.debug("Mapping DB entry (rownum:" +rowNum + " data to User object: \n" + resultSet.toString());
+        log.debug("Mapping DB entry (rownum:" + rowNum + " data to User object: \n" + resultSet.toString());
         user.setUserId(resultSet.getInt("user_id"));
         user.setUserEmail(resultSet.getString("user_email"));
         user.setUserPassword(resultSet.getString("user_password"));
