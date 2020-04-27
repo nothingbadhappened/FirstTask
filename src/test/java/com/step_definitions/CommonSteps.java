@@ -122,6 +122,7 @@ public class CommonSteps {
     }
 
 ////////////////////////////////////////////////////////
+
     // SCENARIO 3
     @And("user is logged in")
     public void userLoggedIn() throws Throwable {
