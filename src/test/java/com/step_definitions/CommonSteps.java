@@ -160,6 +160,7 @@ public class CommonSteps {
             Assert.fail();
         }
     }
+
 ////////////////////////////////////////////////////////////
 
     // Spring JDBC test steps See SignInWithDatabasePulledUser.feature
