@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04c624a0-9e17-45e4-bcd9-ba6d4137ce42" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -275,7 +275,7 @@
       <workItem from="1587303158901" duration="4718000" />
       <workItem from="1587374808687" duration="18951000" />
       <workItem from="1587403832907" duration="8121000" />
-      <workItem from="1587993576728" duration="1497000" />
+      <workItem from="1587993576728" duration="1959000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit - prepare project for upload to github">
       <created>1583435326990</created>
