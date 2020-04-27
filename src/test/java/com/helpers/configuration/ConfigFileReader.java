@@ -36,8 +36,8 @@ public class ConfigFileReader {
             System.setProperty("webdriver.chrome.driver", path + properties.getProperty("webdriver.chrome.driver"));
             System.setProperty("webdriver.gecko.driver", path + properties.getProperty("webdriver.gecko.driver"));
 
-            //load logback Config
-            System.setProperty(ContextInitializer.CONFIG_FILE_PROPERTY, path + properties.getProperty("loggerConfigPath"));
+            //load logback Config - the path is correct but for some reason it's not picking up the xml
+            //System.setProperty(ContextInitializer.CONFIG_FILE_PROPERTY, path + properties.getProperty("loggerConfigPath"));
 
         } catch (IOException e) {
             System.out.println("Properties file not found");
@@ -66,10 +66,15 @@ public class ConfigFileReader {
     @Test
     public void test(){
         System.out.println("User dir path: " + path);
+        System.out.println("\nLoading properties file..");
         loadProperties();
+        System.out.println("Properties file has loaded successfully:");
         showProps();
-        System.out.println("Logger XML file location: " + System.getProperty(ContextInitializer.CONFIG_FILE_PROPERTY));
+        System.out.println("\nExtracting Logger XML file location from system property: " + System.getProperty(ContextInitializer.CONFIG_FILE_PROPERTY));
+        System.out.println("If this location is pasted into run command line (i.e. WIN+R) and the XML file location directory opens, then the path is correct and logger should pick it up.");
+        System.out.println("\nLogger Status:");
         StatusPrinter.print(context);
+
     }
 
 }

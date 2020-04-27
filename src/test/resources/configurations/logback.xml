@@ -1,48 +1,31 @@
-<configuration scan="true">
-    <variable
-            name="logPattern"
-            value="%-30(%d{MMM dd YYYY HH:mm:ss.SSS} [%thread]) %-5level %logger{5} [%file:%line] - %msg%n" />
+<configuration scan = "true">
 
-    <!--
-      The base name of the log file. For "example.log" this would
-      simply be "example". Or if it were "logs/example.log" then
-      "logs/example".
+    <property name="HOME_LOG" value="logs/log.log"/>
 
-      The default is set to write to Tomcat's logging directory in a file
-      named after the IntelliJ IDEA project.
-    -->
-    <variable
-            name="logName"
-            value="/target/logs/log.log" />
+    <appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${HOME_LOG}</file>
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <!-- encoders are assigned the type
-             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
-        <encoder>
-            <pattern>\${logPattern}</pattern>
-        </encoder>
-    </appender>
-
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!--
-          See http://logback.qos.ch/manual/appenders.html for details.
-        -->
-        <file>\${logName}.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>\${logName}-%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
-            <maxHistory>30</maxHistory>
-            <timeBasedFileNamingAndTriggeringPolicy
-                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>100MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/archived/app.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <!-- each archived file, size max 10MB -->
+            <maxFileSize>10MB</maxFileSize>
+            <!-- total size of all archive files, if total size > 1GB, it will delete old archived file -->
+            <totalSizeCap>1GB</totalSizeCap>
+            <!-- 60 days to keep -->
+            <maxHistory>60</maxHistory>
         </rollingPolicy>
+
         <encoder>
-            <pattern>\${logPattern}</pattern>
+            <pattern>%d %p %c{1.} [%t] %m%n</pattern>
         </encoder>
     </appender>
 
-    <root level="debug">
-        <!-- <appender-ref ref="STDOUT" /> -->
-        <appender-ref ref="FILE" />
+    <logger name="FirstTask" level="all" additivity="false">
+        <appender-ref ref="FILE-ROLLING"/>
+    </logger>
+
+    <root level="all">
+        <appender-ref ref="FILE-ROLLING"/>
     </root>
+
 </configuration>
