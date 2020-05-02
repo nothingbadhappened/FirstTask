@@ -29,7 +29,7 @@ public class ConfigFileReader {
             if (props != null) {
                 properties.load(props);
             } else {
-                System.out.println("Cannot load properties file:\n" + new NullPointerException().toString());
+                System.out.println("Cannot load properties file!");
             }
 
             //set driver path
