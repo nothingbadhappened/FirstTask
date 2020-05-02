@@ -10,7 +10,7 @@ import static com.hooks.Hooks.driver;
 @Component
 public class ObjectManipulatorImpl implements ObjectManipulator {
 
-    private static final WebDriverWait wait = new WebDriverWait(driver,  5, 100);
+    private static final WebDriverWait wait = new WebDriverWait(driver,  10, 1000);
 
     @Override
     public void click(@NotNull WebElement element) {
