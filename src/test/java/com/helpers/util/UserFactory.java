@@ -17,20 +17,24 @@ public class UserFactory {
     // User object dispenser - returns a Registered or Not Registered user
     public User getUser(String userRegistrationStatus){
         log.info("Received get user request for user status: " + userRegistrationStatus);
+
         User user = null;
-        switch (userRegistrationStatus){
-            case "registered": {
-                log.info("Generating registered user.");
+
+        if (userRegistrationStatus.equals("1") ||
+            userRegistrationStatus.equals("registered") ||
+            userRegistrationStatus.equals("is registered")){
+                log.info("Generating registered user...");
                 user = userDaoImpl.getRegisteredUser();
-                break;
-            }
-            case "not registered": {
-                log.info("Generating not registered user.");
-                user = userDaoImpl.getNotRegisteredUser();
-                break;
-            }
+        } else if (userRegistrationStatus.equals("0") ||
+                userRegistrationStatus.equals("not registered") ||
+                userRegistrationStatus.equals("is not registered")) {
+            log.info("Generating not registered user...");
+            user = userDaoImpl.getNotRegisteredUser();
+        } else {
+            log.error("Invalid user parameter, cannot create user");
+            return null;
         }
-        assert user != null;
+
         log.info("User object is ready: " + user.getRegistrationStatus());
         return user;
     }
