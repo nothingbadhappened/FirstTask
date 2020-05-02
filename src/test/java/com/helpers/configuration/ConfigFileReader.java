@@ -50,23 +50,18 @@ public class ConfigFileReader {
             System.out.println("Properties file not found");
             e.printStackTrace();
         }
-
-
     }
 
     // Get other fields from the properties file
     public static String getUrl() {
-        //return ConfigFileReader.properties.getProperty("url");
         return properties.getProperty("url");
     }
 
     public int getDriverImplicitlyWait() {
-        //return Integer.parseInt(ConfigFileReader.properties.getProperty("driver.implicitlyWait"));
         return Integer.parseInt(properties.getProperty("driver.implicitlyWait"));
     }
 
     public static String getBrowser() {
-        //return ConfigFileReader.properties.getProperty("driver");
         return properties.getProperty("driver");
     }
 
