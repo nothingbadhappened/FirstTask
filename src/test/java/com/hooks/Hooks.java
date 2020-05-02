@@ -32,6 +32,7 @@ public class Hooks {
                 + "\n##################################################################################################"
         );
         log.debug("----- BEFORE HOOK START -----");
+        // == Setup Configs Start ==
         try {
             log.info("Loading configurations");
             ConfigFileReader.loadProperties();
@@ -42,7 +43,7 @@ public class Hooks {
             log.info("Browser instance created for " + ConfigFileReader.getBrowser());
             log.info(WebDriverFactory.getWebDriverInstanceInfo(driver));
 
-            // == setup Spring config ==
+            // == Setup Spring ==
             log.debug("Setting Spring context");
             context = new AnnotationConfigApplicationContext(SpringConfig.class);
             log.debug("Spring configuration has loaded");
@@ -51,7 +52,10 @@ public class Hooks {
             log.error(String.valueOf(e));
             e.printStackTrace();
         }
+        // == Setup Configs End ==
 
+
+        // == Clean up browser session before scenario run Begin ==
         log.info("BROWSER: Clean start:");
 
         driver.manage().deleteAllCookies();
@@ -61,50 +65,48 @@ public class Hooks {
         log.info("   -> Maximizing browser window");
 
         log.debug(" ----- BEFORE HOOK END -----");
+        // == Clean up browser session before scenario run End ==
     }
 
-    public static class teardown {
+    //Capture screen for the failed scenario
+    @After
+    public void embedScreenshot(Scenario scenario) throws InterruptedException {
+        log.debug("----- AFTER HOOK START -----");
+        if (scenario.isFailed()) {
+            try {
+                log.info("SCENARIO: FAIL - " + "Current Page URL is " + driver.getCurrentUrl());
+                scenario.write("Current Page URL is " + driver.getCurrentUrl());
 
-        //Capture screen for the failed scenario
-        @After
-        public void embedScreenshot(Scenario scenario) throws InterruptedException {
-            log.debug("----- AFTER HOOK START -----");
-            if (scenario.isFailed()) {
-                try {
-                    log.info("SCENARIO: FAIL - " + "Current Page URL is " + driver.getCurrentUrl());
-                    scenario.write("Current Page URL is " + driver.getCurrentUrl());
+                log.info("SCENARIO: FAIL - Attaching Screenshot");
+                //Screenshot helper captures screen shot and saves file
+                ScreenShotUtil screenShotUtil = new ScreenShotUtil(driver, scenario);
+                //Embed screenshot to Cucumber report
+                scenario.embed(
+                        screenShotUtil.getByteScreenshotFullPage(),
+                        "image/png",
+                        screenShotUtil.getScreenshotName()
+                );
 
-                    log.info("SCENARIO: FAIL - Attaching Screenshot");
-                    //Screenshot helper captures screen shot and saves file
-                    ScreenShotUtil screenShotUtil = new ScreenShotUtil(driver, scenario);
-                    //Embed screenshot to Cucumber report
-                    scenario.embed(
-                            screenShotUtil.getByteScreenshotFullPage(),
-                            "image/png",
-                            screenShotUtil.getScreenshotName()
-                    );
-
-                } catch (Exception e) {
-                    System.err.println(e.getMessage());
-                    log.error("BROWSER: Cannot capture screen", e);
-                }
-
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+                log.error("BROWSER: Cannot capture screen", e);
             }
 
-            driver.quit();
-            log.info("BROWSER: Closed");
-            log.debug("----- AFTER HOOK END -----");
-            log.info("Completed scenario:"
-                    + "\n##################################################################################################"
-                    + "\n           [" + scenario.getName() + "] --> Status:" + scenario.getStatus()
-                    + "\n##################################################################################################\n\n\n"
-            );
         }
+
+        driver.quit();
+        log.info("BROWSER: Closed");
+        log.debug("----- AFTER HOOK END -----");
+        log.info("Completed scenario:"
+                + "\n##################################################################################################"
+                + "\n           [" + scenario.getName() + "] --> Status:" + scenario.getStatus()
+                + "\n##################################################################################################\n\n\n"
+        );
+    }
 
 //    public static void writeExtentReport() {
 //        Reporter.loadXMLConfig();
 //    }
 
-    }
 
 }
