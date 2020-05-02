@@ -33,6 +33,7 @@ public class Hooks {
                 + "\n##################################################################################################"
         );
         log.debug("----- BEFORE HOOK START -----");
+
         // == Setup Configs Start ==
         try {
             log.info("Loading configurations");

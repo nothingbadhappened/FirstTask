@@ -12,10 +12,8 @@ import java.util.Properties;
 
 public class ConfigFileReader {
 
-
-    private static Properties properties = new Properties();
-    private static String path = System.getProperty("user.dir");
     private static LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
+    private static Properties properties = new Properties();
 
 
     public static void loadProperties() {
@@ -28,34 +26,48 @@ public class ConfigFileReader {
             //Load properties
             if (props != null) {
                 properties.load(props);
+
+                // == LOGBACK CONFIG START ==
+//                System.out.println("System.getProperty(\"user.dir\") returned: " + System.getProperty("user.dir") + "\n");
+//                String rawConfigPath = System.getProperty("user.dir") + properties.getProperty("loggerConfigPath");
+//                // == set the path with forward slashes due to System.getProperty returns the path with backslashes and this is not working for logback ==
+//                final String LOGBACK_CONFIG_PATH = rawConfigPath.replace("\\", "/");
+//                System.setProperty(ContextInitializer.CONFIG_FILE_PROPERTY, LOGBACK_CONFIG_PATH);
+                // == LOGBACK CONFIG END ==
+
+                final String CHROME_PATH = System.getProperty("user.dir") + properties.getProperty("webdriver.chrome.driver");
+                final String FIREFOX_PATH = System.getProperty("user.dir") + properties.getProperty("webdriver.firefox.driver");
+
+                //set driver path
+                System.setProperty("webdriver.chrome.driver", CHROME_PATH);
+                System.setProperty("webdriver.gecko.driver", FIREFOX_PATH);
+
             } else {
                 System.out.println("Cannot load properties file!");
             }
-
-            //set driver path
-            System.setProperty("webdriver.chrome.driver", path + properties.getProperty("webdriver.chrome.driver"));
-            System.setProperty("webdriver.gecko.driver", path + properties.getProperty("webdriver.gecko.driver"));
-
-            //load logback Config - the path is correct but for some reason it's not picking up the xml
-            //System.setProperty(ContextInitializer.CONFIG_FILE_PROPERTY, path + properties.getProperty("loggerConfigPath"));
 
         } catch (IOException e) {
             System.out.println("Properties file not found");
             e.printStackTrace();
         }
+
+
     }
 
     // Get other fields from the properties file
     public static String getUrl() {
-        return ConfigFileReader.properties.getProperty("url");
+        //return ConfigFileReader.properties.getProperty("url");
+        return properties.getProperty("url");
     }
 
-    public static int getDriverImplicitlyWait() {
-        return Integer.parseInt(ConfigFileReader.properties.getProperty("driver.implicitlyWait"));
+    public int getDriverImplicitlyWait() {
+        //return Integer.parseInt(ConfigFileReader.properties.getProperty("driver.implicitlyWait"));
+        return Integer.parseInt(properties.getProperty("driver.implicitlyWait"));
     }
 
     public static String getBrowser() {
-        return ConfigFileReader.properties.getProperty("driver");
+        //return ConfigFileReader.properties.getProperty("driver");
+        return properties.getProperty("driver");
     }
 
     //debug helper
@@ -64,8 +76,8 @@ public class ConfigFileReader {
     }
 
     @Test
-    public void test(){
-        System.out.println("User dir path: " + path);
+    public void test() {
+        System.out.println("User dir path: " + System.getProperty("user.dir"));
         System.out.println("\nLoading properties file..");
         loadProperties();
         System.out.println("Properties file has loaded successfully:");
@@ -74,7 +86,5 @@ public class ConfigFileReader {
         System.out.println("If this location is pasted into run command line (i.e. WIN+R) and the XML file location directory opens, then the path is correct and logger should pick it up.");
         System.out.println("\nLogger Status:");
         StatusPrinter.print(context);
-
     }
-
 }
