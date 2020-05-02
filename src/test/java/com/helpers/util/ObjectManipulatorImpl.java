@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Component;
-import static com.step_definitions.Hooks.driver;
+import static com.hooks.Hooks.driver;
 
 @Component
 public class ObjectManipulatorImpl implements ObjectManipulator {

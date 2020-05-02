@@ -1,7 +1,7 @@
 package com.pageObjects;
 
 import org.openqa.selenium.support.PageFactory;
-import static com.step_definitions.Hooks.driver;
+import static com.hooks.Hooks.driver;
 
 public abstract class Page {
 

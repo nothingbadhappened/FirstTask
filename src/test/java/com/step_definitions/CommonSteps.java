@@ -1,5 +1,6 @@
 package com.step_definitions;
 
+import com.hooks.Hooks;
 import com.actions.common.NavigateHome;
 import com.actions.common.SignOutAction;
 import com.helpers.util.UserFactory;
@@ -15,7 +16,7 @@ import com.actions.common.SignInAction;
 import org.testng.Assert;
 import com.pageObjects.Header;
 import com.users.User;
-import static com.step_definitions.Hooks.driver;
+import static com.hooks.Hooks.driver;
 
 public class CommonSteps {
 
