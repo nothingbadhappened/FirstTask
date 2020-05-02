@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 
 public class SpringConfig {
     @Bean
-    DataSource MySQLDataSource() {
+    DataSource setMySQLDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://remotemysql.com:3306/nrmY0gpABA");
