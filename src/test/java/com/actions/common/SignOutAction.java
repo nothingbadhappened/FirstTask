@@ -19,7 +19,7 @@ public class SignOutAction {
 
     public void execute(WebDriver driver) throws Exception{
         log.info("   -> Click Sign Out button");
-        executor.click(header.signOutButton);
+        executor.click(header.getSignOutButton());
         log.info("   -> SIGN OUT: ACTION COMPLETE");
 
     }

@@ -15,21 +15,46 @@ public class Body extends Page {
 
     // == Elements ==
     @FindBy(how = How.ID, using = "email")
-    public static WebElement userEmailField;
+    private static WebElement userEmailField;
 
     @FindBy(how = How.ID, using = "passwd")
-    public static WebElement passwordField;
+    private static WebElement userPasswordField;
 
     @FindBy(how = How.ID, using = "SubmitLogin")
-    public static WebElement signInButton;
+    private static WebElement signInButton;
 
     @FindBy(how = How.XPATH, using = "//*[@id=\"center_column\"]/div[1]/ol/li")
-    public static WebElement loginError;
+    private static WebElement loginErrorField;
 
     @FindBy(how = How.ID, using = "email_create")
-    public static WebElement emailCreate;
+    private static WebElement emailCreateField;
 
     @FindBy(how = How.ID, using = "SubmitCreate")
-    public static WebElement submitCreate;
+    private static WebElement submitCreateUserButton;
+
+    // == Getters ==
+    public WebElement getUserEmailField(){
+        return userEmailField;
+    }
+
+    public WebElement getUserPasswordField(){
+        return userPasswordField;
+    }
+
+    public WebElement getSignInButton(){
+        return signInButton;
+    }
+
+    public WebElement getLoginErrorField(){
+        return loginErrorField;
+    }
+
+    public WebElement getEmailCreateField(){
+        return emailCreateField;
+    }
+
+    public WebElement getSubmitCreateUserButton(){
+        return submitCreateUserButton;
+    }
 
 }

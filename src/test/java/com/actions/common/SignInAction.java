@@ -29,16 +29,16 @@ public class SignInAction {
 
         log.info("----> Sign In Action Start: ");
 
-        executor.click(header.signInLink);
+        executor.click(header.getSignInLink());
         log.info("   -> Click My Account link");
 
-        executor.sendKeys(body.userEmailField, user.getUserEmail());
+        executor.sendKeys(body.getUserEmailField(), user.getUserEmail());
         log.info("   -> User Email field is populated");
 
-        executor.sendKeys(body.passwordField, user.getUserPassword());
+        executor.sendKeys(body.getUserPasswordField(), user.getUserPassword());
         log.info("   -> Password field is populated");
 
-        executor.click(body.signInButton);
+        executor.click(body.getSignInButton());
         log.info("   -> Click Submit button");
 
         log.info("----> Sign In action complete");

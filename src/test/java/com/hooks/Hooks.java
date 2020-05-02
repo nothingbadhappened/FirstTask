@@ -14,6 +14,7 @@ import io.cucumber.java.Scenario;
 import org.openqa.selenium.WebDriver;
 
 import com.helpers.configuration.SpringConfig;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @Component

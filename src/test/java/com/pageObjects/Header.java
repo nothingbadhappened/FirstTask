@@ -15,25 +15,52 @@ public class Header extends Page {
 
     // == elements ==
     @FindBy(how = How.LINK_TEXT, using = "Sign in")
-    public static WebElement signInLink;
+    private static WebElement signInLink;
 
     @FindBy(how = How.CLASS_NAME, using = "page-heading")
-    public static WebElement pageHeading;
+    private static WebElement pageHeading;
 
     @FindBy(how = How.LINK_TEXT, using = "Contact us")
-    public static WebElement contactUs;
+    private static WebElement contactUs;
 
     @FindBy(how = How.LINK_TEXT, using = "Sign out")
-    public static WebElement signOutButton;
+    private static WebElement signOutButton;
 
     @FindBy(how = How.LINK_TEXT, using = "Women")
-    public static WebElement menuWomen;
+    private static WebElement menuWomen;
 
     @FindBy(how = How.XPATH, using = "//*a[@title='Dresses']")
-    public static WebElement menuDresses;
+    private static WebElement menuDresses;
 
     @FindBy(how = How.XPATH, using = "//*a[@title='T-shirts']")
-    public static WebElement menuTshirts;
+    private static WebElement menuTshirts;
 
 
+    public static WebElement getSignInLink() {
+        return signInLink;
+    }
+
+    public static WebElement getPageHeading() {
+        return pageHeading;
+    }
+
+    public static WebElement getContactUs() {
+        return contactUs;
+    }
+
+    public static WebElement getSignOutButton() {
+        return signOutButton;
+    }
+
+    public static WebElement getMenuWomen() {
+        return menuWomen;
+    }
+
+    public static WebElement getMenuDresses() {
+        return menuDresses;
+    }
+
+    public static WebElement getMenuTshirts() {
+        return menuTshirts;
+    }
 }

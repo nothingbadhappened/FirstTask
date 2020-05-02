@@ -1,9 +1,9 @@
 package com.step_definitions;
 
-import com.hooks.Hooks;
 import com.actions.common.NavigateHome;
 import com.actions.common.SignOutAction;
 import com.helpers.util.UserFactory;
+import com.hooks.Hooks;
 import com.pageObjects.Body;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +27,10 @@ public class CommonSteps {
     private UserFactory userFactory = Hooks.context.getBean(UserFactory.class);
     private SignInAction signInAction = Hooks.context.getBean(SignInAction.class);
     private SignOutAction signOutAction = Hooks.context.getBean(SignOutAction.class);
+    private Header header = Hooks.context.getBean(Header.class);
     private Body body = Hooks.context.getBean(Body.class);
+
+
 
     // == Generic Step used in all scenarios - Background ==
     @Given("user navigates to website")
@@ -80,7 +83,7 @@ public class CommonSteps {
 
         try {
             log.info("STEP: Then user is redirected to " + text + " page");
-            Assert.assertEquals(Header.pageHeading.getText(), text);
+            Assert.assertEquals(header.getPageHeading().getText(), text);
             log.info("SCENARIO: Passed");
         } catch (AssertionError e) {
             log.info("~~~ SCENARIO: Failed !!! ~~~\n" + e.getMessage());
@@ -115,7 +118,7 @@ public class CommonSteps {
     public void loginError(String errorText) {
         try {
             log.info("STEP: Then login error is displayed: [  " + errorText + " ]");
-            Assert.assertEquals(body.loginError.getText(), errorText);
+            Assert.assertEquals(body.getLoginErrorField().getText(), errorText);
         } catch (AssertionError e) {
             log.info("~~~ SCENARIO: Failed ~~~ " + e.getMessage());
             Assert.fail();
@@ -155,7 +158,7 @@ public class CommonSteps {
             log.info("~~~ SCENARIO: Failed ~~~ \nUser is not redirected to Sign In page - " + e.getMessage());
         }
 
-        if (Header.pageHeading.getText().equals("MY ACCOUNT")) {
+        if (header.getPageHeading().getText().equals("MY ACCOUNT")) {
             log.info("~~~ SCENARIO: FAIL ~~~ \nMy Account is still present");
             Assert.fail();
         }
