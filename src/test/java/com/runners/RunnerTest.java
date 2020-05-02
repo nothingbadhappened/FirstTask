@@ -8,7 +8,8 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         strict = true,
         features = "src/test/resources/features/",
-        glue = "com/step_definitions",
+        glue = {"com/step_definitions",
+                "com/hooks"},
 
 //      TODO: Implement better reports with Extent Reporter
 //      plugin = { "com.cucumber.listener.ExtentCucumberFormatter:target/cucumber-reports/report.html" },
@@ -20,6 +21,6 @@ import org.junit.runner.RunWith;
         },
         tags = {}
 )
-public class Runner {
+public class RunnerTest {
 
 }
