@@ -68,8 +68,9 @@ public class Hooks {
         // == Clean up browser session before scenario run End ==
     }
 
-    //Capture screen for the failed scenario
+
     @After
+    // == Capture screen for the failed scenario ==
     public void embedScreenshot(Scenario scenario) throws InterruptedException {
         log.debug("----- AFTER HOOK START -----");
         if (scenario.isFailed()) {
@@ -93,7 +94,7 @@ public class Hooks {
             }
 
         }
-
+        // == Closing browser session after Scenario run and logging run status ==
         driver.quit();
         log.info("BROWSER: Closed");
         log.debug("----- AFTER HOOK END -----");

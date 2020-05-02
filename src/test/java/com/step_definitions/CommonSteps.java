@@ -20,7 +20,7 @@ import static com.hooks.Hooks.driver;
 
 public class CommonSteps {
 
-    //Fields
+    // == Fields ==
     private static final Logger log = LoggerFactory.getLogger(CommonSteps.class);
 
     private User user = Hooks.context.getBean(User.class);
@@ -29,7 +29,7 @@ public class CommonSteps {
     private SignOutAction signOutAction = Hooks.context.getBean(SignOutAction.class);
     private Body body = Hooks.context.getBean(Body.class);
 
-    //Generic Step used in all scenarios - Background
+    // == Generic Step used in all scenarios - Background ==
     @Given("user navigates to website")
     public void userNavigatesToWebsite() {
         try {
@@ -46,8 +46,8 @@ public class CommonSteps {
 
     }
 
-    //Other Steps
-    //SCENARIO 1
+    // == Other Steps ==
+    // == SCENARIO 1 ==
     @And("user is {string} on the website")
     public void userIsRegistered(String registrationStatus) {
         try {
@@ -89,7 +89,7 @@ public class CommonSteps {
 
     }
 
-    //SCENARIO 2
+    // == SCENARIO 2 ==
     @And("user is {string}")
     public void userIsNotRegistered(String registrationStatus) {
         log.info("STEP: And user is " + registrationStatus + " on the website");
@@ -122,9 +122,7 @@ public class CommonSteps {
         }
     }
 
-////////////////////////////////////////////////////////
-
-    // SCENARIO 3
+    // == SCENARIO 3 ==
     @And("user is logged in")
     public void userLoggedIn() throws Throwable {
         try {
@@ -151,7 +149,7 @@ public class CommonSteps {
     public void verifyUserSignedOut() {
         try {
             log.info("STEP: Then user is logged out");
-            Assert.assertEquals(driver.getCurrentUrl().toString(), "http://automationpractice.com/index.php?controller=authentication&back=my-account");
+            Assert.assertEquals(driver.getCurrentUrl(), "http://automationpractice.com/index.php?controller=authentication&back=my-account");
             log.info("User is redirected to Sign In page");
         } catch (AssertionError e) {
             log.info("~~~ SCENARIO: Failed ~~~ \nUser is not redirected to Sign In page - " + e.getMessage());
@@ -163,10 +161,7 @@ public class CommonSteps {
         }
     }
 
-
-////////////////////////////////////////////////////////////
-
-    // Spring JDBC test steps See SignInWithDatabasePulledUser.feature
+    // == Spring JDBC test steps See SignInWithDatabasePulledUser.feature ==
     @When("user status is {string}")
     public void getRegisteredUserFromDatabase(String userRegistrationStatus){
         user = userFactory.getUser(userRegistrationStatus);
