@@ -23,9 +23,9 @@ public class SpringConfig {
     DataSource setMySQLDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://remotemysql.com:3306/nrmY0gpABA");
-        dataSource.setUsername("nrmY0gpABA");
-        dataSource.setPassword("9wNvfmyRVd");
+        dataSource.setUrl("jdbc:mysql://35.197.223.185:3306/AUTOMATION_PRACTICE");
+        dataSource.setUsername("testdbuser");
+        dataSource.setPassword("Test1234!");
 
         return dataSource;
     }
