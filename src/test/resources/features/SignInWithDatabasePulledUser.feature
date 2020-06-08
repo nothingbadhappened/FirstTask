@@ -1,3 +1,4 @@
+@FullRun @QuickRun
 Feature: Sign In with user fetched from Database
   Background:
     Given user navigates to website

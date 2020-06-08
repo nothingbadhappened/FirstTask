@@ -1,3 +1,4 @@
+@FullRun
 Feature: Sign In
   Background:
     Given user navigates to website
