@@ -3,6 +3,7 @@ package com.helpers.configuration;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.util.ContextInitializer;
 import ch.qos.logback.core.util.StatusPrinter;
+import com.helpers.util.customExceptions.InvalidPlatformException;
 import org.junit.Test;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +15,6 @@ public class ConfigFileReader {
 
     private static LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
     private static Properties properties = new Properties();
-
 
     public static void loadProperties() {
 
@@ -35,12 +35,22 @@ public class ConfigFileReader {
 //                System.setProperty(ContextInitializer.CONFIG_FILE_PROPERTY, LOGBACK_CONFIG_PATH);
                 // == LOGBACK CONFIG END ==
 
-                final String CHROME_PATH = System.getProperty("user.dir") + properties.getProperty("webdriver.chrome.driver");
-                final String FIREFOX_PATH = System.getProperty("user.dir") + properties.getProperty("webdriver.firefox.driver");
+
+                final String WEB_DRIVER_PATH = System.getProperty("user.dir") + properties.getProperty("webdriver.path");
+
+                try {
+                final String CHROME_DRIVER_BIN = PlatformHelper.getChromeDriverBin();
+                final String FIREFOX_DRIVER_BIN = PlatformHelper.getFirefoxDriverBin();
 
                 //set driver path
-                System.setProperty("webdriver.chrome.driver", CHROME_PATH);
-                System.setProperty("webdriver.gecko.driver", FIREFOX_PATH);
+                System.setProperty("webdriver.chrome.driver", WEB_DRIVER_PATH + CHROME_DRIVER_BIN);
+                System.setProperty("webdriver.gecko.driver", WEB_DRIVER_PATH + FIREFOX_DRIVER_BIN);
+
+                } catch (InvalidPlatformException invalidPlatform){
+                    invalidPlatform.getMessage();
+                    invalidPlatform.printStackTrace();
+                    System.exit(1);
+                }
 
             } else {
                 System.out.println("Cannot load properties file!");
