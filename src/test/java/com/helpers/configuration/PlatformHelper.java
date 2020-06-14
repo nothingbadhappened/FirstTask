@@ -8,9 +8,15 @@ public class PlatformHelper {
     private static String chromeDriverBin;
     private static String firefoxDriverBin;
 
-    public static void setPlatform() throws InvalidPlatformException {
+    private static void setPlatform() throws InvalidPlatformException {
 
-        platform = System.getProperty("platform");
+        if (System.getProperty("platform") == null){
+            throw new InvalidPlatformException(null);
+        } else {
+            platform = System.getProperty("platform");
+        }
+
+        System.out.println("PLATFORM DETECTED: " + platform);
 
         if (platform.equals("win")) {
             chromeDriverBin = "chromedriver.exe";

@@ -27,15 +27,6 @@ public class ConfigFileReader {
             if (props != null) {
                 properties.load(props);
 
-                // == LOGBACK CONFIG START ==
-//                System.out.println("System.getProperty(\"user.dir\") returned: " + System.getProperty("user.dir") + "\n");
-//                String rawConfigPath = System.getProperty("user.dir") + properties.getProperty("loggerConfigPath");
-//                // == set the path with forward slashes due to System.getProperty returns the path with backslashes and this is not working for logback ==
-//                final String LOGBACK_CONFIG_PATH = rawConfigPath.replace("\\", "/");
-//                System.setProperty(ContextInitializer.CONFIG_FILE_PROPERTY, LOGBACK_CONFIG_PATH);
-                // == LOGBACK CONFIG END ==
-
-
                 final String WEB_DRIVER_PATH = System.getProperty("user.dir") + properties.getProperty("webdriver.path");
 
                 try {
