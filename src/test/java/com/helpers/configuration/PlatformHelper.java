@@ -11,12 +11,24 @@ public class PlatformHelper {
     private static void setPlatform() throws InvalidPlatformException {
 
         if (System.getProperty("platform") == null){
-            throw new InvalidPlatformException(null);
+            System.out.println("Platform has not been specified, trying to auto-detect your system:");
+
+            if(System.getProperty("os.name").startsWith("Windows")){
+                System.out.println("Your system has been identified as Windows");
+                System.setProperty("platform", "win");
+                platform = "win";
+            } else if (System.getProperty("os.name").startsWith("Mac")){
+                System.out.println("Your system has been identified as MAC OS");
+                System.setProperty("platform", "mac");
+                platform = "mac";
+            } else {
+                System.out.println("Your system is not yet supported.");
+                throw new InvalidPlatformException(System.getProperty("os.name"));
+            }
+
         } else {
             platform = System.getProperty("platform");
         }
-
-        System.out.println("PLATFORM DETECTED: " + platform);
 
         if (platform.equals("win")) {
             chromeDriverBin = "chromedriver.exe";
