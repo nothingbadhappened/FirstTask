@@ -1,12 +1,19 @@
 package com.actions.common;
-import com.helpers.configuration.ConfigFileReader;
+import org.openqa.selenium.WebDriver;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
-
-import static com.hooks.Hooks.driver;
 
 @Component
 public class NavigateHome {
-    public static void navigateToHomePage(){
-        driver.get(ConfigFileReader.getUrl());
+
+    @Autowired
+    WebDriver driver;
+
+    @Autowired
+    Environment environment;
+
+    public void navigateToHomePage(){
+        driver.get(environment.getProperty("url"));
     }
 }

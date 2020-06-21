@@ -1,30 +1,31 @@
 package com.hooks;
 
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import com.actions.common.SignInAction;
-import com.helpers.configuration.ConfigFileReader;
-import com.helpers.util.WebDriverFactory;
 import com.helpers.util.ScreenShotUtil;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-import org.openqa.selenium.WebDriver;
 import com.helpers.configuration.SpringConfig;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-
 @Component
+@DependsOn("driver")
 public class Hooks {
 
-    public static WebDriver driver;
-    public static ConfigurableApplicationContext context;
     private static final Logger log = LoggerFactory.getLogger(SignInAction.class);
 
+    @Autowired
+    private WebDriver driver;
+
     @Before
-    public void setUp(Scenario scenario) throws Exception {
+    public void setUp(Scenario scenario) {
 
         log.info("Starting scenario:"
                 + "\n##################################################################################################"
@@ -33,26 +34,26 @@ public class Hooks {
         );
         log.debug("----- BEFORE HOOK START -----");
 
+        // == Setup Spring ==
+        log.debug("Setting Spring context");
+        ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
+        log.debug("Spring configuration has loaded");
+
         // == Setup Configs Start ==
-        try {
-            log.info("Loading configurations");
-            ConfigFileReader.loadProperties();
-            log.info("CONFIG: Configuration Loaded");
-
-            log.info("Start browser invoked");
-            driver = WebDriverFactory.startBrowser(ConfigFileReader.getBrowser());
-            log.info("Browser instance created for " + ConfigFileReader.getBrowser());
-            log.info(WebDriverFactory.getWebDriverInstanceInfo(driver));
-
-            // == Setup Spring ==
-            log.debug("Setting Spring context");
-            context = new AnnotationConfigApplicationContext(SpringConfig.class);
-            log.debug("Spring configuration has loaded");
-
-        } catch (Exception e) {
-            log.error(String.valueOf(e));
-            e.printStackTrace();
-        }
+//        try {
+//            log.info("Loading configurations");
+//            ConfigFileReader.loadProperties();
+//            log.info("CONFIG: Configuration Loaded");
+//
+//            log.info("Start browser invoked");
+//            driver = WebDriverFactory.getDriver(ConfigFileReader.getBrowser());
+//            log.info("Browser instance created for " + ConfigFileReader.getBrowser());
+//
+//
+//        } catch (Exception e) {
+//            log.error(String.valueOf(e));
+//            e.printStackTrace();
+//        }
         // == Setup Configs End ==
 
 
@@ -74,7 +75,7 @@ public class Hooks {
     // == Capture screen for the failed scenario ==
     public void embedScreenshot(Scenario scenario) throws InterruptedException {
         log.debug("----- AFTER HOOK START -----");
-        if (scenario.isFailed()) {
+        if (scenario.isFailed() || driver!=null) {
             try {
                 log.info("SCENARIO: FAIL - " + "Current Page URL is " + driver.getCurrentUrl());
                 scenario.write("Current Page URL is " + driver.getCurrentUrl());
@@ -94,10 +95,14 @@ public class Hooks {
                 log.error("BROWSER: Cannot capture screen", e);
             }
 
+            // == Closing browser session after Scenario run and logging run status ==
+            driver.quit();
+            log.info("BROWSER: Closed");
+        } else {
+            System.out.println("Could not close browser. System will exit.");
+            System.exit(-1);
         }
-        // == Closing browser session after Scenario run and logging run status ==
-        driver.quit();
-        log.info("BROWSER: Closed");
+
         log.debug("----- AFTER HOOK END -----");
         log.info("Completed scenario:"
                 + "\n##################################################################################################"

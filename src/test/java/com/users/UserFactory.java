@@ -1,7 +1,6 @@
-package com.helpers.util;
+package com.users;
 
 import com.helpers.util.database.UserDaoImpl;
-import com.users.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,15 +1,19 @@
 package com.actions.common;
 
 import com.helpers.util.ObjectManipulator;
+import com.pageObjects.Page;
+import com.pageObjects.PageFactory;
+import org.jetbrains.annotations.NotNull;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
-import com.pageObjects.Body;
-import com.pageObjects.Header;
 import com.users.User;
 
 @Component
+@DependsOn({"driver"})
 public class SignInAction {
 
     // == fields ===
@@ -17,28 +21,28 @@ public class SignInAction {
     ObjectManipulator executor;
 
     @Autowired
-    private Header header;
+    WebDriver driver;
 
-    @Autowired
-    private Body body;
-
-    private static final Logger log = LoggerFactory.getLogger(SignInAction.class);
+    private PageFactory pageFactory = new PageFactory();
+    private Page header = pageFactory.getPageObject("header", driver);
+    private Page body = pageFactory.getPageObject("body", driver);
+    private final Logger log = LoggerFactory.getLogger(SignInAction.class);
 
     // == methods ==
-    public void Execute(User user) throws Exception {
+    public void Execute(@NotNull User user) {
 
         log.info("----> Sign In Action Start: ");
 
-        executor.click(header.getSignInLink());
+        executor.click(header.getElementByName("signInLink"));
         log.info("   -> Click My Account link");
 
-        executor.sendKeys(body.getUserEmailField(), user.getUserEmail());
+        executor.sendKeys(body.getElementByName("getUserEmailField"), user.getUserEmail());
         log.info("   -> User Email field is populated");
 
-        executor.sendKeys(body.getUserPasswordField(), user.getUserPassword());
+        executor.sendKeys(body.getElementByName("getUserPasswordField"), user.getUserPassword());
         log.info("   -> Password field is populated");
 
-        executor.click(body.getSignInButton());
+        executor.click(body.getElementByName("getSignInButton"));
         log.info("   -> Click Submit button");
 
         log.info("----> Sign In action complete");

@@ -1,5 +1,6 @@
 package com.pageObjects;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -9,8 +10,38 @@ import org.springframework.stereotype.Component;
 public class Body extends Page {
 
     // == Constructor(s) ==
-    public Body() {
-        super();
+    Body(WebDriver driver) {
+        super(driver);
+    }
+
+    @Override
+    public WebElement getElementByName(String elementName) {
+
+        WebElement element;
+
+        switch (elementName){
+            case "userEmailField":
+                element = userEmailField;
+                break;
+            case "userPasswordField":
+                element = userPasswordField;
+                break;
+            case "signInButton":
+                element = signInButton;
+                break;
+            case "loginErrorField":
+                element = loginErrorField;
+                break;
+            case "emailCreateField":
+                element = emailCreateField;
+                break;
+            case "submitCreateUserButton":
+                element = submitCreateUserButton;
+            default:
+                throw new IllegalStateException("Unexpected value: " + elementName);
+        }
+
+        return element;
     }
 
     // == Elements ==

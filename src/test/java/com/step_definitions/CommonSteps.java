@@ -2,9 +2,9 @@ package com.step_definitions;
 
 import com.actions.common.NavigateHome;
 import com.actions.common.SignOutAction;
-import com.helpers.util.UserFactory;
-import com.hooks.Hooks;
-import com.pageObjects.Body;
+import com.pageObjects.PageFactory;
+import com.users.UserFactory;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.helpers.configuration.ConfigFileReader;
@@ -13,23 +13,40 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import com.actions.common.SignInAction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.Assert;
-import com.pageObjects.Header;
 import com.users.User;
-import static com.hooks.Hooks.driver;
 
 public class CommonSteps {
 
     // == Fields ==
     private static final Logger log = LoggerFactory.getLogger(CommonSteps.class);
 
-    private User user = Hooks.context.getBean(User.class);
-    private UserFactory userFactory = Hooks.context.getBean(UserFactory.class);
-    private SignInAction signInAction = Hooks.context.getBean(SignInAction.class);
-    private SignOutAction signOutAction = Hooks.context.getBean(SignOutAction.class);
-    private Header header = Hooks.context.getBean(Header.class);
-    private Body body = Hooks.context.getBean(Body.class);
+    @Autowired
+    UserFactory userFactory;
+    private User user = new UserFactory().getUser("registered");
 
+    @Autowired
+    PageFactory pageFactory;
+
+    @Autowired
+    WebDriver driver;
+
+    @Autowired
+    SignInAction signInAction;
+
+    @Autowired
+    SignOutAction signOutAction;
+
+    @Autowired
+    NavigateHome navigateHome;
+
+//    private User user = Hooks.context.getBean(User.class);
+//    private UserFactory userFactory = Hooks.context.getBean(UserFactory.class);
+//    private SignInAction signInAction = Hooks.context.getBean(SignInAction.class);
+//    private SignOutAction signOutAction = Hooks.context.getBean(SignOutAction.class);
+//    private Header header = Hooks.context.getBean(Header.class);
+//    private Body body = Hooks.context.getBean(Body.class);
 
 
     // == Generic Step used in all scenarios - Background ==
@@ -37,7 +54,7 @@ public class CommonSteps {
     public void userNavigatesToWebsite() {
         try {
             log.info("STEP: Given user navigates to " + ConfigFileReader.getUrl() + " website");
-            NavigateHome.navigateToHomePage();
+            navigateHome.navigateToHomePage();
         } catch (Exception e) {
             log.error(e.getMessage());
         }
@@ -79,11 +96,11 @@ public class CommonSteps {
     }
 
     @Then("user is redirected to {string} page")
-    public void myAccountPageLoaded(String text) throws Throwable {
+    public void myAccountPageLoaded(String text) {
 
         try {
             log.info("STEP: Then user is redirected to " + text + " page");
-            Assert.assertEquals(header.getPageHeading().getText(), text);
+            Assert.assertEquals(pageFactory.getPageObject("header", driver).getElementByName("header").getText(), text);
             log.info("SCENARIO: Passed");
         } catch (AssertionError e) {
             log.info("~~~ SCENARIO: Failed !!! ~~~\n" + e.getMessage());
@@ -118,7 +135,7 @@ public class CommonSteps {
     public void loginError(String errorText) {
         try {
             log.info("STEP: Then login error is displayed: [  " + errorText + " ]");
-            Assert.assertEquals(body.getLoginErrorField().getText(), errorText);
+            Assert.assertEquals(pageFactory.getPageObject("body", driver).getElementByName("loginErrorField").getText(), errorText);
         } catch (AssertionError e) {
             log.info("~~~ SCENARIO: Failed ~~~ " + e.getMessage());
             Assert.fail();
@@ -127,7 +144,7 @@ public class CommonSteps {
 
     // == SCENARIO 3 ==
     @And("user is logged in")
-    public void userLoggedIn() throws Throwable {
+    public void userLoggedIn() {
         try {
             log.info("STEP: And user is logged in");
             userSignIn("elchupakabra@mailinator.com", "Test1234!");
@@ -158,7 +175,7 @@ public class CommonSteps {
             log.info("~~~ SCENARIO: Failed ~~~ \nUser is not redirected to Sign In page - " + e.getMessage());
         }
 
-        if (header.getPageHeading().getText().equals("MY ACCOUNT")) {
+        if (pageFactory.getPageObject("header", driver).getElementByName("pageHeading").getText().equals("MY ACCOUNT")) {
             log.info("~~~ SCENARIO: FAIL ~~~ \nMy Account is still present");
             Assert.fail();
         }
@@ -166,7 +183,7 @@ public class CommonSteps {
 
     // == Spring JDBC test steps See SignInWithDatabasePulledUser.feature ==
     @When("user status is {string}")
-    public void getRegisteredUserFromDatabase(String userRegistrationStatus){
+    public void getRegisteredUserFromDatabase(String userRegistrationStatus) {
         user = userFactory.getUser(userRegistrationStatus);
     }
 

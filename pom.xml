@@ -145,7 +145,6 @@
             <version>${extentreports.cucumber5.adapter.version}</version>
         </dependency>
 
-
     </dependencies>
 
 </project>
