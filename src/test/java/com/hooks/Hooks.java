@@ -75,7 +75,7 @@ public class Hooks {
     // == Capture screen for the failed scenario ==
     public void embedScreenshot(Scenario scenario) throws InterruptedException {
         log.debug("----- AFTER HOOK START -----");
-        if (scenario.isFailed() || driver!=null) {
+        if (scenario.isFailed() && driver!=null) {
             try {
                 log.info("SCENARIO: FAIL - " + "Current Page URL is " + driver.getCurrentUrl());
                 scenario.write("Current Page URL is " + driver.getCurrentUrl());
@@ -110,10 +110,6 @@ public class Hooks {
                 + "\n##################################################################################################\n\n\n"
         );
     }
-
-//    public static void writeExtentReport() {
-//        Reporter.loadXMLConfig();
-//    }
 
 
 }
