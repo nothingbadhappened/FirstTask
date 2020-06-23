@@ -31,7 +31,7 @@ public class WebDriverFactory {
                     case "":
                         throw new NoSuchFieldException();
                     default:
-                        System.out.println("Invalid driver type, cannot start browser instance!");
+                        System.out.println("Invalid driver type \"" + driverType + "\", cannot start browser instance!");
                 }
 
             } catch (Exception e) {

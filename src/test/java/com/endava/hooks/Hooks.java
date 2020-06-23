@@ -3,6 +3,7 @@ package com.endava.hooks;
 import com.endava.actions.common.SignInAction;
 import com.endava.helpers.configuration.SpringConfig;
 import com.endava.helpers.util.ScreenShotUtil;
+import com.endava.helpers.util.WebDriverFactory;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -15,7 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 @ContextConfiguration(classes = SpringConfig.class)
 public class Hooks {
 
-    private static final Logger log = LoggerFactory.getLogger(SignInAction.class);
+    private static final Logger log = LoggerFactory.getLogger(Hooks.class);
 
     @Autowired
     private WebDriver driver;
@@ -30,32 +31,9 @@ public class Hooks {
         );
         log.debug("----- BEFORE HOOK START -----");
 
-        // == Setup Spring ==
-        log.debug("Setting Spring context");
-//        ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
-//        log.debug("Spring configuration has loaded");
-//
-//        log.debug("Spring bean \"driver\" is starting:");
-        // == Setup Configs Start ==
-//        try {
-//            log.info("Loading configurations");
-//            ConfigFileReader.loadProperties();
-//            log.info("CONFIG: Configuration Loaded");
-//
-//            log.info("Start browser invoked");
-//            driver = WebDriverFactory.getDriver(ConfigFileReader.getBrowser());
-//            log.info("Browser instance created for " + ConfigFileReader.getBrowser());
-//
-//
-//        } catch (Exception e) {
-//            log.error(String.valueOf(e));
-//            e.printStackTrace();
-//        }
-        // == Setup Configs End ==
-
-
         // == Clean up browser session before scenario run Begin ==
         log.info("BROWSER: Clean start:");
+        log.debug(WebDriverFactory.getWebDriverInstanceInfo(driver));
 
         driver.manage().deleteAllCookies();
         log.info("   -> Deleting Cookies");

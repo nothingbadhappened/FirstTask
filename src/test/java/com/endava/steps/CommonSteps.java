@@ -3,9 +3,9 @@ package com.endava.steps;
 import com.endava.actions.common.NavigateHome;
 import com.endava.actions.common.SignInAction;
 import com.endava.actions.common.SignOutAction;
-import com.endava.helpers.configuration.ConfigFileReader;
 import com.endava.pageObjects.PageFactory;
 import com.endava.users.User;
+import com.endava.users.UserFactory;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -14,6 +14,7 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.testng.Assert;
 
 public class CommonSteps {
@@ -22,9 +23,12 @@ public class CommonSteps {
     private static final Logger log = LoggerFactory.getLogger(CommonSteps.class);
 
     private User user;
-//
-//    @Autowired
-//    private UserFactory userFactory;
+
+    @Autowired
+    Environment environment;
+
+    @Autowired
+    private UserFactory userFactory;
 
     @Autowired
     private WebDriver driver;
@@ -41,7 +45,7 @@ public class CommonSteps {
     @Given("user navigates to website")
     public void userNavigatesToWebsite() {
         try {
-            log.info("STEP: Given user navigates to " + ConfigFileReader.getUrl() + " website");
+            log.info("STEP: Given user navigates to " + environment.getProperty("url") + " website");
             navigateHome.navigateToHomePage();
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -85,7 +89,7 @@ public class CommonSteps {
 
         try {
             log.info("STEP: Then user is redirected to " + text + " page");
-            Assert.assertEquals(PageFactory.getPageObject("header", driver).getElementByName("header").getText(), text);
+            Assert.assertEquals(PageFactory.getPageObject("header").getElementByName("header").getText(), text);
             log.info("SCENARIO: Passed");
         } catch (AssertionError e) {
             log.info("~~~ SCENARIO: Failed !!! ~~~\n" + e.getMessage());
@@ -119,7 +123,7 @@ public class CommonSteps {
     public void loginError(String errorText) {
         try {
             log.info("STEP: Then login error is displayed: [  " + errorText + " ]");
-            Assert.assertEquals(PageFactory.getPageObject("body", driver).getElementByName("loginErrorField").getText(), errorText);
+            Assert.assertEquals(PageFactory.getPageObject("body").getElementByName("loginErrorField").getText(), errorText);
         } catch (AssertionError e) {
             log.info("~~~ SCENARIO: Failed ~~~ " + e.getMessage());
             Assert.fail();
@@ -158,7 +162,7 @@ public class CommonSteps {
             log.info("~~~ SCENARIO: Failed ~~~ \nUser is not redirected to Sign In page - " + e.getMessage());
         }
 
-        if (PageFactory.getPageObject("header", driver).getElementByName("pageHeading").getText().equals("MY ACCOUNT")) {
+        if (PageFactory.getPageObject("header").getElementByName("pageHeading").getText().equals("MY ACCOUNT")) {
             log.info("~~~ SCENARIO: FAIL ~~~ \nMy Account is still present");
             Assert.fail();
         }
@@ -167,11 +171,11 @@ public class CommonSteps {
     // == Spring JDBC test steps See SignInWithDatabasePulledUser.feature ==
     @When("user status is {string}")
     public void getRegisteredUserFromDatabase(String userRegistrationStatus) {
-//        user = userFactory.getUser(userRegistrationStatus);
+        user = userFactory.getUser(userRegistrationStatus);
     }
 
     @And("user signs in")
-    public void userSignsIn() throws Exception {
+    public void userSignsIn() {
         signInAction.execute(user);
     }
 

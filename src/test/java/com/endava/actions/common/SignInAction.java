@@ -6,7 +6,6 @@ import com.endava.pageObjects.Page;
 import com.endava.pageObjects.PageFactory;
 import com.endava.users.User;
 import org.jetbrains.annotations.NotNull;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +19,8 @@ public class SignInAction {
     @Autowired
     private ObjectManipulator executor;
 
-    @Autowired
-    private WebDriver driver;
-
-    private final Page header = PageFactory.getPageObject("header", driver);
-    private final Page body = PageFactory.getPageObject("body", driver);
+    private final Page header = PageFactory.getPageObject("header");
+    private final Page body = PageFactory.getPageObject("body");
 
     public void execute(@NotNull User user) {
         log.info("----> Sign In Action Start: ");

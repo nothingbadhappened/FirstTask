@@ -9,10 +9,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserFactory {
 
-    @Autowired
     private UserDaoImpl userDaoImpl;
-
     private static final Logger log = LoggerFactory.getLogger(UserFactory.class);
+
+    @Autowired
+    public UserFactory(UserDaoImpl  userDaoImpl){
+        this.userDaoImpl = userDaoImpl;
+    }
 
     // User object dispenser - returns a Registered or Not Registered user
     public User getUser(String userRegistrationStatus) {
@@ -21,14 +24,14 @@ public class UserFactory {
         User user = null;
 
         if (userRegistrationStatus.equals("1") ||
-                userRegistrationStatus.equals("registered") ||
-                userRegistrationStatus.equals("is registered")) {
-            log.info("Generating registered user...");
+                userRegistrationStatus.toLowerCase().equals("registered") ||
+                userRegistrationStatus.toLowerCase().equals("is registered")) {
+            log.info("Generating user with status \"registered\"");
             user = userDaoImpl.getRegisteredUser();
         } else if (userRegistrationStatus.equals("0") ||
-                userRegistrationStatus.equals("not registered") ||
-                userRegistrationStatus.equals("is not registered")) {
-            log.info("Generating not registered user...");
+                userRegistrationStatus.toLowerCase().equals("not registered") ||
+                userRegistrationStatus.toLowerCase().equals("is not registered")) {
+            log.info("Generating user with status \"not registered\"");
             user = userDaoImpl.getNotRegisteredUser();
         } else {
             log.error("Invalid user parameter, cannot create user");

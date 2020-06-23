@@ -1,17 +1,22 @@
 package com.endava.pageObjects;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-@Component("body")
+import java.lang.reflect.Field;
+
+@Component
 public class Body extends Page {
 
-    Body(WebDriver driver) {
-        super(driver);
+    Body() {
+        super();
     }
+
+    private static final Logger log = LoggerFactory.getLogger(Body.class);
 
     @FindBy(how = How.ID, using = "email")
     private static WebElement userEmailField;
@@ -83,6 +88,28 @@ public class Body extends Page {
 
     public WebElement getSubmitCreateUserButton() {
         return submitCreateUserButton;
+    }
+
+    @Override
+    public String toString() {
+        log.debug("Body Page Object toString() method invoked");
+
+        for (Field f : this.getClass().getFields()) {
+            try {
+                log.debug(f.getGenericType() + " " + f.getName() + " = " + f.get(this));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        final String message = "Body Page Object created";
+//                "\nuserEmailField: " + userEmailField +
+//                "\nuserPasswordField: " + userPasswordField +
+//                "\nsignInButton: " + signInButton +
+//                "\nloginErrorField: " + loginErrorField +
+//                "\nemailCreateField: " + emailCreateField +
+//                "\nsubmitCreateUserButton: " + submitCreateUserButton;
+        return message;
     }
 
 }

@@ -4,17 +4,25 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component("header")
+import java.lang.reflect.Field;
+
+@Component
 public class Header extends Page {
 
-    public Header(WebDriver driver) {
-        super(driver);
+    public Header() {
+        super();
     }
+
+    private static final Logger log = LoggerFactory.getLogger(Header.class);
 
     @FindBy(how = How.LINK_TEXT, using = "Sign in")
     private WebElement signInLink;
+
     @FindBy(how = How.CLASS_NAME, using = "page-heading")
     private WebElement pageHeading;
 
@@ -92,5 +100,27 @@ public class Header extends Page {
 
     public WebElement getMenuTshirts() {
         return menuTshirts;
+    }
+
+    @Override
+    public String toString(){
+        log.debug("Header Page Object toString() method invoked");
+
+        for(Field f : this.getClass().getFields()) {
+            try {
+                log.debug(f.getGenericType() + " " + f.getName() + " = " + f.get(this));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        final String message = "Body Page Object created";
+//                "\npageHeading: " + pageHeading +
+//                "\ncontactUs: " + contactUs +
+//                "\nsignOutButton: " + signOutButton +
+//                "\nmenuWomen: " + menuWomen +
+//                "\nmenuDresses: " + menuDresses +
+//                "\nmenuTshirts: " + menuTshirts;
+        return message;
     }
 }

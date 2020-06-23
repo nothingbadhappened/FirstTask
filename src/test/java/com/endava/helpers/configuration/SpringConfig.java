@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +23,7 @@ import javax.sql.DataSource;
 @PropertySource("classpath:configurations/configuration.properties")
 public class SpringConfig {
 
-    private static final Logger log = LoggerFactory.getLogger(PageFactory.class);
+    private static final Logger log = LoggerFactory.getLogger(SpringConfig.class);
 
     @Autowired
     private Environment environment;
@@ -49,4 +50,5 @@ public class SpringConfig {
 
         return dataSource;
     }
+
 }
