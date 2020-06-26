@@ -1,8 +1,8 @@
 package com.endava.actions.common;
 
+import com.endava.helpers.util.Browser;
 import com.endava.helpers.util.ObjectManipulatorImpl;
-import com.endava.pageObjects.Header;
-import org.openqa.selenium.WebDriver;
+import com.endava.pageObjects.HomePage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +17,12 @@ public class SignOutAction {
     private ObjectManipulatorImpl executor;
 
     @Autowired
-    private Header header;
+    private Browser browser;
 
-    public void execute(WebDriver driver) throws Exception {
+    public void execute() {
+        HomePage homePage = new HomePage(browser);
         log.info("   -> Click Sign Out button");
-        executor.click(header.getSignOutButton());
+        executor.click(homePage.getHeader().getSignOutButton());
         log.info("   -> SIGN OUT: ACTION COMPLETE");
-
     }
 }

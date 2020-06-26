@@ -11,29 +11,28 @@ import org.slf4j.LoggerFactory;
 
 public class WebDriverFactory {
 
-    private static WebDriver driver;
     private static final Logger log = LoggerFactory.getLogger(WebDriverFactory.class);
+
+    private static WebDriver driver;
 
     public static WebDriver getDriver(String driverType) {
         if (driver == null) {
             log.info("Creating Webdriver instance");
             try {
                 switch (driverType.toLowerCase()) {
-                    case "chrome":
-                        driver = new ChromeDriver();
-                        break;
                     case "firefox":
                         driver = new FirefoxDriver();
                         break;
                     case "safari":
                         driver = new SafariDriver();
                         break;
-                    case "":
-                        throw new NoSuchFieldException();
+                    case "chrome":
+                        driver = new ChromeDriver();
+                        break;
                     default:
-                        System.out.println("Invalid driver type \"" + driverType + "\", cannot start browser instance!");
+                        System.out.println("Unable to find driver type of \"" + driverType + "\", starting default Chrome!");
+                        driver = new ChromeDriver();
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -41,7 +40,7 @@ public class WebDriverFactory {
         return driver;
     }
 
-    public static String getWebDriverInstanceInfo(WebDriver driver) {
+    public static String getWebDriverInstanceInfo() {
         Capabilities cap = ((RemoteWebDriver) driver).getCapabilities();
         String browserName = cap.getBrowserName().toLowerCase();
         String os = cap.getPlatform().toString();
@@ -54,10 +53,4 @@ public class WebDriverFactory {
                 + "\n" + "Browser Version: " + v
                 + "\n---------------";
     }
-
-    public static void closeBrowser() {
-        driver.close();
-        driver.quit();
-    }
-
 }

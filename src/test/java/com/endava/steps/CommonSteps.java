@@ -1,16 +1,13 @@
 package com.endava.steps;
 
-import com.endava.actions.common.NavigateHome;
 import com.endava.actions.common.SignInAction;
 import com.endava.actions.common.SignOutAction;
-import com.endava.pageObjects.PageFactory;
+import com.endava.helpers.util.Browser;
 import com.endava.users.User;
-import com.endava.users.UserFactory;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,19 +16,18 @@ import org.testng.Assert;
 
 public class CommonSteps {
 
-    // == Fields ==
     private static final Logger log = LoggerFactory.getLogger(CommonSteps.class);
 
     private User user;
 
     @Autowired
-    Environment environment;
+    private Environment environment;
+//
+//    @Autowired
+//    private UserFactory userFactory;
 
     @Autowired
-    private UserFactory userFactory;
-
-    @Autowired
-    private WebDriver driver;
+    private Browser browser;
 
     @Autowired
     private SignInAction signInAction;
@@ -39,14 +35,13 @@ public class CommonSteps {
     @Autowired
     private SignOutAction signOutAction;
 
-    @Autowired
-    private NavigateHome navigateHome;
 
     @Given("user navigates to website")
     public void userNavigatesToWebsite() {
         try {
-            log.info("STEP: Given user navigates to " + environment.getProperty("url") + " website");
-            navigateHome.navigateToHomePage();
+            String homePage = environment.getProperty("url");
+            log.info("STEP: Given user navigates to " + homePage + " website");
+            browser.goToUrl(homePage);
         } catch (Exception e) {
             log.error(e.getMessage());
         }
@@ -61,6 +56,7 @@ public class CommonSteps {
     @And("user is {string} on the website")
     public void userIsRegistered(String registrationStatus) {
         try {
+            user = new User();
             log.info("STEP: And user is " + registrationStatus + " on the website");
             user.setRegistrationStatus(registrationStatus);
             //toDO: static User user = getRegisteredUserFromDB();
@@ -89,7 +85,7 @@ public class CommonSteps {
 
         try {
             log.info("STEP: Then user is redirected to " + text + " page");
-            Assert.assertEquals(PageFactory.getPageObject("header").getElementByName("header").getText(), text);
+            Assert.assertEquals(browser.getPageTitle(), text);
             log.info("SCENARIO: Passed");
         } catch (AssertionError e) {
             log.info("~~~ SCENARIO: Failed !!! ~~~\n" + e.getMessage());
@@ -123,7 +119,7 @@ public class CommonSteps {
     public void loginError(String errorText) {
         try {
             log.info("STEP: Then login error is displayed: [  " + errorText + " ]");
-            Assert.assertEquals(PageFactory.getPageObject("body").getElementByName("loginErrorField").getText(), errorText);
+//            Assert.assertEquals(PageFactory.getPageObject("body").getElementByName("loginErrorField").getText(), errorText);
         } catch (AssertionError e) {
             log.info("~~~ SCENARIO: Failed ~~~ " + e.getMessage());
             Assert.fail();
@@ -144,7 +140,7 @@ public class CommonSteps {
     public void userSignOut() {
         try {
             log.info("STEP: When user clicks sign out button");
-            signOutAction.execute(driver);
+            signOutAction.execute();
         } catch (Exception e) {
             log.error(e.getMessage());
             Assert.fail();
@@ -156,23 +152,23 @@ public class CommonSteps {
     public void verifyUserSignedOut() {
         try {
             log.info("STEP: Then user is logged out");
-            Assert.assertEquals(driver.getCurrentUrl(), "http://automationpractice.com/index.php?controller=authentication&back=my-account");
+            Assert.assertEquals(browser.getPageUrl(), "http://automationpractice.com/index.php?controller=authentication&back=my-account");
             log.info("User is redirected to Sign In page");
         } catch (AssertionError e) {
             log.info("~~~ SCENARIO: Failed ~~~ \nUser is not redirected to Sign In page - " + e.getMessage());
         }
 
-        if (PageFactory.getPageObject("header").getElementByName("pageHeading").getText().equals("MY ACCOUNT")) {
+        if (browser.getPageTitle().equals("MY ACCOUNT")) {
             log.info("~~~ SCENARIO: FAIL ~~~ \nMy Account is still present");
             Assert.fail();
         }
     }
 
     // == Spring JDBC test steps See SignInWithDatabasePulledUser.feature ==
-    @When("user status is {string}")
-    public void getRegisteredUserFromDatabase(String userRegistrationStatus) {
-        user = userFactory.getUser(userRegistrationStatus);
-    }
+//    @When("user status is {string}")
+//    public void getRegisteredUserFromDatabase(String userRegistrationStatus) {
+//        user = userFactory.getUser(userRegistrationStatus);
+//    }
 
     @And("user signs in")
     public void userSignsIn() {

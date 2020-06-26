@@ -3,38 +3,35 @@ package com.endava.helpers.util;
 
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ObjectManipulatorImpl implements ObjectManipulator {
 
-    private final WebDriverWait wait;
+    private final Browser browser;
 
     @Autowired
-    private ObjectManipulatorImpl(WebDriverWait wait) {
-        this.wait = wait;
+    private ObjectManipulatorImpl(Browser browser) {
+        this.browser = browser;
     }
 
     @Override
     public void click(@NotNull WebElement element) {
-        wait.until(ExpectedConditions.visibilityOf(element));
+        browser.waitUntilElementIsVisible(element);
         element.click();
     }
 
     @Override
     public void sendKeys(@NotNull WebElement field, String keys) {
-        wait.until(ExpectedConditions.visibilityOf(field));
+        browser.waitUntilElementIsVisible(field);
         field.clear();
         field.sendKeys(keys);
     }
 
     @Override
     public void sendKeysWithoutClearing(@NotNull WebElement field, String keys) {
-        wait.until(ExpectedConditions.visibilityOf(field));
+        browser.waitUntilElementIsVisible(field);
         field.sendKeys(keys);
     }
-
 }

@@ -1,22 +1,16 @@
-package com.endava.pageObjects;
+package com.endava.pageObjects.modules;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 
-@Component
-public class Header extends Page {
-
-    public Header() {
-        super();
-    }
+public class Header {
 
     private static final Logger log = LoggerFactory.getLogger(Header.class);
 
@@ -41,37 +35,8 @@ public class Header extends Page {
     @FindBy(how = How.XPATH, using = "//*a[@title='T-shirts']")
     private WebElement menuTshirts;
 
-    @Override
-    public WebElement getElementByName(String elementName) {
-
-        WebElement element;
-
-        switch (elementName) {
-            case "signInLink":
-                element = signInLink;
-                break;
-            case "pageHeading":
-                element = pageHeading;
-                break;
-            case "contactUs":
-                element = contactUs;
-                break;
-            case "signOutButton":
-                element = signOutButton;
-                break;
-            case "menuWomen":
-                element = menuWomen;
-                break;
-            case "menuDresses":
-                element = menuDresses;
-                break;
-            case "menuTshirts":
-                element = menuTshirts;
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + elementName);
-        }
-        return element;
+    public Header(WebDriver webDriver) {
+        PageFactory.initElements(webDriver, this);
     }
 
     public WebElement getSignInLink() {
@@ -103,24 +68,16 @@ public class Header extends Page {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         log.debug("Header Page Object toString() method invoked");
 
-        for(Field f : this.getClass().getFields()) {
+        for (Field f : this.getClass().getFields()) {
             try {
                 log.debug(f.getGenericType() + " " + f.getName() + " = " + f.get(this));
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
         }
-
-        final String message = "Body Page Object created";
-//                "\npageHeading: " + pageHeading +
-//                "\ncontactUs: " + contactUs +
-//                "\nsignOutButton: " + signOutButton +
-//                "\nmenuWomen: " + menuWomen +
-//                "\nmenuDresses: " + menuDresses +
-//                "\nmenuTshirts: " + menuTshirts;
-        return message;
+        return "Body Page Object created";
     }
 }
