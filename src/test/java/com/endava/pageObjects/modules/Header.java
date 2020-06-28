@@ -17,9 +17,6 @@ public class Header {
     @FindBy(how = How.LINK_TEXT, using = "Sign in")
     private WebElement signInLink;
 
-    @FindBy(how = How.CLASS_NAME, using = "page-heading")
-    private WebElement pageHeading;
-
     @FindBy(how = How.LINK_TEXT, using = "Contact us")
     private WebElement contactUs;
 
@@ -41,10 +38,6 @@ public class Header {
 
     public WebElement getSignInLink() {
         return signInLink;
-    }
-
-    public WebElement getPageHeading() {
-        return pageHeading;
     }
 
     public WebElement getContactUs() {

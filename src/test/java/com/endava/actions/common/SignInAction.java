@@ -1,9 +1,10 @@
 package com.endava.actions.common;
 
-
 import com.endava.helpers.util.Browser;
 import com.endava.helpers.util.ObjectManipulator;
-import com.endava.pageObjects.HomePage;
+import com.endava.helpers.util.Validator;
+import com.endava.pageObjects.LoginPage;
+import com.endava.pageObjects.MyAccountPage;
 import com.endava.users.User;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -18,34 +19,56 @@ public class SignInAction {
 
     private final Logger log = LoggerFactory.getLogger(SignInAction.class);
 
+    private User user;
+
     @Autowired
     private ObjectManipulator executor;
 
     @Autowired
     private Browser browser;
 
-    private HomePage homePage;
+    private LoginPage loginPage;
+
+    private MyAccountPage myAccountPage;
 
     @PostConstruct
     private void init() {
-        homePage = new HomePage(browser);
+        this.loginPage = new LoginPage(browser);
+        this.myAccountPage = new MyAccountPage(browser);
     }
 
     public void execute(@NotNull User user) {
         log.info("----> Sign In Action Start: ");
 
-        executor.click(homePage.getHeaderElementByName("signInLink"));
-        log.info("   -> Click My Account link");
+        this.user = user;
 
-        executor.sendKeys(homePage.getElementByName("userEmailField"), user.getUserEmail());
-        log.info("   -> User Email field is populated");
+        log.info("   -> Clicking My Account link");
+        executor.click(loginPage.getHeaderElementByName("signInLink"));
 
-        executor.sendKeys(homePage.getElementByName("userPasswordField"), user.getUserPassword());
-        log.info("   -> Password field is populated");
+        log.info("   -> Populating user email field");
+        executor.sendKeys(loginPage.getElementByName("userEmailField"), user.getUserEmail());
 
-        executor.click(homePage.getElementByName("signInButton"));
-        log.info("   -> Click Submit button");
+        log.info("   -> Populating Password field");
+        executor.sendKeys(loginPage.getElementByName("userPasswordField"), user.getUserPassword());
+
+        log.info("   -> Clicking Submit button");
+        executor.click(loginPage.getElementByName("signInButton"));
 
         log.info("----> Sign In action complete");
+
+    }
+
+    public Boolean isSignedInUsernamePresent() {
+        if (Validator.isTextMatching(myAccountPage.getElementByName("getNavBarUserFullName"), user.getUserFullName())) {
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean isLoginErrorPresent(String errorMessage) {
+        if (Validator.isTextMatching(loginPage.getHeaderElementByName("loginErrorField"), errorMessage)) {
+            return true;
+        }
+        return false;
     }
 }

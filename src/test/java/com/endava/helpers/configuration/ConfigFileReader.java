@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+@Deprecated
 public class ConfigFileReader {
 
     private static LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();

@@ -1,8 +1,10 @@
 package com.endava.runners;
 
 import com.endava.helpers.configuration.SpringConfig;
+import com.endava.helpers.util.Browser;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
+import org.junit.AfterClass;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 

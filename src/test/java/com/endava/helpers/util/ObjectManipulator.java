@@ -10,4 +10,6 @@ public interface ObjectManipulator {
     void sendKeys(@NotNull WebElement field, String keys);
 
     void sendKeysWithoutClearing(@NotNull WebElement field, String keys);
+
+    public Boolean isElementTextMatching(@NotNull WebElement element, String text);
 }

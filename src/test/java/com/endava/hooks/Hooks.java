@@ -11,7 +11,10 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.event.annotation.AfterTestExecution;
+import org.testng.annotations.AfterSuite;
 
 @ContextConfiguration(classes = SpringConfig.class)
 public class Hooks {
@@ -26,7 +29,7 @@ public class Hooks {
         log.debug("----- BEFORE HOOK START -----");
         log.info("Starting scenario:"
                 + "\n##################################################################################################"
-                + "\n                            [" + scenario.getName() + "]"
+                + "\n                  Starting Scenario: [" + scenario.getName() + "]"
                 + "\n##################################################################################################"
         );
 
@@ -64,11 +67,10 @@ public class Hooks {
             }
             log.info("BROWSER: Closed");
         }
-        browser.closeBrowser();
         log.debug("----- AFTER HOOK END -----");
         log.info("Completed scenario:"
                 + "\n##################################################################################################"
-                + "\n           [" + scenario.getName() + "] --> Status:" + scenario.getStatus()
+                + "\n     Completed scenario: [" + scenario.getName() + "] --> Status:" + scenario.getStatus()
                 + "\n##################################################################################################\n\n\n"
         );
     }

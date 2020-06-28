@@ -16,38 +16,20 @@ public class HomePage extends Page {
 
     private Header header;
 
-    @FindBy(how = How.ID, using = "email")
-    private WebElement userEmailField;
-
-    @FindBy(how = How.ID, using = "passwd")
-    private WebElement userPasswordField;
-
     @FindBy(how = How.ID, using = "SubmitLogin")
     private WebElement signInButton;
 
-    @FindBy(how = How.XPATH, using = "//*[@id=\"center_column\"]/div[1]/ol/li")
-    private WebElement loginErrorField;
-
-    @FindBy(how = How.ID, using = "email_create")
-    private WebElement emailCreateField;
-
-    @FindBy(how = How.ID, using = "SubmitCreate")
-    private WebElement submitCreateUserButton;
-
-
     public HomePage(Browser browser) {
         super(browser);
-        header = new Header(browser.getWebDriver());
+        this.header = new Header(browser.getWebDriver());
     }
 
+    //TODO: move this to Header class
     public WebElement getHeaderElementByName(String elementName) {
         WebElement element;
         switch (elementName) {
             case "signInLink":
                 element = header.getSignInLink();
-                break;
-            case "pageHeading":
-                element = header.getPageHeading();
                 break;
             case "contactUs":
                 element = header.getContactUs();
@@ -74,23 +56,9 @@ public class HomePage extends Page {
     public WebElement getElementByName(String elementName) {
         WebElement element;
         switch (elementName) {
-            case "userEmailField":
-                element = getUserEmailField();
-                break;
-            case "userPasswordField":
-                element = getUserPasswordField();
-                break;
+
             case "signInButton":
                 element = getSignInButton();
-                break;
-            case "loginErrorField":
-                element = getLoginErrorField();
-                break;
-            case "emailCreateField":
-                element = getEmailCreateField();
-                break;
-            case "submitCreateUserButton":
-                element = getSubmitCreateUserButton();
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + elementName);
@@ -102,28 +70,8 @@ public class HomePage extends Page {
         return header;
     }
 
-    public WebElement getUserEmailField() {
-        return userEmailField;
-    }
-
-    public WebElement getUserPasswordField() {
-        return userPasswordField;
-    }
-
     public WebElement getSignInButton() {
         return signInButton;
-    }
-
-    public WebElement getLoginErrorField() {
-        return loginErrorField;
-    }
-
-    public WebElement getEmailCreateField() {
-        return emailCreateField;
-    }
-
-    public WebElement getSubmitCreateUserButton() {
-        return submitCreateUserButton;
     }
 
     @Override

@@ -9,16 +9,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserFactory {
 
-    private UserDaoImpl userDaoImpl;
+    private static UserDaoImpl userDaoImpl;
     private static final Logger log = LoggerFactory.getLogger(UserFactory.class);
 
     @Autowired
     public UserFactory(UserDaoImpl  userDaoImpl){
-        this.userDaoImpl = userDaoImpl;
+        UserFactory.userDaoImpl = userDaoImpl;
     }
 
     // User object dispenser - returns a Registered or Not Registered user
-    public User getUser(String userRegistrationStatus) {
+    public static User getUser(String userRegistrationStatus) {
         log.info("Received get user request for user status: " + userRegistrationStatus);
 
         User user = null;

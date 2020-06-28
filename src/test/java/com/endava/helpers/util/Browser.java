@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PreDestroy;
+
 @Component
 public class Browser {
 
@@ -27,6 +29,7 @@ public class Browser {
         webDriverWait = new WebDriverWait(webDriver, 10, 1000);
     }
 
+    @PreDestroy
     public void closeBrowser() {
         if (webDriver != null) {
             webDriver.close();

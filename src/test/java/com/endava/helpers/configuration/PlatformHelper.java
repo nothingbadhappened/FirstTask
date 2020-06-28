@@ -1,6 +1,5 @@
 package com.endava.helpers.configuration;
 
-
 import com.endava.helpers.util.customExceptions.InvalidPlatformException;
 
 public class PlatformHelper {

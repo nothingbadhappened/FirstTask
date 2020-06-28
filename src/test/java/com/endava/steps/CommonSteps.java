@@ -4,6 +4,8 @@ import com.endava.actions.common.SignInAction;
 import com.endava.actions.common.SignOutAction;
 import com.endava.helpers.util.Browser;
 import com.endava.users.User;
+import com.endava.users.UserFactory;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -14,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.testng.Assert;
 
+import java.util.Map;
+
 public class CommonSteps {
 
     private static final Logger log = LoggerFactory.getLogger(CommonSteps.class);
@@ -22,9 +26,6 @@ public class CommonSteps {
 
     @Autowired
     private Environment environment;
-//
-//    @Autowired
-//    private UserFactory userFactory;
 
     @Autowired
     private Browser browser;
@@ -49,30 +50,30 @@ public class CommonSteps {
 
     @And("{string} user  is pulled from the Database")
     public void userIsPulledFromTheDatabase(String registrationStatus) {
-        user.setRegistrationStatus(registrationStatus);
-
+        user = UserFactory.getUser(registrationStatus);
     }
 
     @And("user is {string} on the website")
     public void userIsRegistered(String registrationStatus) {
-        try {
-            user = new User();
-            log.info("STEP: And user is " + registrationStatus + " on the website");
-            user.setRegistrationStatus(registrationStatus);
-            //toDO: static User user = getRegisteredUserFromDB();
-        } catch (Exception | Error e) {
-            log.error("Could not set user registration status! info: " + e.toString());
-            Assert.fail("Could not set user registration status! info: " + e.toString());
-        }
+        user = UserFactory.getUser(registrationStatus);
+        log.info("STEP: And user is " + registrationStatus + " on the website");
     }
 
-    @When("user signs in with valid username {string} and password {string}")
-    public void userSignIn(String username, String password) {
+    @When("specific user signs in with valid credentials:")
+    public void userSignIn(DataTable userCredentials) {
 
         try {
-            log.info("STEP: When user signs in with valid username: " + username + " and password:" + password);
-            user.setUserEmail(username);
-            user.setUserPassword(password);
+            Map<String, String> data = userCredentials.asMap(String.class, String.class);
+            data.forEach((k, v) -> log.debug("User Credentials datatable -> Key: " + k + " Value: " + v));
+
+            log.info("STEP: When specific user signs in with valid credentials");
+            user.setUserFullName(data.get("userFullName"));
+            log.debug("Assigned userFullName to value: " + data.get("userFullName"));
+            user.setUserEmail(data.get("userEmail"));
+            log.debug("Assigned userEmail to value: " + data.get("userEmail"));
+            user.setUserPassword(data.get("userPassword"));
+            log.debug("Assigned userPassword to value: " + data.get("userPassword"));
+
             signInAction.execute(user);
         } catch (Exception | Error e) {
             log.error("Could not set user credentials! info: " + e.toString());
@@ -82,22 +83,26 @@ public class CommonSteps {
 
     @Then("user is redirected to {string} page")
     public void myAccountPageLoaded(String text) {
-
         try {
             log.info("STEP: Then user is redirected to " + text + " page");
             Assert.assertEquals(browser.getPageTitle(), text);
-            log.info("SCENARIO: Passed");
         } catch (AssertionError e) {
             log.info("~~~ SCENARIO: Failed !!! ~~~\n" + e.getMessage());
             Assert.fail(e.getMessage());
         }
+    }
 
+    @And("user full name is displayed in the top navigation bar")
+    public void userFullNameIsPresentInTheTopNavbar() {
+        Assert.assertTrue(signInAction.isSignedInUsernamePresent());
+        log.info("SCENARIO: Passed");
     }
 
     @When("user is {string}")
     public void userIsNotRegistered(String registrationStatus) {
         log.info("STEP: And user is " + registrationStatus + " on the website");
-        user.setRegistrationStatus(registrationStatus);
+        //user.setRegistrationStatus(registrationStatus);
+        user = UserFactory.getUser("registered");
     }
 
     @When("user enters invalid username {string} and password {string}")
@@ -130,7 +135,8 @@ public class CommonSteps {
     public void userLoggedIn() {
         try {
             log.info("STEP: And user is logged in");
-            userSignIn("elchupakabra@mailinator.com", "Test1234!");
+            user = UserFactory.getUser("registered");
+            signInAction.execute(user);
         } catch (Exception e) {
             log.error(e.getMessage());
         }
@@ -143,9 +149,8 @@ public class CommonSteps {
             signOutAction.execute();
         } catch (Exception e) {
             log.error(e.getMessage());
-            Assert.fail();
+            Assert.fail(e.getMessage());
         }
-
     }
 
     @Then("user is logged out")
@@ -165,10 +170,10 @@ public class CommonSteps {
     }
 
     // == Spring JDBC test steps See SignInWithDatabasePulledUser.feature ==
-//    @When("user status is {string}")
-//    public void getRegisteredUserFromDatabase(String userRegistrationStatus) {
-//        user = userFactory.getUser(userRegistrationStatus);
-//    }
+    @When("user status is {string}")
+    public void getRegisteredUserFromDatabase(String userRegistrationStatus) {
+        user = UserFactory.getUser(userRegistrationStatus);
+    }
 
     @And("user signs in")
     public void userSignsIn() {
