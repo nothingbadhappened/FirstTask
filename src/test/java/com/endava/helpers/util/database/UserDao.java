@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 import java.util.List;
 
 public interface UserDao {
+
     // == methods ==
     public void setDataSource(DataSource dataSource);
 

@@ -7,7 +7,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 
@@ -103,32 +102,8 @@ public class LoginPage extends Page {
         return element;
     }
 
-    //TODO: move this to Header class
     public WebElement getHeaderElementByName(String elementName) {
-        WebElement element;
-        switch (elementName) {
-            case "signInLink":
-                element = header.getSignInLink();
-                break;
-            case "contactUs":
-                element = header.getContactUs();
-                break;
-            case "signOutButton":
-                element = header.getSignOutButton();
-                break;
-            case "menuWomen":
-                element = header.getMenuWomen();
-                break;
-            case "menuDresses":
-                element = header.getMenuDresses();
-                break;
-            case "menuTshirts":
-                element = header.getMenuTshirts();
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + elementName);
-        }
-        return element;
+        return header.getHeaderElementByName(elementName);
     }
 
     @Override

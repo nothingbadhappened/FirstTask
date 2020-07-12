@@ -21,7 +21,7 @@ public class Browser {
     private final WebDriverWait webDriverWait;
 
     public Browser(Environment environment) {
-        log.info("Initialising webdriver:");
+        log.info("Initialising webdriver: ");
         String driverName = environment.getProperty("driver");
         webDriver = WebDriverFactory.getDriver(driverName);
 

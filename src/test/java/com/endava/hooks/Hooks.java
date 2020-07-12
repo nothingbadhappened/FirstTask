@@ -4,6 +4,7 @@ import com.endava.helpers.configuration.SpringConfig;
 import com.endava.helpers.util.Browser;
 import com.endava.helpers.util.ScreenShotUtil;
 import com.endava.helpers.util.WebDriverFactory;
+import com.endava.steps.StepContext;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -11,10 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.event.annotation.AfterTestExecution;
-import org.testng.annotations.AfterSuite;
 
 @ContextConfiguration(classes = SpringConfig.class)
 public class Hooks {
@@ -26,7 +24,7 @@ public class Hooks {
 
     @Before
     public void setUp(Scenario scenario) {
-        log.debug("----- BEFORE HOOK START -----");
+        log.debug("\n\n\n----- BEFORE HOOK START -----");
         log.info("Starting scenario:"
                 + "\n##################################################################################################"
                 + "\n                  Starting Scenario: [" + scenario.getName() + "]"
@@ -48,6 +46,7 @@ public class Hooks {
     public void embedScreenshot(Scenario scenario) {
         log.debug("----- AFTER HOOK START -----");
         WebDriver driver = browser.getWebDriver();
+
         if (scenario.isFailed() && driver != null) {
             try {
                 String pageUrl = browser.getPageUrl();
@@ -67,6 +66,10 @@ public class Hooks {
             }
             log.info("BROWSER: Closed");
         }
+
+        log.debug("Resetting Step Context");
+        StepContext.reset();
+
         log.debug("----- AFTER HOOK END -----");
         log.info("Completed scenario:"
                 + "\n##################################################################################################"
@@ -74,4 +77,11 @@ public class Hooks {
                 + "\n##################################################################################################\n\n\n"
         );
     }
+
+    @After
+    public void teardown() {
+        log.debug("Resetting Step Context");
+        StepContext.reset();
+    }
+
 }

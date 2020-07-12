@@ -45,6 +45,7 @@ public class User {
     }
     public void setRegistrationStatus(String isRegistered){
         switch(isRegistered){
+            case "is registered":
             case "registered":
             case "1": {
                 this.isUserRegistered = true;

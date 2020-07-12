@@ -18,7 +18,6 @@ Feature: Sign In
     When user enters invalid username "ratatui@ne.em" and password "badPassword"
     Then login error "Authentication failed." is displayed
 
-
   Scenario: Registered user sign out
     And user is logged in
     When user clicks sign out button

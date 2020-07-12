@@ -2,9 +2,9 @@ package com.endava.actions.common;
 
 import com.endava.helpers.util.Browser;
 import com.endava.helpers.util.ObjectManipulator;
-import com.endava.helpers.util.Validator;
 import com.endava.pageObjects.LoginPage;
 import com.endava.pageObjects.MyAccountPage;
+import com.endava.steps.StepContext;
 import com.endava.users.User;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -18,7 +18,6 @@ import javax.annotation.PostConstruct;
 public class SignInAction {
 
     private final Logger log = LoggerFactory.getLogger(SignInAction.class);
-
     private User user;
 
     @Autowired
@@ -41,6 +40,8 @@ public class SignInAction {
         log.info("----> Sign In Action Start: ");
 
         this.user = user;
+        StepContext.setDriver(browser.getWebDriver());
+        StepContext.setCurrentPage(loginPage);
 
         log.info("   -> Clicking My Account link");
         executor.click(loginPage.getHeaderElementByName("signInLink"));
@@ -53,22 +54,9 @@ public class SignInAction {
 
         log.info("   -> Clicking Submit button");
         executor.click(loginPage.getElementByName("signInButton"));
+        StepContext.setCurrentPage(myAccountPage);
 
         log.info("----> Sign In action complete");
 
-    }
-
-    public Boolean isSignedInUsernamePresent() {
-        if (Validator.isTextMatching(myAccountPage.getElementByName("getNavBarUserFullName"), user.getUserFullName())) {
-            return true;
-        }
-        return false;
-    }
-
-    public Boolean isLoginErrorPresent(String errorMessage) {
-        if (Validator.isTextMatching(loginPage.getHeaderElementByName("loginErrorField"), errorMessage)) {
-            return true;
-        }
-        return false;
     }
 }

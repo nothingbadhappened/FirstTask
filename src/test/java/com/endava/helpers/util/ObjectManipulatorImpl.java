@@ -1,11 +1,15 @@
 package com.endava.helpers.util;
 
+import com.endava.pageObjects.modules.ProductListItem;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class ObjectManipulatorImpl implements ObjectManipulator {
@@ -27,6 +31,38 @@ public class ObjectManipulatorImpl implements ObjectManipulator {
     }
 
     @Override
+    public void click(@NotNull ProductListItem productListItem) {
+        Actions action = new Actions(browser.getWebDriver());
+
+        action.moveToElement(productListItem.getProductItemName())
+                .moveToElement(productListItem.getProductItemPrice())
+                .moveToElement(productListItem.getProductItemAddToCartBtn())
+                .click()
+                .build()
+                .perform();
+
+        log.debug("Clicked element: {}", productListItem.getProductItemAddToCartBtn());
+    }
+
+    @Override
+    public void click(@NotNull List<WebElement> dropdown, String optionName) {
+        WebElement currentOption;
+
+        log.debug("Looking for the option " + optionName + " in the dropdown " + dropdown.toString());
+        for (int i = 0; i < dropdown.size(); i++) {
+
+            currentOption = dropdown.get(i);
+            browser.waitUntilElementIsVisible(currentOption);
+
+            if (currentOption.getText().equalsIgnoreCase(optionName)) {
+                i = dropdown.size();
+                currentOption.click();
+                log.info("Option has been found and clicked: {}", currentOption);
+            }
+        }
+    }
+
+    @Override
     public void sendKeys(@NotNull WebElement field, String keys) {
         browser.waitUntilElementIsVisible(field);
         field.clear();
@@ -39,14 +75,6 @@ public class ObjectManipulatorImpl implements ObjectManipulator {
         browser.waitUntilElementIsVisible(field);
         field.sendKeys(keys);
         log.debug("Sent keys to element: {}", field);
-    }
-
-    @Override
-    public Boolean isElementTextMatching(@NotNull WebElement element, String text) {
-        if (element.getText().equals(text)) {
-            return true;
-        }
-        return false;
     }
 
 }

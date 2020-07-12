@@ -18,6 +18,7 @@ public abstract class Page {
     }
 
     public abstract WebElement getElementByName(String elementName);
+    public abstract WebElement getHeaderElementByName(String elementName);
 
     @Override
     public String toString() {

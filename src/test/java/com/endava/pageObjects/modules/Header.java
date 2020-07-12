@@ -1,5 +1,8 @@
 package com.endava.pageObjects.modules;
 
+import com.endava.steps.StepContext;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -13,6 +16,7 @@ import java.lang.reflect.Field;
 public class Header {
 
     private static final Logger log = LoggerFactory.getLogger(Header.class);
+    private static WebDriver driver;
 
     @FindBy(how = How.LINK_TEXT, using = "Sign in")
     private WebElement signInLink;
@@ -32,8 +36,31 @@ public class Header {
     @FindBy(how = How.XPATH, using = "//*a[@title='T-shirts']")
     private WebElement menuTshirts;
 
+    @FindBy(how = How.ID, using = "search_query_top")
+    private WebElement headerSearchBox;
+
+    @FindBy(how = How.ID_OR_NAME, using = "submit_search")
+    private WebElement headerSearchButton;
+
+    @FindBy(how = How.XPATH, using = "//*[@id=\"header\"]/div[2]/div/div/nav/div[1]/a/span")
+    private WebElement userFullName;
+
+    private WebElement headerCartItem;
+
     public Header(WebDriver webDriver) {
         PageFactory.initElements(webDriver, this);
+    }
+
+    public WebElement getHeaderCartItem() {
+        if (headerCartItem != null){
+            return headerCartItem;
+        }
+        else throw new NoSuchElementException("Item is not present in the cart.");
+    }
+
+    public void setHeaderCartItem(WebElement headerCartItem) {
+        driver = StepContext.getDriver();
+        this.headerCartItem = driver.findElement(By.xpath("//*[@id=\"header\"]/div[3]/div/div/div[3]/div/div/div/div/dl/dt/div/div[1]/a"));
     }
 
     public WebElement getSignInLink() {
@@ -48,6 +75,14 @@ public class Header {
         return signOutButton;
     }
 
+    public WebElement getHeaderSearchBox() {
+        return headerSearchBox;
+    }
+
+    public WebElement getHeaderSearchButton() {
+        return headerSearchButton;
+    }
+
     public WebElement getMenuWomen() {
         return menuWomen;
     }
@@ -58,6 +93,46 @@ public class Header {
 
     public WebElement getMenuTshirts() {
         return menuTshirts;
+    }
+
+    public WebElement getUserFullName() {
+        return userFullName;
+    }
+
+    public WebElement getHeaderElementByName(String elementName) {
+        WebElement element;
+        switch (elementName) {
+            case "signInLink":
+                element = getSignInLink();
+                break;
+            case "contactUs":
+                element = getContactUs();
+                break;
+            case "headerSearchBox":
+                element = getHeaderSearchBox();
+                break;
+            case "getHeaderSearchButton":
+                element = getHeaderSearchButton();
+                break;
+            case "signOutButton":
+                element = getSignOutButton();
+                break;
+            case "menuWomen":
+                element = getMenuWomen();
+                break;
+            case "menuDresses":
+                element = getMenuDresses();
+                break;
+            case "menuTshirts":
+                element = getMenuTshirts();
+                break;
+            case "userFullName":
+                element = getUserFullName();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + elementName);
+        }
+        return element;
     }
 
     @Override
@@ -71,6 +146,6 @@ public class Header {
                 e.printStackTrace();
             }
         }
-        return "Body Page Object created";
+        return "Header Page Object created";
     }
 }

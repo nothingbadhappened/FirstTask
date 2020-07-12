@@ -32,7 +32,7 @@ public class UserDaoImpl implements UserDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    // == Create new user entry in Users table
+    // == Create new user entry in Users table ==
     @Override
     public void createUser(String userEmail, String userPassword, int userRegistrationStatus) {
         String SQL = "insert into users (userEmail, userPassword, userRegistrationStatus) values (?, ?, ?)";
@@ -41,7 +41,7 @@ public class UserDaoImpl implements UserDao {
         jdbcTemplate.update(SQL, userEmail, userPassword, userRegistrationStatus);
     }
 
-    // == Get the list of results
+    // == Get the list of results ==
     @Override
     public List<User> getAllUsers() {
         String SQL = "select * from users";
@@ -80,7 +80,7 @@ public class UserDaoImpl implements UserDao {
     public User getNotRegisteredUser() {
         String SQL = "select * " +
                 "from users " +
-                "where  isRegistered = 0 " +
+                "where  is_registered = 0 " +
                 "limit 1 ";
         log.debug("Getting not registered user. SQL: " + SQL);
         return (User) jdbcTemplate.queryForObject(SQL, userRowMapper);
