@@ -10,7 +10,6 @@ Feature: Search
       | productName                     |
       | Printed Chiffon Dress           |
       | Faded Short Sleeve T-shirts     |
-      | fail test                       |
 
       Scenario Outline: There are no items returned by search
         Given user navigates to website
