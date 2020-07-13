@@ -31,8 +31,8 @@ public class ConfigFileReader {
                 final String WEB_DRIVER_PATH = System.getProperty("user.dir") + properties.getProperty("webdriver.path");
 
                 try {
-                    final String CHROME_DRIVER_BIN = PlatformHelper.getChromeDriverBin();
-                    final String FIREFOX_DRIVER_BIN = PlatformHelper.getFirefoxDriverBin();
+                    final String CHROME_DRIVER_BIN = PlatformHelper.getChromeDriverBinType();
+                    final String FIREFOX_DRIVER_BIN = PlatformHelper.getFirefoxDriverBinType();
 
                     //set driver path
                     System.setProperty("webdriver.chrome.driver", WEB_DRIVER_PATH + CHROME_DRIVER_BIN);

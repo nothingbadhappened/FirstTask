@@ -42,12 +42,12 @@ public class PlatformHelper {
 
     }
 
-    public static String getChromeDriverBin() throws InvalidPlatformException {
+    public static String getChromeDriverBinType() throws InvalidPlatformException {
         setPlatform();
         return chromeDriverBin;
     }
 
-    public static String getFirefoxDriverBin() throws InvalidPlatformException {
+    public static String getFirefoxDriverBinType() throws InvalidPlatformException {
         setPlatform();
         return firefoxDriverBin;
     }

@@ -1,5 +1,7 @@
 package com.endava.helpers.util;
 
+import com.endava.helpers.configuration.PlatformHelper;
+import com.endava.helpers.util.customExceptions.InvalidPlatformException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -23,6 +25,23 @@ public class Browser {
     public Browser(Environment environment) {
         log.info("Initialising webdriver: ");
         String driverName = environment.getProperty("driver");
+
+        final String WEB_DRIVER_PATH = System.getProperty("user.dir") + environment.getProperty("webdriver.path");
+
+        try {
+            final String CHROME_DRIVER_BIN_TYPE = PlatformHelper.getChromeDriverBinType();
+            final String FIREFOX_DRIVER_BIN_TYPE = PlatformHelper.getFirefoxDriverBinType();
+
+            //set driver path
+            System.setProperty("webdriver.chrome.driver", WEB_DRIVER_PATH + CHROME_DRIVER_BIN_TYPE);
+            System.setProperty("webdriver.gecko.driver", WEB_DRIVER_PATH + FIREFOX_DRIVER_BIN_TYPE);
+
+        } catch (InvalidPlatformException invalidPlatform) {
+            invalidPlatform.getMessage();
+            invalidPlatform.printStackTrace();
+            System.exit(1);
+        }
+
         webDriver = WebDriverFactory.getDriver(driverName);
 
         log.info("Setting WebDriver Wait for " + webDriver.toString());
