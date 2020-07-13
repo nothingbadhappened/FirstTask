@@ -20,7 +20,7 @@ import org.springframework.test.context.ContextConfiguration;
                 "html:target/cucumber-reports/",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:target/cucumber-reports/fancy/report.html"
         },
-        tags = {"@onlyThis"},
+        tags = {"@FullRun"},
         stepNotifications = true
 )
 @ContextConfiguration(classes = SpringConfig.class)

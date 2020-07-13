@@ -71,7 +71,12 @@ public class SearchProduct {
         StepContext.setModule(productList);
 
         log.debug("Updating Step Context: Passing found product list item data");
-        StepContext.setProductListItem(productList.getProductListItem());
+        try {
+            StepContext.setProductListItem(productList.getProductListItem());
+        } catch (IllegalStateException e) {
+            log.debug(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public boolean getIsProductFound() {
