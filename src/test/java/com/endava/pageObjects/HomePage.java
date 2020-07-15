@@ -15,7 +15,6 @@ public class HomePage extends Page {
     private static final Logger log = LoggerFactory.getLogger(HomePage.class);
 
     private Header header;
-//    private ProductList productList;
 
     @FindBy(how = How.XPATH, using = "//*[@id=\"home-page-tabs\"]/li[1]/a")
     private WebElement popularTabItem;
@@ -26,7 +25,6 @@ public class HomePage extends Page {
     public HomePage(Browser browser) {
         super(browser);
         this.header = new Header(browser.getWebDriver());
-//        this.productList = new ProductList(browser.getWebDriver());
     }
 
     public WebElement getHeaderElementByName(String elementName) {
@@ -60,10 +58,6 @@ public class HomePage extends Page {
     public WebElement getBestsellersTabItem() {
         return bestsellersTabItem;
     }
-
-//    public ProductList getProductList() {
-//        return productList;
-//    }
 
     @Override
     public String toString() {
