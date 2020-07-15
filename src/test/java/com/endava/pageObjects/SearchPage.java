@@ -28,6 +28,9 @@ public class SearchPage extends Page {
     @FindBy(how = How.ID, using = "selectProductSort")
     private List<WebElement> sortByDropdown;
 
+    @FindBy(how = How.XPATH, using = "//*[@id=\"center_column\"]/p")
+    private WebElement failedSearchMessageElement;
+
     @Override
     public WebElement getElementByName(String elementName) {
         switch (elementName) {
@@ -36,6 +39,9 @@ public class SearchPage extends Page {
                 break;
             case "listModeBtn":
                 element = getListModeBtn();
+                break;
+            case "failedSearchMessageElement":
+                element = failedSearchMessageElement;
                 break;
             default:
                 throw new InvalidArgumentException("Invalid Search Page element: " + elementName);
@@ -49,6 +55,10 @@ public class SearchPage extends Page {
 
     public WebElement getListModeBtn() {
         return listModeBtn;
+    }
+
+    public WebElement getFailedSearchMessageElement() {
+        return failedSearchMessageElement;
     }
 
     public List<WebElement> getSortByDropdown() {

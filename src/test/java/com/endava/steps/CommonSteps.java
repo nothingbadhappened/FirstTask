@@ -7,8 +7,7 @@ import com.endava.actions.common.SignOutAction;
 import com.endava.helpers.util.browser.Browser;
 import com.endava.pageObjects.CartPage;
 import com.endava.pageObjects.Page;
-import com.endava.pageObjects.modules.Header;
-import com.endava.helpers.util.actionsUtil.ProductList;
+import com.endava.pageObjects.modules.ProductListItem;
 import com.endava.users.User;
 import com.endava.users.UserProviderService;
 import io.cucumber.datatable.DataTable;
@@ -33,8 +32,7 @@ public class CommonSteps {
     private User user;
     private WebElement element;
     private Page page;
-    private Header header;
-    private ProductList productList;
+    private ProductListItem productListItem;
 
     @Autowired
     private UserProviderService userProviderService;
@@ -245,11 +243,11 @@ public class CommonSteps {
     public void productNameIsFound(String productName) {
         log.info("STEP: Then " + productName + " is present in search results");
 
-        productList = StepContext.getProductListModule();
+        productListItem = StepContext.getProductListItem();
 
         try {
             Assert.assertTrue(searchProduct.getIsProductFound());
-            Assert.assertEquals(productName, productList.getProductItemName().getText());
+            Assert.assertEquals(productName, productListItem.getProductItemName().getText());
             log.info("~~~ STEP: PASSED ~~~");
         } catch (AssertionError e) {
             log.info("~~~ STEP: Failed ~~~ \nThe product has not been found in search results - " + e.getMessage());
@@ -259,8 +257,10 @@ public class CommonSteps {
 
     @Then("failed search message is displayed with text {string}")
     public void productNameIsNotFound(String expectedMessage) {
-        String actualMessage = searchProduct
-                .getSearchFailedMessage(StepContext.getProductNameElement())
+        page = StepContext.getCurrentPage();
+        String actualMessage = page
+                .getElementByName("failedSearchMessageElement")
+                .getText()
                 .replace("\"", "");
 
         try {

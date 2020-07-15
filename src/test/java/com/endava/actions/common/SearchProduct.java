@@ -1,11 +1,12 @@
 package com.endava.actions.common;
 
-import com.endava.helpers.util.browser.Browser;
 import com.endava.helpers.util.actionsUtil.ObjectManipulator;
+import com.endava.helpers.util.actionsUtil.ProductList;
+import com.endava.helpers.util.browser.Browser;
 import com.endava.pageObjects.HomePage;
 import com.endava.pageObjects.SearchPage;
 import com.endava.pageObjects.modules.Header;
-import com.endava.helpers.util.actionsUtil.ProductList;
+import com.endava.pageObjects.modules.ProductListItem;
 import com.endava.steps.StepContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,7 @@ public class SearchProduct {
 
     private SearchPage searchPage;
     private ProductList productList;
+    private ProductListItem productListItem;
     private boolean isProductFound = false;
 
     @PostConstruct
@@ -60,19 +62,18 @@ public class SearchProduct {
 
         log.debug("Looking for the required product");
 
-        productList.locateProductItemElementsByProductName(productName);
-
+        productListItem = productList.getProductListItemByName(productName);
         isProductFound = productList.getIsProductFound();
 
         log.debug("Updating Step Context: Passing header module data");
         StepContext.setModule(header);
 
-        log.debug("Updating Step Context: Passing product list module data");
-        StepContext.setModule(productList);
+        log.debug("Updating Step Context: Passing product list item data");
+        StepContext.setProductListItem(productListItem);
 
         log.debug("Updating Step Context: Passing found product list item data");
         try {
-            StepContext.setProductListItem(productList.getProductListItem());
+            StepContext.setProductListItem(productList.getProductListItemByName(productName));
         } catch (IllegalStateException e) {
             log.debug(e.getMessage());
             e.printStackTrace();
@@ -89,15 +90,7 @@ public class SearchProduct {
 
         if (isProductFound) {
             log.debug("Item has been found. Clicking ADD TO CART button...");
-            executor.click(productList.getProductItemAddToCartBtn());
+            executor.click(productListItem.getProductItemAddToCartBtn());
         }
     }
-
-    public String getSearchFailedMessage(String productName) {
-        execute(productName);
-        if (!isProductFound) {
-            return productList.getFailedSearchMessageElement().getText();
-        } else throw new IllegalStateException("There is no Failed Search error message present.");
-    }
-
 }

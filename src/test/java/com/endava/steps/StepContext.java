@@ -18,7 +18,6 @@ public class StepContext {
     private static Page currentPage;
     private static WebElement element;
     private static Header headerModule;
-    private static ProductList productListModule;
     private static String productNameElement;
     private static ProductListItem productListItem;
 
@@ -27,7 +26,6 @@ public class StepContext {
         currentPage = null;
         element = null;
         headerModule = null;
-        productListModule = null;
         productNameElement = null;
         productListItem = null;
     }
@@ -63,13 +61,6 @@ public class StepContext {
             throw new NullPointerException("Header module must not be null. Please make sure you have initialized module properly.");
     }
 
-    public static ProductList getProductListModule() {
-        if (headerModule != null) {
-            return productListModule;
-        } else
-            throw new NullPointerException("Header module must not be null. Please make sure you have initialized module properly.");
-    }
-
     public static ProductListItem getProductListItem() {
         return productListItem;
     }
@@ -90,10 +81,6 @@ public class StepContext {
 
     public static void setModule(@NotNull Header headerModule) {
         StepContext.headerModule = headerModule;
-    }
-
-    public static void setModule(@NotNull ProductList productListModule) {
-        StepContext.productListModule = productListModule;
     }
 
     public static void setProductListItem(@NotNull ProductListItem productListItem) {

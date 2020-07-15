@@ -12,19 +12,15 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class ProductList {
 
     private static final Logger log = LoggerFactory.getLogger(ProductList.class);
     private static WebDriver driver;
-    private WebElement element;
     private boolean isProductFound = false;
 
-    private WebElement productItemName;
-    private WebElement productItemPrice;
     private WebElement productItemDiscount;
-    private WebElement productItemAddToCartBtn;
-    private WebElement failedSearchMessageElement;
 
     @FindBy(how = How.XPATH, using = "//*[@id=\"center_column\"]/ul/li")
     private List<WebElement> productList;
@@ -38,10 +34,6 @@ public class ProductList {
         return productList;
     }
 
-    public static WebDriver getDriver() {
-        return driver;
-    }
-
     public boolean getIsProductFound() {
         return isProductFound;
     }
@@ -50,70 +42,9 @@ public class ProductList {
         this.isProductFound = isProductFound;
     }
 
-    public WebElement getProductItemName() {
-        if (isProductFound) return productItemName;
-        else
-            throw new IllegalStateException("Product has not been specified or found. Invoke locateProductItemByName(name) first!");
-    }
-
-    public WebElement getProductItemPrice() {
-        if (isProductFound) return productItemPrice;
-        else
-            throw new IllegalStateException("Product has not been specified or found. Invoke locateProductItemByName(name) first!");
-    }
-
-    public WebElement getProductItemDiscount() {
-        if (isProductFound) return productItemDiscount;
-        else
-            throw new IllegalStateException("Product has not been specified or found. Invoke locateProductItemByName(name) first!");
-    }
-
-    public WebElement getProductItemAddToCartBtn() {
-        if (isProductFound) return productItemAddToCartBtn;
-        else
-            throw new IllegalStateException("Product has not been specified or found. Invoke locateProductItemByName(name) first!");
-    }
-
-    public WebElement getFailedSearchMessageElement() {
-        setFailedSearchMessageElement();
-        return failedSearchMessageElement;
-    }
-
-    public WebElement getProductListItemFieldByName(String name) {
-        switch (name) {
-            case "productItemName":
-                element = getProductItemName();
-                break;
-            case "productItemPrice":
-                element = getProductItemPrice();
-                break;
-            case "productItemDiscount":
-                element = getProductItemDiscount();
-                break;
-            case "productItemAddToCartBtn":
-                element = getProductItemAddToCartBtn();
-                break;
-            case "failedSearchMessageElement":
-                element = getFailedSearchMessageElement();
-                break;
-            default:
-                throw new IllegalArgumentException("Unexpected product name: " + name);
-        }
-
-        return element;
-    }
-
-    public ProductListItem getProductListItem() {
-        if (isProductFound) {
-            if (productItemDiscount != null) {
-                return new ProductListItem(productItemName, productItemPrice, productItemDiscount, productItemAddToCartBtn);
-            }
-            return new ProductListItem(productItemName, productItemPrice, productItemAddToCartBtn);
-        } else throw new IllegalStateException("Nothing to return, there are no items found");
-    }
-
-    public void locateProductItemElementsByProductName(String productName) {
+    public ProductListItem getProductListItemByName(String productName) {
         WebElement currentElement;
+        ProductListItem productListItem = null;
 
         for (int i = 0; i < productList.size(); i++) {
 
@@ -122,6 +53,7 @@ public class ProductList {
             String productListItemNameXPATH = "//*[@id=\"center_column\"]/ul/li[" + productListItemNbr + "]/div/div[2]/h5/a";
             currentElement = driver.findElement(By.xpath(productListItemNameXPATH));
 
+            // Searching the product user requested
             if (currentElement.getText().equalsIgnoreCase(productName)) {
 
                 setIsProductFound(true);
@@ -131,9 +63,8 @@ public class ProductList {
                 String productListItemDiscountXPATH = "//*[@id=\"center_column\"]/ul/li[" + productListItemNbr + "]/div/div[1]/div/div[2]/span[3]";
                 String productListItemAddToCartBtnXPATH = "//*[@id=\"center_column\"]/ul/li[" + productListItemNbr + "]/div/div[2]/div[2]/a[1]/span";
 
-                productItemName = currentElement;
-                productItemPrice = driver.findElement(By.xpath(productListItemPriceXPATH));
-                productItemAddToCartBtn = driver.findElement(By.xpath(productListItemAddToCartBtnXPATH));
+                WebElement productItemPrice = driver.findElement(By.xpath(productListItemPriceXPATH));
+                WebElement productItemAddToCartBtn = driver.findElement(By.xpath(productListItemAddToCartBtnXPATH));
 
                 try {
                     productItemDiscount = driver.findElement(By.xpath(productListItemDiscountXPATH));
@@ -143,36 +74,33 @@ public class ProductList {
                     productItemDiscount = null;
                 } finally {
                     if (productItemDiscount != null) {
+                        productListItem = new ProductListItem(currentElement, productItemPrice, productItemDiscount, productItemAddToCartBtn);
                         log.debug("Setup complete, the following elements are now available:\n"
-                                + "Product item name location : " + productItemName.toString() + "\n"
+                                + "Product item name location : " + currentElement.toString() + "\n"
                                 + "Product item price location : " + productItemPrice.toString() + "\n"
-                                + "Product item discount location:  " + getProductItemDiscount().toString() + "\n"
-                                + "Product item add to cart button location: " + getProductItemAddToCartBtn().toString() + "\n");
+                                + "Product item discount location:  " + productItemDiscount.toString() + "\n"
+                                + "Product item add to cart button location: " + productItemAddToCartBtn.toString() + "\n");
                     } else {
+                        productListItem = new ProductListItem(currentElement, productItemPrice, productItemAddToCartBtn);
                         log.debug("Setup complete, the following elements are now available:\n"
-                                + "Product item name location : " + productItemName.toString() + "\n"
+                                + "Product item name location : " + currentElement.toString() + "\n"
                                 + "Product item price location : " + productItemPrice.toString() + "\n"
-                                + "Product item add to cart button location: " + getProductItemAddToCartBtn().toString() + "\n");
+                                + "Product item add to cart button location: " + productItemAddToCartBtn.toString() + "\n");
                     }
 
+                    //Stop the loop
                     i = productList.size();
                 }
-            }
+
+            } else throw new NoSuchElementException();
 
         }
-
-    }
-
-    private void setFailedSearchMessageElement(){
-        if(!isProductFound) {
-            failedSearchMessageElement = driver.findElement(By.xpath("//*[@id=\"center_column\"]/p"));
-            log.info("Could not find any results...");
-        }
+        return productListItem;
     }
 
     @Override
     public String toString() {
-        log.debug("Product List Item Page Object toString() method invoked");
+        log.debug("Product List Item Object toString() method invoked");
 
         for (Field f : this.getClass().getFields()) {
             try {
