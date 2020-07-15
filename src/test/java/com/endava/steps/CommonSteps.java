@@ -237,7 +237,7 @@ public class CommonSteps {
     @When("user searches for {string} item")
     public void userSearchesForItem(String productName) {
         log.info("Step: When user searches for " + productName + " item");
-        StepContext.setProductName(productName);
+        StepContext.setProductNameElement(productName);
         searchProduct.execute(productName);
     }
 
@@ -260,7 +260,7 @@ public class CommonSteps {
     @Then("failed search message is displayed with text {string}")
     public void productNameIsNotFound(String expectedMessage) {
         String actualMessage = searchProduct
-                .getSearchFailedMessage(StepContext.getProductName())
+                .getSearchFailedMessage(StepContext.getProductNameElement())
                 .replace("\"", "");
 
         try {
@@ -300,7 +300,7 @@ public class CommonSteps {
         page = StepContext.getCurrentPage();
         try {
             Thread.sleep(2000);
-            Assert.assertEquals(StepContext.getProductListItem().getProductItemName().getText(), StepContext.getProductName());
+            Assert.assertEquals(StepContext.getProductListItem().getProductItemName().getText(), StepContext.getProductNameElement());
         } catch (AssertionError | InterruptedException e) {
             log.info("~~~ STEP: Failed ~~~ \nBad product name in the Cart - " + e.getMessage());
             Assert.fail();

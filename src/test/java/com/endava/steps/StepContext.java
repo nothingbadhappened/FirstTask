@@ -19,7 +19,7 @@ public class StepContext {
     private static WebElement element;
     private static Header headerModule;
     private static ProductList productListModule;
-    private static String productName;
+    private static String productNameElement;
     private static ProductListItem productListItem;
 
     public static void reset() {
@@ -28,7 +28,7 @@ public class StepContext {
         element = null;
         headerModule = null;
         productListModule = null;
-        productName = null;
+        productNameElement = null;
         productListItem = null;
     }
 
@@ -40,8 +40,8 @@ public class StepContext {
         return driver;
     }
 
-    public static String getProductName() {
-        return productName;
+    public static String getProductNameElement() {
+        return productNameElement;
     }
 
     public static WebElement getElement(@NotNull String elementName) {
@@ -84,8 +84,8 @@ public class StepContext {
         log.debug("Current page " + page.toString() + " has been passed to Step Context");
     }
 
-    public static void setProductName(String productName) {
-        StepContext.productName = productName;
+    public static void setProductNameElement(String productNameElement) {
+        StepContext.productNameElement = productNameElement;
     }
 
     public static void setModule(@NotNull Header headerModule) {

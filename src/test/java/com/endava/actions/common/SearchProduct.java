@@ -44,7 +44,7 @@ public class SearchProduct {
         StepContext.setCurrentPage(homePage);
 
         log.debug("Updating Step Context: Current product name: " + productName);
-        StepContext.setProductName(productName);
+        StepContext.setProductNameElement(productName);
 
         log.debug("Entering product name to search for: " + productName);
         executor.sendKeys(header.getHeaderSearchBox(), productName);

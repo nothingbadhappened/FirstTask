@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +27,22 @@ public class Browser {
         log.info("Initialising webdriver: ");
         String driverName = environment.getProperty("driver");
 
+        setDriverPath(environment);
+        webDriver = WebDriverFactory.getDriver(driverName);
+
+        log.info("Setting WebDriver Wait for " + webDriver.toString());
+        webDriverWait = new WebDriverWait(webDriver, 10, 1000);
+    }
+
+    @PreDestroy
+    public void closeBrowser() {
+        if (webDriver != null) {
+            webDriver.close();
+            webDriver.quit();
+        }
+    }
+
+    private static void setDriverPath(Environment environment){
         final String WEB_DRIVER_PATH = System.getProperty("user.dir") + environment.getProperty("webdriver.path");
 
         try {
@@ -40,19 +57,6 @@ public class Browser {
             invalidPlatform.getMessage();
             invalidPlatform.printStackTrace();
             System.exit(1);
-        }
-
-        webDriver = WebDriverFactory.getDriver(driverName);
-
-        log.info("Setting WebDriver Wait for " + webDriver.toString());
-        webDriverWait = new WebDriverWait(webDriver, 10, 1000);
-    }
-
-    @PreDestroy
-    public void closeBrowser() {
-        if (webDriver != null) {
-            webDriver.close();
-            webDriver.quit();
         }
     }
 
