@@ -1,6 +1,6 @@
 package com.endava.pageObjects;
 
-import com.endava.helpers.util.Browser;
+import com.endava.helpers.util.browser.Browser;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;

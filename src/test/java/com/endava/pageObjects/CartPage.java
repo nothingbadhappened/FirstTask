@@ -1,8 +1,8 @@
 package com.endava.pageObjects;
 
-import com.endava.helpers.util.Browser;
+import com.endava.helpers.util.browser.Browser;
 import com.endava.pageObjects.modules.Header;
-import com.endava.pageObjects.modules.ProductList;
+import com.endava.helpers.util.actionsUtil.ProductList;
 import com.endava.pageObjects.modules.ProductListItem;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

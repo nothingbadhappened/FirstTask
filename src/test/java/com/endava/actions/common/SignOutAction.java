@@ -1,7 +1,7 @@
 package com.endava.actions.common;
 
-import com.endava.helpers.util.Browser;
-import com.endava.helpers.util.ObjectManipulatorImpl;
+import com.endava.helpers.util.browser.Browser;
+import com.endava.helpers.util.actionsUtil.ObjectManipulatorImpl;
 import com.endava.pageObjects.MyAccountPage;
 import com.endava.steps.StepContext;
 import org.slf4j.Logger;

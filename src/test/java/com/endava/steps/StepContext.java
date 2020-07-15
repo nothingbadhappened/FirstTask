@@ -2,7 +2,7 @@ package com.endava.steps;
 
 import com.endava.pageObjects.Page;
 import com.endava.pageObjects.modules.Header;
-import com.endava.pageObjects.modules.ProductList;
+import com.endava.helpers.util.actionsUtil.ProductList;
 import com.endava.pageObjects.modules.ProductListItem;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.InvalidArgumentException;

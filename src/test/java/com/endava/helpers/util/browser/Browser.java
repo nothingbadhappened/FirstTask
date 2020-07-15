@@ -1,4 +1,4 @@
-package com.endava.helpers.util;
+package com.endava.helpers.util.browser;
 
 import com.endava.helpers.configuration.PlatformHelper;
 import com.endava.helpers.util.customExceptions.InvalidPlatformException;
@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 

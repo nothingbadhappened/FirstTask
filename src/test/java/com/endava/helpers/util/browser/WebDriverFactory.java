@@ -1,4 +1,4 @@
-package com.endava.helpers.util;
+package com.endava.helpers.util.browser;
 
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;

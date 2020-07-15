@@ -1,14 +1,12 @@
 package com.endava.pageObjects;
 
-import com.endava.helpers.util.Browser;
+import com.endava.helpers.util.browser.Browser;
 import com.endava.pageObjects.modules.Header;
-import com.endava.pageObjects.modules.ProductList;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 public class ProductPage extends Page {
-    private ProductList productList;
     private Header header;
     private WebElement element;
 
@@ -17,8 +15,6 @@ public class ProductPage extends Page {
 
     public ProductPage(Browser browser) {
         super(browser);
-
-        this.productList = new ProductList(browser.getWebDriver());
         this.header = new Header(browser.getWebDriver());
     }
 

@@ -1,11 +1,11 @@
 package com.endava.actions.common;
 
-import com.endava.helpers.util.Browser;
-import com.endava.helpers.util.ObjectManipulator;
+import com.endava.helpers.util.browser.Browser;
+import com.endava.helpers.util.actionsUtil.ObjectManipulator;
 import com.endava.pageObjects.HomePage;
 import com.endava.pageObjects.SearchPage;
 import com.endava.pageObjects.modules.Header;
-import com.endava.pageObjects.modules.ProductList;
+import com.endava.helpers.util.actionsUtil.ProductList;
 import com.endava.steps.StepContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +53,7 @@ public class SearchProduct {
         executor.click(header.getHeaderSearchButton());
 
         searchPage = new SearchPage(browser);
-        productList = searchPage.getProductList();
+        productList = new ProductList(browser.getWebDriver());
 
         log.debug("Updating Step Context: Current page is Search Page");
         StepContext.setCurrentPage(searchPage);

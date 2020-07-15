@@ -1,6 +1,6 @@
 package com.endava.pageObjects;
 
-import com.endava.helpers.util.Browser;
+import com.endava.helpers.util.browser.Browser;
 import com.endava.pageObjects.modules.Header;
 import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.WebElement;

@@ -1,5 +1,6 @@
-package com.endava.helpers.util;
+package com.endava.helpers.util.actionsUtil;
 
+import com.endava.helpers.util.browser.Browser;
 import com.endava.pageObjects.modules.ProductListItem;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebElement;

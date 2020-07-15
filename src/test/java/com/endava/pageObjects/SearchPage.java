@@ -1,8 +1,7 @@
 package com.endava.pageObjects;
 
-import com.endava.helpers.util.Browser;
+import com.endava.helpers.util.browser.Browser;
 import com.endava.pageObjects.modules.Header;
-import com.endava.pageObjects.modules.ProductList;
 import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,14 +11,11 @@ import java.util.List;
 
 public class SearchPage extends Page {
 
-    private ProductList productList;
     private Header header;
     private WebElement element;
 
     public SearchPage(Browser browser) {
         super(browser);
-
-        this.productList = new ProductList(browser.getWebDriver());
         this.header = new Header(browser.getWebDriver());
     }
 
@@ -31,11 +27,6 @@ public class SearchPage extends Page {
 
     @FindBy(how = How.ID, using = "selectProductSort")
     private List<WebElement> sortByDropdown;
-
-
-    public WebElement getPoductListElementByName(String name) {
-        return productList.getProductListItemFieldByName(name);
-    }
 
     @Override
     public WebElement getElementByName(String elementName) {
@@ -62,10 +53,6 @@ public class SearchPage extends Page {
 
     public List<WebElement> getSortByDropdown() {
         return sortByDropdown;
-    }
-
-    public ProductList getProductList() {
-        return productList;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.endava.helpers.util;
+package com.endava.helpers.util.actionsUtil;
 
 import com.endava.pageObjects.modules.ProductListItem;
 import org.jetbrains.annotations.NotNull;

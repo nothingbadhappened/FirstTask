@@ -1,5 +1,6 @@
-package com.endava.pageObjects.modules;
+package com.endava.helpers.util.actionsUtil;
 
+import com.endava.pageObjects.modules.ProductListItem;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

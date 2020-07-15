@@ -1,4 +1,4 @@
-package com.endava.helpers.util;
+package com.endava.helpers.util.actionsUtil;
 
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.WebDriver;

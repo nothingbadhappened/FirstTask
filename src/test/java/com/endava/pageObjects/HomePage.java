@@ -1,8 +1,7 @@
 package com.endava.pageObjects;
 
-import com.endava.helpers.util.Browser;
+import com.endava.helpers.util.browser.Browser;
 import com.endava.pageObjects.modules.Header;
-import com.endava.pageObjects.modules.ProductList;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -16,7 +15,7 @@ public class HomePage extends Page {
     private static final Logger log = LoggerFactory.getLogger(HomePage.class);
 
     private Header header;
-    private ProductList productList;
+//    private ProductList productList;
 
     @FindBy(how = How.XPATH, using = "//*[@id=\"home-page-tabs\"]/li[1]/a")
     private WebElement popularTabItem;
@@ -27,7 +26,7 @@ public class HomePage extends Page {
     public HomePage(Browser browser) {
         super(browser);
         this.header = new Header(browser.getWebDriver());
-        this.productList = new ProductList(browser.getWebDriver());
+//        this.productList = new ProductList(browser.getWebDriver());
     }
 
     public WebElement getHeaderElementByName(String elementName) {
@@ -62,9 +61,9 @@ public class HomePage extends Page {
         return bestsellersTabItem;
     }
 
-    public ProductList getProductList() {
-        return productList;
-    }
+//    public ProductList getProductList() {
+//        return productList;
+//    }
 
     @Override
     public String toString() {

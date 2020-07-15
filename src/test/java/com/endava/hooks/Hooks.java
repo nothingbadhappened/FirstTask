@@ -1,9 +1,9 @@
 package com.endava.hooks;
 
 import com.endava.helpers.configuration.SpringConfig;
-import com.endava.helpers.util.Browser;
-import com.endava.helpers.util.ScreenShotUtil;
-import com.endava.helpers.util.WebDriverFactory;
+import com.endava.helpers.util.browser.Browser;
+import com.endava.helpers.util.actionsUtil.ScreenShotUtil;
+import com.endava.helpers.util.browser.WebDriverFactory;
 import com.endava.steps.StepContext;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
