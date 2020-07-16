@@ -56,7 +56,7 @@ public class ProductList {
             // Searching the product user requested
             if (currentElement.getText().equalsIgnoreCase(productName)) {
 
-                setIsProductFound(true);
+                isProductFound = true;
                 log.debug("Item " + productName + " has been found. Setting up web elements...");
 
                 String productListItemPriceXPATH = "//*[@id=\"center_column\"]/ul/li[" + productListItemNbr + "]/div/div[1]/div/div[2]/span[1]";
@@ -88,14 +88,19 @@ public class ProductList {
                                 + "Product item add to cart button location: " + productItemAddToCartBtn.toString() + "\n");
                     }
 
-                    //Stop the loop
+                    //Stop the loop when product is found
                     i = productList.size();
                 }
 
-            } else throw new NoSuchElementException();
+            }
 
         }
-        return productListItem;
+        if (isProductFound) {
+            return productListItem;
+        } else {
+            log.debug("No search results returned...");
+            throw new NoSuchElementException();
+        }
     }
 
     @Override

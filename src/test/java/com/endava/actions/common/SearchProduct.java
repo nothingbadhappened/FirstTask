@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.NoSuchElementException;
 
 @Component
 public class SearchProduct {
@@ -62,19 +63,29 @@ public class SearchProduct {
 
         log.debug("Looking for the required product");
 
-        productListItem = productList.getProductListItemByName(productName);
+        try {
+            productListItem = productList.getProductListItemByName(productName);
+        } catch (NoSuchElementException e) {
+            log.debug("Could not find product: " + productName, e.getMessage());
+            e.getStackTrace();
+        }
+
         isProductFound = productList.getIsProductFound();
 
         log.debug("Updating Step Context: Passing header module data");
         StepContext.setModule(header);
 
-        log.debug("Updating Step Context: Passing product list item data");
-        StepContext.setProductListItem(productListItem);
+
+        if (isProductFound) {
+            log.debug("Updating Step Context: Passing product list item data");
+            StepContext.setProductListItem(productListItem);
+        }
+
 
         log.debug("Updating Step Context: Passing found product list item data");
         try {
             StepContext.setProductListItem(productList.getProductListItemByName(productName));
-        } catch (IllegalStateException e) {
+        } catch (NoSuchElementException e) {
             log.debug(e.getMessage());
             e.printStackTrace();
         }
