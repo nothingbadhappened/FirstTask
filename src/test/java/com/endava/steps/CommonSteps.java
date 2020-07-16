@@ -264,6 +264,8 @@ public class CommonSteps {
                 .replace("\"", "");
 
         try {
+            log.info("Expecting search error message: " + expectedMessage);
+            log.info("Received search error message: "+ actualMessage);
             Assert.assertEquals(actualMessage, expectedMessage);
             log.info("~~~ STEP: PASSED ~~~");
         } catch (AssertionError e) {

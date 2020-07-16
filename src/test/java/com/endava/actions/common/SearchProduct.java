@@ -80,15 +80,6 @@ public class SearchProduct {
             log.debug("Updating Step Context: Passing product list item data");
             StepContext.setProductListItem(productListItem);
         }
-
-
-        log.debug("Updating Step Context: Passing found product list item data");
-        try {
-            StepContext.setProductListItem(productList.getProductListItemByName(productName));
-        } catch (NoSuchElementException e) {
-            log.debug(e.getMessage());
-            e.printStackTrace();
-        }
     }
 
     public boolean getIsProductFound() {
