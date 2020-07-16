@@ -38,10 +38,6 @@ public class ProductList {
         return isProductFound;
     }
 
-    public void setIsProductFound(boolean isProductFound) {
-        this.isProductFound = isProductFound;
-    }
-
     public ProductListItem getProductListItemByName(String productName) {
         WebElement currentElement;
         ProductListItem productListItem = null;
@@ -105,7 +101,7 @@ public class ProductList {
 
     @Override
     public String toString() {
-        log.debug("Product List Item Object toString() method invoked");
+        log.debug("Product List Object toString() method invoked");
 
         for (Field f : this.getClass().getFields()) {
             try {
@@ -114,6 +110,6 @@ public class ProductList {
                 e.printStackTrace();
             }
         }
-        return "Product List Item Object created";
+        return "Product List Object created";
     }
 }
