@@ -1,7 +1,7 @@
 package com.endava.actions.common;
 
 import com.endava.helpers.util.actionsUtil.ObjectManipulator;
-import com.endava.helpers.util.actionsUtil.SearchUtil;
+import com.endava.helpers.util.actionsUtil.ProductListUtil;
 import com.endava.helpers.util.browser.Browser;
 import com.endava.pageObjects.HomePage;
 import com.endava.pageObjects.SearchPage;
@@ -30,8 +30,6 @@ public class SearchProduct {
     private HomePage homePage;
     private Header header;
 
-    private SearchPage searchPage;
-    private SearchUtil productList;
     private ProductListItem productListItem;
     private boolean isProductFound = false;
 
@@ -55,26 +53,26 @@ public class SearchProduct {
         log.debug("Clicking Search button");
         executor.click(header.getHeaderSearchButton());
 
-        searchPage = new SearchPage(browser);
-        productList = new SearchUtil(browser.getWebDriver());
+        SearchPage searchPage = new SearchPage(browser);
 
         log.debug("Updating Step Context: Current page is Search Page");
         StepContext.setCurrentPage(searchPage);
 
+        ProductListUtil productListUtil = new ProductListUtil(searchPage.getProductList());
+
         log.debug("Looking for the required product");
 
         try {
-            productListItem = productList.getProductListItemByName(productName);
+            productListItem = productListUtil.getProductListItemByName(productName);
         } catch (NoSuchElementException e) {
             log.debug("Could not find product: " + productName, e.getMessage());
             e.getStackTrace();
         }
 
-        isProductFound = productList.getIsProductFound();
+        isProductFound = productListUtil.getIsProductFound();
 
         log.debug("Updating Step Context: Passing header module data");
         StepContext.setModule(header);
-
 
         if (isProductFound) {
             log.debug("Updating Step Context: Passing product list item data");

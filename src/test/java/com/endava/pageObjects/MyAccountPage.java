@@ -47,6 +47,6 @@ public class MyAccountPage extends Page {
 
     @Override
     public String toString() {
-        return "This is My Account page object";
+        return "[MY ACCOUNT PAGE OBJECT]";
     }
 }

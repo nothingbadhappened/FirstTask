@@ -2,6 +2,8 @@ package com.endava.pageObjects;
 
 import com.endava.helpers.util.browser.Browser;
 import com.endava.pageObjects.modules.Header;
+import com.endava.pageObjects.modules.ProductList;
+import com.endava.pageObjects.modules.ProductListItem;
 import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,10 +14,13 @@ import java.util.List;
 public class SearchPage extends Page {
 
     private Header header;
+    private ProductList productList;
+    private ProductListItem productListItem;
 
     public SearchPage(Browser browser) {
         super(browser);
         this.header = new Header(browser.getWebDriver());
+        this.productList = new ProductList(browser.getWebDriver());
     }
 
     @FindBy(how = How.XPATH, using = "//*[@id=\"grid\"]/a/i")
@@ -30,24 +35,10 @@ public class SearchPage extends Page {
     @FindBy(how = How.XPATH, using = "//*[@id=\"center_column\"]/p")
     private WebElement failedSearchMessageElement;
 
-    @Override
-    public WebElement getElementByName(String elementName) {
-        WebElement element;
-        switch (elementName) {
-            case "gridModeBtn":
-                element = getGridModeBtn();
-                break;
-            case "listModeBtn":
-                element = getListModeBtn();
-                break;
-            case "failedSearchMessageElement":
-                element = failedSearchMessageElement;
-                break;
-            default:
-                throw new InvalidArgumentException("Invalid Search Page element: " + elementName);
-        }
-        return element;
-    }
+    @FindBy(how = How.XPATH, using = "//div[@class='layer_cart_cart col-xs-12 col-md-6']//div[@class='button-container']")
+    private WebElement proceedToCheckoutBtn;
+
+
 
     public WebElement getGridModeBtn() {
         return gridModeBtn;
@@ -61,8 +52,16 @@ public class SearchPage extends Page {
         return failedSearchMessageElement;
     }
 
+    public WebElement getProceedToCheckoutBtn() {
+        return proceedToCheckoutBtn;
+    }
+
     public List<WebElement> getSortByDropdown() {
         return sortByDropdown;
+    }
+
+    public List<ProductListItem> getProductList(){
+        return productList.getProductList();
     }
 
     @Override
@@ -71,7 +70,29 @@ public class SearchPage extends Page {
     }
 
     @Override
+    public WebElement getElementByName(String elementName) {
+        WebElement element;
+        switch (elementName) {
+            case "gridModeBtn":
+                element = getGridModeBtn();
+                break;
+            case "listModeBtn":
+                element = getListModeBtn();
+                break;
+            case "failedSearchMessageElement":
+                element = failedSearchMessageElement;
+                break;
+            case "proceedToCheckoutBtn":
+                element = proceedToCheckoutBtn;
+                break;
+            default:
+                throw new InvalidArgumentException("Invalid Search Page element: " + elementName);
+        }
+        return element;
+    }
+
+    @Override
     public String toString() {
-        return "This is the Search page object";
+        return "[SEARCH PAGE OBJECT]";
     }
 }

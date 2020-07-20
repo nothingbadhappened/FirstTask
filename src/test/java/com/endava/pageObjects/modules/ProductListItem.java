@@ -10,6 +10,10 @@ public class ProductListItem {
     private WebElement productItemDiscount;
     private WebElement productItemAddToCartBtn;
 
+    public ProductListItem() {
+
+    }
+
     public ProductListItem(WebElement productItemName,
                            WebElement productItemPrice,
                            WebElement productItemDiscount,

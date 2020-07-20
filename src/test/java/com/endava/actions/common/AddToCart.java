@@ -3,6 +3,7 @@ package com.endava.actions.common;
 import com.endava.helpers.util.actionsUtil.ObjectManipulator;
 import com.endava.helpers.util.browser.Browser;
 import com.endava.pageObjects.ProductPage;
+import com.endava.pageObjects.SearchPage;
 import com.endava.pageObjects.modules.ProductListItem;
 import com.endava.steps.StepContext;
 import org.slf4j.Logger;
@@ -20,15 +21,24 @@ public class AddToCart {
     @Autowired
     private ObjectManipulator executor;
 
-    public void addSingleItem(ProductListItem productListItem) throws InterruptedException {
+    public void addSingleItemFromProductPage(ProductListItem productListItem) throws InterruptedException {
         executor.click(productListItem.getProductItemName());
         ProductPage productPage = new ProductPage(browser);
-
         log.info("Updating Step Context: Current page is Product Page");
         StepContext.setCurrentPage(productPage);
 
         executor.click(productPage.getAddToCartButtonProductPage());
-        Thread.sleep(3000);
+        executor.click(productPage.getProceedToCheckoutBtn());
+    }
+
+    public void addSingleItemFromSearchPage(ProductListItem productListItem) throws InterruptedException {
+        executor.click(productListItem.getProductItemName());
+        SearchPage searchPage = new SearchPage(browser);
+
+        log.info("Updating Step Context: Current page is Product Page");
+        StepContext.setCurrentPage(searchPage);
+
+        executor.click(searchPage.getProceedToCheckoutBtn());
     }
 
     public void addSingleItemFromSearch(ProductListItem productListItem) throws InterruptedException {

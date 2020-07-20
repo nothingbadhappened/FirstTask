@@ -70,6 +70,6 @@ public class HomePage extends Page {
                 e.printStackTrace();
             }
         }
-        return "Body Page Object created";
+        return "[HOME PAGE OBJECT]";
     }
 }

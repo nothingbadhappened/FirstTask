@@ -276,7 +276,7 @@ public class CommonSteps {
 
     @And("user adds the found item to cart")
     public void userAddsFoundItemToCart() throws InterruptedException {
-        addToCart.addSingleItem(StepContext.getProductListItem());
+        addToCart.addSingleItemFromProductPage(StepContext.getProductListItem());
     }
 
     @And("user navigates to the cart page")

@@ -10,9 +10,11 @@ public class ProductPage extends Page {
     private Header header;
     private WebElement element;
 
-    //@FindBy(how = How.ID, using = "add_to_cart")
     @FindBy(how = How.XPATH, using = "//button[@name='Submit']")
     private WebElement addToCartButtonProductPage;
+
+    @FindBy(how = How.XPATH, using = "//div[@class='button-container']/a[@title='Proceed to checkout']")
+    private WebElement proceedToCheckoutBtn;
 
     public ProductPage(Browser browser) {
         super(browser);
@@ -23,12 +25,19 @@ public class ProductPage extends Page {
         return addToCartButtonProductPage;
     }
 
+    public WebElement getProceedToCheckoutBtn() {
+        return proceedToCheckoutBtn;
+    }
+
     @Override
     public WebElement getElementByName(String elementName) {
         WebElement element;
         switch (elementName) {
             case "addToCartButtonProductPage":
                 element = addToCartButtonProductPage;
+                break;
+            case "proceedToCheckoutBtn":
+                element = proceedToCheckoutBtn;
                 break;
             default:
                 throw new IllegalArgumentException("Unexpected element name: " + elementName);
@@ -43,6 +52,6 @@ public class ProductPage extends Page {
 
     @Override
     public String toString() {
-        return "This is Product Page Object";
+        return "[PRODUCT PAGE OBJECT]";
     }
 }

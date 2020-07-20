@@ -23,6 +23,6 @@ public abstract class Page {
 
     @Override
     public String toString() {
-        return "This is Parent Page Object";
+        return "[PARENT PAGE OBJECT]";
     }
 }

@@ -117,6 +117,6 @@ public class LoginPage extends Page {
                 e.printStackTrace();
             }
         }
-        return "Login Page Object created";
+        return "[LOGIN PAGE OBJECT]";
     }
 }
