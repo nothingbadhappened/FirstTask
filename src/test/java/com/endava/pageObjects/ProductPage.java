@@ -10,7 +10,8 @@ public class ProductPage extends Page {
     private Header header;
     private WebElement element;
 
-    @FindBy(how = How.ID, using = "add_to_cart")
+    //@FindBy(how = How.ID, using = "add_to_cart")
+    @FindBy(how = How.XPATH, using = "//button[@name='Submit']")
     private WebElement addToCartButtonProductPage;
 
     public ProductPage(Browser browser) {
@@ -38,5 +39,10 @@ public class ProductPage extends Page {
     @Override
     public WebElement getHeaderElementByName(String elementName) {
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return "This is Product Page Object";
     }
 }

@@ -275,7 +275,7 @@ public class CommonSteps {
     }
 
     @And("user adds the found item to cart")
-    public void userAddsFoundItemToCart() {
+    public void userAddsFoundItemToCart() throws InterruptedException {
         addToCart.addSingleItem(StepContext.getProductListItem());
     }
 
@@ -301,9 +301,9 @@ public class CommonSteps {
     public void itemPresentInTheCart() {
         page = StepContext.getCurrentPage();
         try {
-            Thread.sleep(2000);
-            Assert.assertEquals(StepContext.getProductListItem().getProductItemName().getText(), StepContext.getProductNameElement());
-        } catch (AssertionError | InterruptedException e) {
+            //Assert.assertEquals(StepContext.getProductListItem().getProductItemName().getText(), StepContext.getProductNameElement());
+            Assert.assertEquals(page.getElementByName("productItemName").getText(), StepContext.getProductNameElement());
+        } catch (AssertionError e) {
             log.info("~~~ STEP: Failed ~~~ \nBad product name in the Cart - " + e.getMessage());
             Assert.fail();
         }

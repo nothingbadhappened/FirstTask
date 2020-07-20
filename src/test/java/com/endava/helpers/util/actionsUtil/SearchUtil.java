@@ -14,9 +14,9 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class ProductList {
+public class SearchUtil {
 
-    private static final Logger log = LoggerFactory.getLogger(ProductList.class);
+    private static final Logger log = LoggerFactory.getLogger(SearchUtil.class);
     private static WebDriver driver;
     private boolean isProductFound = false;
 
@@ -25,7 +25,7 @@ public class ProductList {
     @FindBy(how = How.XPATH, using = "//*[@id=\"center_column\"]/ul/li")
     private List<WebElement> productList;
 
-    public ProductList(WebDriver driver) {
+    public SearchUtil(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
@@ -57,6 +57,7 @@ public class ProductList {
 
                 String productListItemPriceXPATH = "//*[@id=\"center_column\"]/ul/li[" + productListItemNbr + "]/div/div[1]/div/div[2]/span[1]";
                 String productListItemDiscountXPATH = "//*[@id=\"center_column\"]/ul/li[" + productListItemNbr + "]/div/div[1]/div/div[2]/span[3]";
+
                 String productListItemAddToCartBtnXPATH = "//*[@id=\"center_column\"]/ul/li[" + productListItemNbr + "]/div/div[2]/div[2]/a[1]/span";
 
                 WebElement productItemPrice = driver.findElement(By.xpath(productListItemPriceXPATH));

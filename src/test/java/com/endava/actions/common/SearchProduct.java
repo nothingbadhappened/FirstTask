@@ -1,7 +1,7 @@
 package com.endava.actions.common;
 
 import com.endava.helpers.util.actionsUtil.ObjectManipulator;
-import com.endava.helpers.util.actionsUtil.ProductList;
+import com.endava.helpers.util.actionsUtil.SearchUtil;
 import com.endava.helpers.util.browser.Browser;
 import com.endava.pageObjects.HomePage;
 import com.endava.pageObjects.SearchPage;
@@ -31,7 +31,7 @@ public class SearchProduct {
     private Header header;
 
     private SearchPage searchPage;
-    private ProductList productList;
+    private SearchUtil productList;
     private ProductListItem productListItem;
     private boolean isProductFound = false;
 
@@ -56,7 +56,7 @@ public class SearchProduct {
         executor.click(header.getHeaderSearchButton());
 
         searchPage = new SearchPage(browser);
-        productList = new ProductList(browser.getWebDriver());
+        productList = new SearchUtil(browser.getWebDriver());
 
         log.debug("Updating Step Context: Current page is Search Page");
         StepContext.setCurrentPage(searchPage);

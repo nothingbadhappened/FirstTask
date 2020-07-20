@@ -12,7 +12,6 @@ import java.util.List;
 public class SearchPage extends Page {
 
     private Header header;
-    private WebElement element;
 
     public SearchPage(Browser browser) {
         super(browser);
@@ -33,6 +32,7 @@ public class SearchPage extends Page {
 
     @Override
     public WebElement getElementByName(String elementName) {
+        WebElement element;
         switch (elementName) {
             case "gridModeBtn":
                 element = getGridModeBtn();

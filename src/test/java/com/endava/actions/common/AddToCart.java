@@ -20,7 +20,7 @@ public class AddToCart {
     @Autowired
     private ObjectManipulator executor;
 
-    public void addSingleItem(ProductListItem productListItem) {
+    public void addSingleItem(ProductListItem productListItem) throws InterruptedException {
         executor.click(productListItem.getProductItemName());
         ProductPage productPage = new ProductPage(browser);
 
@@ -28,6 +28,7 @@ public class AddToCart {
         StepContext.setCurrentPage(productPage);
 
         executor.click(productPage.getAddToCartButtonProductPage());
+        Thread.sleep(3000);
     }
 
     public void addSingleItemFromSearch(ProductListItem productListItem) throws InterruptedException {

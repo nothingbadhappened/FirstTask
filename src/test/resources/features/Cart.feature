@@ -1,4 +1,4 @@
-@FullRun
+@FullRun @OnlyThis
 Feature: Cart
   Background:
     Given user navigates to website

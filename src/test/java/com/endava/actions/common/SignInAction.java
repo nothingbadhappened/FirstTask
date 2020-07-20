@@ -40,7 +40,7 @@ public class SignInAction {
         log.info("----> Sign In Action Start: ");
 
         this.user = user;
-        StepContext.setDriver(browser.getWebDriver());
+//        StepContext.setDriver(browser.getWebDriver());
         StepContext.setCurrentPage(loginPage);
 
         log.info("   -> Clicking My Account link");
