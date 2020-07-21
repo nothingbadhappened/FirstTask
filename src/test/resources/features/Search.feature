@@ -8,7 +8,7 @@ Feature: Search
 
     Examples:
       | productName                 |
-      | Printed Chiffon Dress       |
+      | Printed Dress               |
       | Faded Short Sleeve T-shirts |
 
   Scenario Outline: There are no items returned by search

@@ -302,7 +302,6 @@ public class CommonSteps {
     public void itemPresentInTheCart() {
         page = StepContext.getCurrentPage();
         try {
-            //Assert.assertEquals(StepContext.getProductListItem().getProductItemName().getText(), StepContext.getProductNameElement());
             Assert.assertEquals(page.getElementByName("productItemName").getText(), StepContext.getProductNameElement());
         } catch (AssertionError e) {
             log.info("~~~ STEP: Failed ~~~ \nBad product name in the Cart - " + e.getMessage());
