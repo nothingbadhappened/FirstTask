@@ -17,7 +17,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -267,7 +266,7 @@ public class CommonSteps {
 
         try {
             log.info("Expecting search error message: " + expectedMessage);
-            log.info("Received search error message: "+ actualMessage);
+            log.info("Received search error message: " + actualMessage);
             Assert.assertEquals(actualMessage, expectedMessage);
             log.info("~~~ STEP: PASSED ~~~");
         } catch (AssertionError e) {
