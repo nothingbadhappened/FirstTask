@@ -155,6 +155,21 @@
                     <source>${java.version}</source>
                 </configuration>
             </plugin>
+
+            <!-- This will run tests properly with mvn test-->
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M3</version>
+                <configuration>
+                    <properties>
+                        <property>
+                            <name>testng</name>
+                            <value>false</value>
+                        </property>
+                    </properties>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 

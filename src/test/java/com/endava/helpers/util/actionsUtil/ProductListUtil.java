@@ -56,7 +56,7 @@ public class ProductListUtil {
 
     @Override
     public String toString() {
-        log.debug("Product List Object toString() method invoked");
+        log.debug("Search Util Object toString() method invoked");
 
         for (Field f : this.getClass().getFields()) {
             try {
@@ -65,6 +65,6 @@ public class ProductListUtil {
                 e.printStackTrace();
             }
         }
-        return "Search Util Object created";
+        return "[SEARCH UTIL]";
     }
 }
