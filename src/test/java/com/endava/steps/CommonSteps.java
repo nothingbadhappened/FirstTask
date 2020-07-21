@@ -17,6 +17,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -258,6 +259,7 @@ public class CommonSteps {
     @Then("failed search message is displayed with text {string}")
     public void productNameIsNotFound(String expectedMessage) {
         page = StepContext.getCurrentPage();
+        browser.waitUntilElementIsVisible(page.getElementByName("failedSearchMessageElement"));
         String actualMessage = page
                 .getElementByName("failedSearchMessageElement")
                 .getText()
