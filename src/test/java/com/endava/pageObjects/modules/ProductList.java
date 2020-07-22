@@ -41,6 +41,7 @@ public class ProductList {
 
         log.debug("STARTING MAPPING OF ELEMENTS: List<WebElement> rawList -> List<ProductListItem> mappedList...");
 
+        // this "i" is for debug to reflect the number of iterable item
         int i = 0;
         for (WebElement currentListItem : rawList) {
 
@@ -64,11 +65,12 @@ public class ProductList {
             //DEBUG HELPER START
             {
                 ProductListItem item = mappedList.get(i);
-                log.debug("-------------------------------\nElement has been mapped: Name = {}, Price = {}, Discount = {}, AddToCartBtn = {}",
+                log.debug("Element has been mapped: \nName = {}, \nPrice = {}, \nDiscount = {}, \nAddToCartBtn = {}, \n{}",
                         item.getProductItemName().getText(),
                         item.getProductItemPrice().getText(),
                         item.getProductItemDiscount().getText(),
-                        item.getProductItemAddToCartBtn().getText());
+                        item.getProductItemAddToCartBtn().getText(),
+                        "-------------------------------------------");
                 i++;
             }
             //DEBUG HELPER END
