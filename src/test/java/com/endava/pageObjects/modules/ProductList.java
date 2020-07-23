@@ -41,7 +41,6 @@ public class ProductList {
 
         log.debug("STARTING MAPPING OF ELEMENTS: List<WebElement> rawList -> List<ProductListItem> mappedList...");
 
-        int i = 0;
         for (WebElement currentListItem : rawList) {
 
             log.debug("Current ListItem in the rawList: \n" + currentListItem.toString() + "\n" + currentListItem.getText());
@@ -61,36 +60,7 @@ public class ProductList {
                 mappedList.add(new ProductListItem(productItemName, productItemPrice, productItemAddToCartBtn));
             }
 
-            //DEBUG HELPER START
-            {
-                ProductListItem item = mappedList.get(i);
-                log.debug("-------------------------------\nElement has been mapped: Name = {}, Price = {}, Discount = {}, AddToCartBtn = {}",
-                        item.getProductItemName().getText(),
-                        item.getProductItemPrice().getText(),
-                        item.getProductItemDiscount().getText(),
-                        item.getProductItemAddToCartBtn().getText());
-                i++;
-            }
-            //DEBUG HELPER END
         }
-
-        // DEBUG HELPER START
-        {
-            log.debug("END OF MAPPING: Mapped ProductListItem collection has been populated.");
-            int j = 1;
-            for (ProductListItem item : mappedList) {
-                log.debug(" ---> ProductListItem[" + j + "]: " + item.getProductItemName().toString() + " -> " + item.getProductItemName().getText());
-                log.debug(" ---> ProductListItem[" + j + "]: " + item.getProductItemPrice().toString() + " -> " + item.getProductItemPrice().getText());
-                try {
-                    log.debug(" ---> ProductListItem[" + j + "]: " + item.getProductItemDiscount() + " -> " + item.getProductItemDiscount().getText());
-                } catch (Exception e) {
-                }
-                log.debug(" ---> ProductListItem[" + j + "]: " + item.getProductItemAddToCartBtn().toString() + " -> " + item.getProductItemAddToCartBtn().getText());
-                j++;
-            }
-            String s = "test";
-        }
-        // DEBUG HELPER END
 
     }
 
