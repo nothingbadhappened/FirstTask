@@ -64,6 +64,14 @@ public class SearchPage extends Page {
         return productList.getProductList();
     }
 
+    public ProductListItem getProductListItem() {
+        return productListItem;
+    }
+
+    public void setProductListItem(ProductListItem productListItem) {
+        this.productListItem = productListItem;
+    }
+
     @Override
     public WebElement getHeaderElementByName(String elementName) {
         return header.getHeaderElementByName(elementName);
@@ -84,6 +92,19 @@ public class SearchPage extends Page {
                 break;
             case "proceedToCheckoutBtn":
                 element = proceedToCheckoutBtn;
+                break;
+            // This is specific to product list item only
+            case "productItemNameElement":
+                element = productListItem.getProductItemNameElement();
+                break;
+            case "productItemPriceElement":
+                element = productListItem.getProductItemPriceElement();
+                break;
+            case "productItemDiscountElement":
+                element = productListItem.getProductItemDiscountElement();
+                break;
+            case "productItemAddToCartBtn":
+                element = productListItem.getProductItemAddToCartBtn();
                 break;
             default:
                 throw new InvalidArgumentException("Invalid Search Page element: " + elementName);

@@ -1,9 +1,9 @@
 package com.endava.actions.common;
 
-import com.endava.helpers.util.browser.Browser;
 import com.endava.helpers.util.actionsUtil.ObjectManipulatorImpl;
+import com.endava.helpers.util.browser.Browser;
 import com.endava.pageObjects.MyAccountPage;
-import com.endava.steps.StepContext;
+import com.endava.steps.context.StepContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

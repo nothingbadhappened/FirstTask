@@ -7,7 +7,7 @@ import com.endava.pageObjects.HomePage;
 import com.endava.pageObjects.SearchPage;
 import com.endava.pageObjects.modules.Header;
 import com.endava.pageObjects.modules.ProductListItem;
-import com.endava.steps.StepContext;
+import com.endava.steps.context.StepContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +44,6 @@ public class SearchProduct {
         log.debug("Updating Step Context: Current page is Search Page");
         StepContext.setCurrentPage(homePage);
 
-        log.debug("Updating Step Context: Current product name: " + productName);
-        StepContext.setProductNameElement(productName);
-
         log.debug("Entering product name to search for: " + productName);
         executor.sendKeys(header.getHeaderSearchBox(), productName);
 
@@ -64,6 +61,7 @@ public class SearchProduct {
 
         try {
             productListItem = productListUtil.getProductListItemByName(productName);
+            searchPage.setProductListItem(productListItem);
         } catch (NoSuchElementException e) {
             log.debug("Could not find product: " + productName, e.getMessage());
             e.getStackTrace();
@@ -71,12 +69,9 @@ public class SearchProduct {
 
         isProductFound = productListUtil.getIsProductFound();
 
-        log.debug("Updating Step Context: Passing header module data");
-        StepContext.setModule(header);
-
+        // Store the found product list item object within search page
         if (isProductFound) {
-            log.debug("Updating Step Context: Passing product list item data");
-            StepContext.setProductListItem(productListItem);
+            searchPage.setProductListItem(productListItem);
         }
     }
 

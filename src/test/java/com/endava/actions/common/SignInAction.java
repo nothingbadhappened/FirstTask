@@ -1,10 +1,10 @@
 package com.endava.actions.common;
 
-import com.endava.helpers.util.browser.Browser;
 import com.endava.helpers.util.actionsUtil.ObjectManipulator;
+import com.endava.helpers.util.browser.Browser;
 import com.endava.pageObjects.LoginPage;
 import com.endava.pageObjects.MyAccountPage;
-import com.endava.steps.StepContext;
+import com.endava.steps.context.StepContext;
 import com.endava.users.User;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;

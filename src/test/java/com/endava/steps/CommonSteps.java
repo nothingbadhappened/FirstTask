@@ -7,7 +7,7 @@ import com.endava.actions.common.SignOutAction;
 import com.endava.helpers.util.browser.Browser;
 import com.endava.pageObjects.CartPage;
 import com.endava.pageObjects.Page;
-import com.endava.pageObjects.modules.ProductListItem;
+import com.endava.steps.context.StepContext;
 import com.endava.users.User;
 import com.endava.users.UserProviderService;
 import io.cucumber.datatable.DataTable;
@@ -32,7 +32,6 @@ public class CommonSteps {
     private User user;
     private WebElement element;
     private Page page;
-    private ProductListItem productListItem;
 
     @Autowired
     private UserProviderService userProviderService;
@@ -117,8 +116,7 @@ public class CommonSteps {
 
     @And("user full name is displayed in the top navigation bar")
     public void userFullNameIsPresentInTheTopNavbar() {
-        element = StepContext.getElement("userFullName");
-
+        element = StepContext.getCurrentPage().getHeaderElementByName("userFullName");
         Assert.assertEquals(element.getText(), user.getUserFullName());
         log.info("STEP: Passed");
     }
@@ -235,19 +233,17 @@ public class CommonSteps {
     @When("user searches for {string} item")
     public void userSearchesForItem(String productName) {
         log.info("Step: When user searches for " + productName + " item");
-        StepContext.setProductNameElement(productName);
         searchProduct.execute(productName);
     }
 
     @Then("{string} is present in search results")
     public void productNameIsFound(String productName) {
         log.info("STEP: Then " + productName + " is present in search results");
-
-        productListItem = StepContext.getProductListItem();
+        element = StepContext.getCurrentPage().getElementByName("productItemNameElement");
 
         try {
             Assert.assertTrue(searchProduct.getIsProductFound());
-            Assert.assertEquals(productName, productListItem.getProductItemName().getText());
+            Assert.assertEquals(productName, element.getText());
             log.info("~~~ STEP: PASSED ~~~");
         } catch (AssertionError e) {
             log.info("~~~ STEP: Failed ~~~ \nThe product has not been found in search results - " + e.getMessage());
@@ -277,7 +273,8 @@ public class CommonSteps {
 
     @And("user adds the found item to cart")
     public void userAddsFoundItemToCart() throws InterruptedException {
-        addToCart.addSingleItemFromProductPage(StepContext.getProductListItem());
+        element = StepContext.getCurrentPage().getElementByName("productItemAddToCartBtn");
+        addToCart.addSingleItemFromSearchPage(element);
     }
 
     @And("user navigates to the cart page")
@@ -298,11 +295,12 @@ public class CommonSteps {
         }
     }
 
-    @And("the item is present in the list")
-    public void itemPresentInTheCart() {
+    @And("the {string} item is present in the list")
+    public void itemPresentInTheCart(String productName) {
         page = StepContext.getCurrentPage();
         try {
-            Assert.assertEquals(page.getElementByName("productItemName").getText(), StepContext.getProductNameElement());
+            Assert.assertEquals(page.getElementByName("productItemName").getText(),
+                    productName);
         } catch (AssertionError e) {
             log.info("~~~ STEP: Failed ~~~ \nBad product name in the Cart - " + e.getMessage());
             Assert.fail();

@@ -1,6 +1,5 @@
 package com.endava.pageObjects.modules;
 
-import com.endava.steps.StepContext;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -47,8 +46,9 @@ public class Header {
 
     private WebElement headerCartItem;
 
-    public Header(WebDriver webDriver) {
-        PageFactory.initElements(webDriver, this);
+    public Header(WebDriver driver) {
+        Header.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
     public WebElement getHeaderCartItem() {
@@ -59,7 +59,6 @@ public class Header {
     }
 
     public void setHeaderCartItem(WebElement headerCartItem) {
-        driver = StepContext.getDriver();
         this.headerCartItem = driver.findElement(By.xpath("//*[@id=\"header\"]/div[3]/div/div/div[3]/div/div/div/div/dl/dt/div/div[1]/a"));
     }
 
@@ -146,6 +145,6 @@ public class Header {
                 e.printStackTrace();
             }
         }
-        return "Header Page Object created";
+        return "[HEADER OBJECT]";
     }
 }

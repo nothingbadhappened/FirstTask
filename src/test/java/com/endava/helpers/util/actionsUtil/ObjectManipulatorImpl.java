@@ -35,8 +35,8 @@ public class ObjectManipulatorImpl implements ObjectManipulator {
     public void click(@NotNull ProductListItem productListItem) {
         Actions action = new Actions(browser.getWebDriver());
 
-        action.moveToElement(productListItem.getProductItemName())
-                .moveToElement(productListItem.getProductItemPrice())
+        action.moveToElement(productListItem.getProductItemNameElement())
+                .moveToElement(productListItem.getProductItemPriceElement())
                 .moveToElement(productListItem.getProductItemAddToCartBtn())
                 .click()
                 .build()

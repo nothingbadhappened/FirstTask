@@ -31,7 +31,7 @@ public class ProductListUtil {
 
         // Check if needed  item is present in the collection
         for (ProductListItem currentItem : productList) {
-            String currentItemName = currentItem.getProductItemName().getText();
+            String currentItemName = currentItem.getProductItemNameElement().getText();
 
             if (currentItemName.contains(productName)) {
                 isProductFound = true;
