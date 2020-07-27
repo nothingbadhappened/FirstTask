@@ -3,6 +3,7 @@ package com.endava.actions.common;
 import com.endava.helpers.util.actionsUtil.ObjectManipulatorImpl;
 import com.endava.helpers.util.browser.Browser;
 import com.endava.pageObjects.MyAccountPage;
+import com.endava.steps.context.ContextKeys;
 import com.endava.steps.context.StepContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,12 +24,13 @@ public class SignOutAction {
     public void execute() {
         MyAccountPage myAccountPage = new MyAccountPage(browser);
 
-        StepContext.setCurrentPage(myAccountPage);
+        StepContext.setContext(ContextKeys.MY_ACCOUNT_PAGE, myAccountPage);
         log.debug("My Account page has been passed to Step Context.");
 
         log.info("   -> Click Sign Out button");
         executor.click(myAccountPage.getHeaderElementByName("signOutButton"));
 
+        StepContext.setContext(ContextKeys.CURRENT_PAGE, StepContext.getContext(ContextKeys.LOGIN_PAGE));
         log.info("   -> SIGN OUT: ACTION COMPLETE");
     }
 }

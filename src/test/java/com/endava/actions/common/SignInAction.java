@@ -4,6 +4,7 @@ import com.endava.helpers.util.actionsUtil.ObjectManipulator;
 import com.endava.helpers.util.browser.Browser;
 import com.endava.pageObjects.LoginPage;
 import com.endava.pageObjects.MyAccountPage;
+import com.endava.steps.context.ContextKeys;
 import com.endava.steps.context.StepContext;
 import com.endava.users.User;
 import org.jetbrains.annotations.NotNull;
@@ -40,8 +41,7 @@ public class SignInAction {
         log.info("----> Sign In Action Start: ");
 
         this.user = user;
-//        StepContext.setDriver(browser.getWebDriver());
-        StepContext.setCurrentPage(loginPage);
+        StepContext.setContext(ContextKeys.LOGIN_PAGE, loginPage);
 
         log.info("   -> Clicking My Account link");
         executor.click(loginPage.getHeaderElementByName("signInLink"));
@@ -54,7 +54,7 @@ public class SignInAction {
 
         log.info("   -> Clicking Submit button");
         executor.click(loginPage.getElementByName("signInButton"));
-        StepContext.setCurrentPage(myAccountPage);
+        StepContext.setContext(ContextKeys.MY_ACCOUNT_PAGE, myAccountPage);
 
         log.info("----> Sign In action complete");
 

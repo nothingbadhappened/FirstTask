@@ -6,7 +6,11 @@ import com.endava.actions.common.SignInAction;
 import com.endava.actions.common.SignOutAction;
 import com.endava.helpers.util.browser.Browser;
 import com.endava.pageObjects.CartPage;
+import com.endava.pageObjects.MyAccountPage;
 import com.endava.pageObjects.Page;
+import com.endava.pageObjects.SearchPage;
+import com.endava.pageObjects.modules.ProductListItem;
+import com.endava.steps.context.ContextKeys;
 import com.endava.steps.context.StepContext;
 import com.endava.users.User;
 import com.endava.users.UserProviderService;
@@ -31,7 +35,6 @@ public class CommonSteps {
 
     private User user;
     private WebElement element;
-    private Page page;
 
     @Autowired
     private UserProviderService userProviderService;
@@ -102,8 +105,8 @@ public class CommonSteps {
 
     @Then("user is redirected to {string} page")
     public void myAccountPageLoaded(String text) {
-        page = StepContext.getCurrentPage();
-        element = page.getElementByName("myAccountHeading");
+        MyAccountPage myAccountPage = (MyAccountPage) StepContext.getContext(ContextKeys.MY_ACCOUNT_PAGE);
+        element = myAccountPage.getElementByName("myAccountHeading");
         try {
             log.info("STEP: Then user is redirected to " + text + " page");
             Assert.assertEquals(browser.getPageTitle(), text);
@@ -116,7 +119,8 @@ public class CommonSteps {
 
     @And("user full name is displayed in the top navigation bar")
     public void userFullNameIsPresentInTheTopNavbar() {
-        element = StepContext.getCurrentPage().getHeaderElementByName("userFullName");
+        MyAccountPage myAccountPage = (MyAccountPage) StepContext.getContext(ContextKeys.MY_ACCOUNT_PAGE);
+        element = myAccountPage.getHeaderElementByName("userFullName");
         Assert.assertEquals(element.getText(), user.getUserFullName());
         log.info("STEP: Passed");
     }
@@ -179,7 +183,7 @@ public class CommonSteps {
 
     @Then("user is logged out")
     public void verifyUserSignedOut() {
-        page = StepContext.getCurrentPage();
+        Page currentPage = (Page) StepContext.getContext(ContextKeys.CURRENT_PAGE);
 
         try {
             log.info("STEP: Then user is logged out");
@@ -195,9 +199,9 @@ public class CommonSteps {
         }
 
         try {
-            page.getElementByName("userFullName");
+            currentPage.getElementByName("userFullName");
             Assert.fail();
-        } catch (InvalidArgumentException e) {
+        } catch (IllegalStateException e) {
             log.info("~~~ STEP: PASSED ~~~");
         }
     }
@@ -206,23 +210,13 @@ public class CommonSteps {
     @When("user status is {string}")
     public void getRegisteredUserFromDatabase(String userRegistrationStatus) {
         user = userProviderService.getUser(userRegistrationStatus);
+        StepContext.setContext(ContextKeys.CURRENT_USER, user);
+        StepContext.setContext(ContextKeys.USER_REGISTERED, user);
     }
 
     @And("user signs in")
     public void userSignsIn() {
-        signInAction.execute(user);
-    }
-
-    @When("user navigates to {string} page")
-    public void navigateToSummerDressesPage(String page) {
-        String summerDressesURL = environment.getProperty("summerDressesURL");
-        try {
-            log.info("STEP: Given user navigates to " + summerDressesURL + " website");
-            browser.goToUrl(summerDressesURL);
-            //StepContext.setCurrentPage();
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
+        signInAction.execute((User) StepContext.getContext(ContextKeys.USER_REGISTERED));
     }
 
     @And("user adds {string} to cart")
@@ -239,23 +233,24 @@ public class CommonSteps {
     @Then("{string} is present in search results")
     public void productNameIsFound(String productName) {
         log.info("STEP: Then " + productName + " is present in search results");
-        element = StepContext.getCurrentPage().getElementByName("productItemNameElement");
+        SearchPage searchPage = (SearchPage) StepContext.getContext(ContextKeys.SEARCH_PAGE);
 
         try {
+            element = searchPage.getProductListItem().getProductItemNameElement();
             Assert.assertTrue(searchProduct.getIsProductFound());
             Assert.assertEquals(productName, element.getText());
             log.info("~~~ STEP: PASSED ~~~");
-        } catch (AssertionError e) {
-            log.info("~~~ STEP: Failed ~~~ \nThe product has not been found in search results - " + e.getMessage());
+        } catch (AssertionError | NullPointerException e) {
+            log.info("~~~ STEP: Failed ~~~ \nThe product has not been found in search results: [{}]\n{}", e.getMessage(), e.getStackTrace());
             Assert.fail(e.getStackTrace().toString());
         }
     }
 
     @Then("failed search message is displayed with text {string}")
     public void productNameIsNotFound(String expectedMessage) {
-        page = StepContext.getCurrentPage();
-        browser.waitUntilElementIsVisible(page.getElementByName("failedSearchMessageElement"));
-        String actualMessage = page
+        SearchPage searchPage = (SearchPage) StepContext.getContext(ContextKeys.SEARCH_PAGE);
+        browser.waitUntilElementIsVisible(searchPage.getElementByName("failedSearchMessageElement"));
+        String actualMessage = searchPage
                 .getElementByName("failedSearchMessageElement")
                 .getText()
                 .replace("\"", "");
@@ -273,21 +268,22 @@ public class CommonSteps {
 
     @And("user adds the found item to cart")
     public void userAddsFoundItemToCart() throws InterruptedException {
-        element = StepContext.getCurrentPage().getElementByName("productItemAddToCartBtn");
-        addToCart.addSingleItemFromSearchPage(element);
+        SearchPage searchPage = (SearchPage) StepContext.getContext(ContextKeys.SEARCH_PAGE);
+        ProductListItem productListItem = searchPage.getProductListItem();
+        addToCart.addSingleItemFromSearchPage(productListItem);
     }
 
     @And("user navigates to the cart page")
     public void userNavigatesToCartPage() {
         browser.getWebDriver().navigate().to("http://automationpractice.com/index.php?controller=order");
-        StepContext.setCurrentPage(new CartPage(browser));
+        StepContext.setContext(ContextKeys.CART_PAGE, new CartPage(browser));
     }
 
     @Then("{string} page is loaded")
     public void shoppingCartSummaryPageIsLoaded(String pageHeadingName) {
-        page = StepContext.getCurrentPage();
+        CartPage cartPage = (CartPage) StepContext.getContext(ContextKeys.CART_PAGE);
         try {
-            Assert.assertTrue(page.getElementByName("cartTitleElement").getText().contains(pageHeadingName));
+            Assert.assertTrue(cartPage.getElementByName("cartTitleElement").getText().contains(pageHeadingName));
             log.info("~~~ STEP: PASSED ~~~");
         } catch (AssertionError e) {
             log.info("~~~ STEP: Failed ~~~ \nBad Cart Page heading - " + e.getMessage());
@@ -297,9 +293,9 @@ public class CommonSteps {
 
     @And("the {string} item is present in the list")
     public void itemPresentInTheCart(String productName) {
-        page = StepContext.getCurrentPage();
+        CartPage cartPage = (CartPage) StepContext.getContext(ContextKeys.CART_PAGE);
         try {
-            Assert.assertEquals(page.getElementByName("productItemName").getText(),
+            Assert.assertEquals(cartPage.getElementByName("productItemName").getText(),
                     productName);
         } catch (AssertionError e) {
             log.info("~~~ STEP: Failed ~~~ \nBad product name in the Cart - " + e.getMessage());

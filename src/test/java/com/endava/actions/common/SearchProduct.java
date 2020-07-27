@@ -7,6 +7,7 @@ import com.endava.pageObjects.HomePage;
 import com.endava.pageObjects.SearchPage;
 import com.endava.pageObjects.modules.Header;
 import com.endava.pageObjects.modules.ProductListItem;
+import com.endava.steps.context.ContextKeys;
 import com.endava.steps.context.StepContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +43,7 @@ public class SearchProduct {
     public void execute(String productName) {
 
         log.debug("Updating Step Context: Current page is Search Page");
-        StepContext.setCurrentPage(homePage);
+        StepContext.setContext(ContextKeys.HOME_PAGE, homePage);
 
         log.debug("Entering product name to search for: " + productName);
         executor.sendKeys(header.getHeaderSearchBox(), productName);
@@ -53,7 +54,7 @@ public class SearchProduct {
         SearchPage searchPage = new SearchPage(browser);
 
         log.debug("Updating Step Context: Current page is Search Page");
-        StepContext.setCurrentPage(searchPage);
+        StepContext.setContext(ContextKeys.SEARCH_PAGE, searchPage);
 
         ProductListUtil productListUtil = new ProductListUtil(searchPage.getProductList());
 
