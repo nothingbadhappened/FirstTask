@@ -25,12 +25,10 @@ public class ProductList {
     private List<ProductListItem> mappedList = new ArrayList<>();
 
     public List<ProductListItem> getProductList() {
-        if (mappedList.size() > 0) {
-            return mappedList;
-        } else {
+        if (mappedList.size() == 0) {
             populateProductList();
-            return mappedList;
         }
+        return mappedList;
     }
 
     //init page with available products

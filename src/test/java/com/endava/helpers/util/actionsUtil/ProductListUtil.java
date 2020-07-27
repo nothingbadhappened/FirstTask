@@ -2,7 +2,6 @@ package com.endava.helpers.util.actionsUtil;
 
 import com.endava.pageObjects.modules.ProductListItem;
 import org.jetbrains.annotations.NotNull;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +12,6 @@ import java.util.NoSuchElementException;
 public class ProductListUtil {
 
     private static final Logger log = LoggerFactory.getLogger(ProductListUtil.class);
-    private static WebDriver driver;
     private boolean isProductFound = false;
 
     private List<ProductListItem> productList;
