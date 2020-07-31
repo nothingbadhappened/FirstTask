@@ -10,10 +10,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
-public class SignOutAction {
+import javax.xml.namespace.QName;
 
-    private final static Logger log = LoggerFactory.getLogger(SignOutAction.class);
+@Component
+public class SignOut {
+
+    private final static Logger log = LoggerFactory.getLogger(SignOut.class);
 
     @Autowired
     private ObjectManipulatorImpl executor;
@@ -21,16 +23,20 @@ public class SignOutAction {
     @Autowired
     private Browser browser;
 
+    @Autowired
+    private StepContext context;
+
     public void execute() {
         MyAccountPage myAccountPage = new MyAccountPage(browser);
 
-        StepContext.setContext(ContextKeys.MY_ACCOUNT_PAGE, myAccountPage);
-        log.debug("My Account page has been passed to Step Context.");
+        log.debug("Updating Step Context: Current page is My Account Page");
+        context.setContext(ContextKeys.CURRENT_PAGE, myAccountPage);
+        context.setContext(ContextKeys.MY_ACCOUNT_PAGE, myAccountPage);
 
         log.info("   -> Click Sign Out button");
         executor.click(myAccountPage.getHeaderElementByName("signOutButton"));
 
-        StepContext.setContext(ContextKeys.CURRENT_PAGE, StepContext.getContext(ContextKeys.LOGIN_PAGE));
+        context.setContext(ContextKeys.CURRENT_PAGE, context.getContext(ContextKeys.LOGIN_PAGE));
         log.info("   -> SIGN OUT: ACTION COMPLETE");
     }
 }

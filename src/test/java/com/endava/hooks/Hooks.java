@@ -22,6 +22,9 @@ public class Hooks {
     @Autowired
     private Browser browser;
 
+    @Autowired
+    private StepContext context;
+
     @Before
     public void setUp(Scenario scenario) {
         log.debug("\n\n\n----- BEFORE HOOK START -----");
@@ -68,7 +71,7 @@ public class Hooks {
         }
 
         log.debug("Resetting Step Context");
-        StepContext.reset();
+        context.reset();
 
         log.debug("----- AFTER HOOK END -----");
         log.info("Completed scenario:"
@@ -81,7 +84,7 @@ public class Hooks {
     @After
     public void teardown() {
         log.debug("Resetting Step Context");
-        StepContext.reset();
+        context.reset();
     }
 
 }

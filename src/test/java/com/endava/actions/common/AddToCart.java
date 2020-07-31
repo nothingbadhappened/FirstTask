@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AddToCart {
-    private final Logger log = LoggerFactory.getLogger(SignInAction.class);
+    private final Logger log = LoggerFactory.getLogger(SignIn.class);
 
     @Autowired
     private Browser browser;
@@ -22,11 +22,15 @@ public class AddToCart {
     @Autowired
     private ObjectManipulator executor;
 
+    @Autowired
+    private StepContext context;
+
     public void addSingleItemFromProductPage(ProductListItem productListItem) {
         executor.click(productListItem.getProductItemNameElement());
         ProductPage productPage = new ProductPage(browser);
         log.info("Updating Step Context: Current page is Product Page");
-        StepContext.setContext(ContextKeys.PRODUCT_PAGE, productPage);
+        context.setContext(ContextKeys.CURRENT_PAGE, productPage);
+        context.setContext(ContextKeys.PRODUCT_PAGE, productPage);
 
         executor.click(productPage.getAddToCartButtonProductPage());
         executor.click(productPage.getProceedToCheckoutBtn());
@@ -35,7 +39,8 @@ public class AddToCart {
     public void addSingleItemFromSearchPage(ProductListItem productListItem) {
         SearchPage searchPage = new SearchPage(browser);
         log.info("Updating Step Context: Current page is Product Page");
-        StepContext.setContext(ContextKeys.SEARCH_PAGE, searchPage);
+        context.setContext(ContextKeys.CURRENT_PAGE, searchPage);
+        context.setContext(ContextKeys.SEARCH_PAGE, searchPage);
 
         executor.click(productListItem.getProductItemAddToCartBtn());
         executor.click(searchPage.getProceedToCheckoutBtn());

@@ -4,7 +4,6 @@ import com.endava.users.User;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
@@ -14,9 +13,7 @@ import java.sql.SQLException;
 @Component
 public class UserRowMapper implements RowMapper {
 
-    @Autowired
-    User user;
-
+    User user = new User();
     private ResultSet resultSet;
 
     private static Logger log = LoggerFactory.getLogger(UserRowMapper.class);

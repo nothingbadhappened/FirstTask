@@ -28,6 +28,9 @@ public class SearchProduct {
     @Autowired
     private Browser browser;
 
+    @Autowired
+    private StepContext context;
+
     private HomePage homePage;
     private Header header;
 
@@ -43,7 +46,8 @@ public class SearchProduct {
     public void execute(String productName) {
 
         log.debug("Updating Step Context: Current page is Search Page");
-        StepContext.setContext(ContextKeys.HOME_PAGE, homePage);
+        context.setContext(ContextKeys.CURRENT_PAGE, homePage);
+        context.setContext(ContextKeys.HOME_PAGE, homePage);
 
         log.debug("Entering product name to search for: " + productName);
         executor.sendKeys(header.getHeaderSearchBox(), productName);
@@ -54,7 +58,8 @@ public class SearchProduct {
         SearchPage searchPage = new SearchPage(browser);
 
         log.debug("Updating Step Context: Current page is Search Page");
-        StepContext.setContext(ContextKeys.SEARCH_PAGE, searchPage);
+        context.setContext(ContextKeys.CURRENT_PAGE, searchPage);
+        context.setContext(ContextKeys.SEARCH_PAGE, searchPage);
 
         ProductListUtil productListUtil = new ProductListUtil(searchPage.getProductList());
 

@@ -16,16 +16,18 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 
 @Component
-public class SignInAction {
+public class SignIn {
 
-    private final Logger log = LoggerFactory.getLogger(SignInAction.class);
-    private User user;
+    private final Logger log = LoggerFactory.getLogger(SignIn.class);
 
     @Autowired
     private ObjectManipulator executor;
 
     @Autowired
     private Browser browser;
+
+    @Autowired
+    private StepContext context;
 
     private LoginPage loginPage;
 
@@ -40,8 +42,9 @@ public class SignInAction {
     public void execute(@NotNull User user) {
         log.info("----> Sign In Action Start: ");
 
-        this.user = user;
-        StepContext.setContext(ContextKeys.LOGIN_PAGE, loginPage);
+        log.debug("Updating Step Context: Current page is Login Page");
+        context.setContext(ContextKeys.CURRENT_PAGE, loginPage);
+        context.setContext(ContextKeys.LOGIN_PAGE, loginPage);
 
         log.info("   -> Clicking My Account link");
         executor.click(loginPage.getHeaderElementByName("signInLink"));
@@ -54,7 +57,10 @@ public class SignInAction {
 
         log.info("   -> Clicking Submit button");
         executor.click(loginPage.getElementByName("signInButton"));
-        StepContext.setContext(ContextKeys.MY_ACCOUNT_PAGE, myAccountPage);
+
+        log.debug("Updating Step Context: Current page is My Account Page");
+        context.setContext(ContextKeys.CURRENT_PAGE, myAccountPage);
+        context.setContext(ContextKeys.MY_ACCOUNT_PAGE, myAccountPage);
 
         log.info("----> Sign In action complete");
 

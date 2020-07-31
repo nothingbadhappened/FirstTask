@@ -16,12 +16,7 @@ public class UserDaoImpl implements UserDao {
     // == Fields ==
     private static Logger log = LoggerFactory.getLogger(UserDaoImpl.class);
 
-    @Autowired
-    User user;
-
-    @Autowired
-    private UserRowMapper userRowMapper;
-
+    private UserRowMapper userRowMapper = new UserRowMapper();
     private JdbcTemplate jdbcTemplate;
 
     // == Methods ==
