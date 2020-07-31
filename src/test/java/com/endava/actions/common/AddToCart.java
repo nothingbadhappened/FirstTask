@@ -38,7 +38,7 @@ public class AddToCart {
 
     public void addSingleItemFromSearchPage(ProductListItem productListItem) {
         SearchPage searchPage = new SearchPage(browser);
-        log.info("Updating Step Context: Current page is Product Page");
+        log.info("Updating Step Context: Current page is Search Page");
         context.setContext(ContextKeys.CURRENT_PAGE, searchPage);
         context.setContext(ContextKeys.SEARCH_PAGE, searchPage);
 
