@@ -1,7 +1,7 @@
 package com.endava.actions.common;
 
 import com.endava.helpers.util.actionsUtil.ObjectManipulator;
-import com.endava.helpers.util.browser.Browser;
+import com.endava.helpers.util.actionsUtil.PageFactory;
 import com.endava.pageObjects.ProductPage;
 import com.endava.pageObjects.SearchPage;
 import com.endava.pageObjects.modules.ProductListItem;
@@ -17,30 +17,28 @@ public class AddToCart {
     private final Logger log = LoggerFactory.getLogger(SignIn.class);
 
     @Autowired
-    private Browser browser;
-
-    @Autowired
     private ObjectManipulator executor;
 
     @Autowired
     private StepContext context;
 
+    @Autowired
+    PageFactory pageFactory;
+
     public void addSingleItemFromProductPage(ProductListItem productListItem) {
         executor.click(productListItem.getProductItemNameElement());
-        ProductPage productPage = new ProductPage(browser);
+        ProductPage productPage = (ProductPage) pageFactory.getPage(ContextKeys.PRODUCT_PAGE);
         log.info("Updating Step Context: Current page is Product Page");
         context.setContext(ContextKeys.CURRENT_PAGE, productPage);
-        context.setContext(ContextKeys.PRODUCT_PAGE, productPage);
 
         executor.click(productPage.getAddToCartButtonProductPage());
         executor.click(productPage.getProceedToCheckoutBtn());
     }
 
     public void addSingleItemFromSearchPage(ProductListItem productListItem) {
-        SearchPage searchPage = new SearchPage(browser);
+        SearchPage searchPage = (SearchPage) pageFactory.getPage(ContextKeys.SEARCH_PAGE);
         log.info("Updating Step Context: Current page is Search Page");
         context.setContext(ContextKeys.CURRENT_PAGE, searchPage);
-        context.setContext(ContextKeys.SEARCH_PAGE, searchPage);
 
         executor.click(productListItem.getProductItemAddToCartBtn());
         executor.click(searchPage.getProceedToCheckoutBtn());

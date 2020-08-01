@@ -24,6 +24,10 @@ public class MyAccountPage extends Page {
         this.header = new Header(browser.getWebDriver());
     }
 
+    public Header getHeader() {
+        return header;
+    }
+
     @Override
     public WebElement getElementByName(String elementName) {
         switch (elementName) {

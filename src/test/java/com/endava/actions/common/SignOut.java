@@ -1,7 +1,7 @@
 package com.endava.actions.common;
 
 import com.endava.helpers.util.actionsUtil.ObjectManipulatorImpl;
-import com.endava.helpers.util.browser.Browser;
+import com.endava.helpers.util.actionsUtil.PageFactory;
 import com.endava.pageObjects.MyAccountPage;
 import com.endava.steps.context.ContextKeys;
 import com.endava.steps.context.StepContext;
@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.xml.namespace.QName;
 
 @Component
 public class SignOut {
@@ -21,22 +20,22 @@ public class SignOut {
     private ObjectManipulatorImpl executor;
 
     @Autowired
-    private Browser browser;
+    private PageFactory pageFactory;
 
     @Autowired
     private StepContext context;
 
     public void execute() {
-        MyAccountPage myAccountPage = new MyAccountPage(browser);
+        MyAccountPage myAccountPage = (MyAccountPage) pageFactory.getPage(ContextKeys.MY_ACCOUNT_PAGE);
 
         log.debug("Updating Step Context: Current page is My Account Page");
         context.setContext(ContextKeys.CURRENT_PAGE, myAccountPage);
-        context.setContext(ContextKeys.MY_ACCOUNT_PAGE, myAccountPage);
 
         log.info("   -> Click Sign Out button");
-        executor.click(myAccountPage.getHeaderElementByName("signOutButton"));
+        executor.click(myAccountPage.getHeader().getSignOutButton());
 
-        context.setContext(ContextKeys.CURRENT_PAGE, context.getContext(ContextKeys.LOGIN_PAGE));
+        log.debug("Updating Step Context: Current page is Login Page");
+        context.setContext(ContextKeys.CURRENT_PAGE, pageFactory.getPage(ContextKeys.LOGIN_PAGE));
         log.info("   -> SIGN OUT: ACTION COMPLETE");
     }
 }

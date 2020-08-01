@@ -1,7 +1,7 @@
 package com.endava.actions.common;
 
 import com.endava.helpers.util.actionsUtil.ObjectManipulator;
-import com.endava.helpers.util.browser.Browser;
+import com.endava.helpers.util.actionsUtil.PageFactory;
 import com.endava.pageObjects.LoginPage;
 import com.endava.pageObjects.MyAccountPage;
 import com.endava.steps.context.ContextKeys;
@@ -13,8 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-
 @Component
 public class SignIn {
 
@@ -24,43 +22,33 @@ public class SignIn {
     private ObjectManipulator executor;
 
     @Autowired
-    private Browser browser;
-
-    @Autowired
     private StepContext context;
 
-    private LoginPage loginPage;
-
-    private MyAccountPage myAccountPage;
-
-    @PostConstruct
-    private void init() {
-        this.loginPage = new LoginPage(browser);
-        this.myAccountPage = new MyAccountPage(browser);
-    }
+    @Autowired
+    private PageFactory pageFactory;
 
     public void execute(@NotNull User user) {
         log.info("----> Sign In Action Start: ");
 
         log.debug("Updating Step Context: Current page is Login Page");
+        LoginPage loginPage = (LoginPage) pageFactory.getPage(ContextKeys.LOGIN_PAGE);
         context.setContext(ContextKeys.CURRENT_PAGE, loginPage);
-        context.setContext(ContextKeys.LOGIN_PAGE, loginPage);
 
         log.info("   -> Clicking My Account link");
-        executor.click(loginPage.getHeaderElementByName("signInLink"));
+        executor.click(loginPage.getHeader().getSignInLink());
 
         log.info("   -> Populating user email field");
-        executor.sendKeys(loginPage.getElementByName("userEmailField"), user.getUserEmail());
+        executor.sendKeys(loginPage.getUserEmailField(), user.getUserEmail());
 
         log.info("   -> Populating Password field");
-        executor.sendKeys(loginPage.getElementByName("userPasswordField"), user.getUserPassword());
+        executor.sendKeys(loginPage.getUserPasswordField(), user.getUserPassword());
 
         log.info("   -> Clicking Submit button");
-        executor.click(loginPage.getElementByName("signInButton"));
+        executor.click(loginPage.getSignInButton());
 
         log.debug("Updating Step Context: Current page is My Account Page");
+        MyAccountPage myAccountPage = (MyAccountPage) pageFactory.getPage(ContextKeys.MY_ACCOUNT_PAGE);
         context.setContext(ContextKeys.CURRENT_PAGE, myAccountPage);
-        context.setContext(ContextKeys.MY_ACCOUNT_PAGE, myAccountPage);
 
         log.info("----> Sign In action complete");
 

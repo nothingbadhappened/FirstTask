@@ -106,6 +106,10 @@ public class LoginPage extends Page {
         return header.getHeaderElementByName(elementName);
     }
 
+    public Header getHeader() {
+        return header;
+    }
+
     @Override
     public String toString() {
         log.debug("Body Page Object toString() method invoked");

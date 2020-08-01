@@ -4,8 +4,12 @@ import com.endava.actions.common.AddToCart;
 import com.endava.actions.common.SearchProduct;
 import com.endava.actions.common.SignIn;
 import com.endava.actions.common.SignOut;
+import com.endava.helpers.util.actionsUtil.Assert;
 import com.endava.helpers.util.browser.Browser;
-import com.endava.pageObjects.*;
+import com.endava.pageObjects.CartPage;
+import com.endava.pageObjects.LoginPage;
+import com.endava.pageObjects.MyAccountPage;
+import com.endava.pageObjects.SearchPage;
 import com.endava.pageObjects.modules.ProductListItem;
 import com.endava.steps.context.ContextKeys;
 import com.endava.steps.context.StepContext;
@@ -21,9 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.testng.Assert;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.Map;
 
 public class CommonSteps {
@@ -61,14 +63,16 @@ public class CommonSteps {
             String homePage = environment.getProperty("url");
             log.info("STEP: Given user navigates to " + homePage + " website");
             browser.goToUrl(homePage);
+            log.info("~~~ STEP: PASSED ~~~");
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.error("~~~ STEP: FAILED [{}] ~~~\n{}", e.getMessage(), e.getStackTrace());
         }
     }
 
     @And("{string} user  is pulled from the Database")
     public void userIsPulledFromTheDatabase(String registrationStatus) {
         context.setContext(ContextKeys.CURRENT_USER, userProviderService.getUser(registrationStatus));
+        log.info("~~~ STEP: PASSED ~~~");
     }
 
     @And("user is {string} on the website")
@@ -76,6 +80,7 @@ public class CommonSteps {
         context.setContext(ContextKeys.CURRENT_USER, userProviderService.getUser(registrationStatus));
         context.setContext(ContextKeys.USER_REGISTERED, userProviderService.getUser(registrationStatus));
         log.info("STEP: And user is " + registrationStatus + " on the website");
+        log.info("~~~ STEP: PASSED ~~~");
     }
 
     @When("specific user signs in with valid credentials:")
@@ -97,9 +102,10 @@ public class CommonSteps {
             context.setContext(ContextKeys.CURRENT_USER, user);
 
             signIn.execute(user);
+
+            log.info("~~~ STEP: PASSED ~~~");
         } catch (Exception | Error e) {
-            log.error("Could not set user credentials! info: " + e.toString());
-            Assert.fail("Could not set user credentials! info: " + e.toString());
+            log.error("~~~ STEP: FAILED [{}] ~~~\n{}", e.getMessage(), e.getStackTrace());
             e.printStackTrace();
         }
     }
@@ -108,14 +114,11 @@ public class CommonSteps {
     public void myAccountPageLoaded(String text) {
         MyAccountPage myAccountPage = (MyAccountPage) context.getContext(ContextKeys.MY_ACCOUNT_PAGE);
         WebElement element = myAccountPage.getElementByName("myAccountHeading");
-        try {
-            log.info("STEP: Then user is redirected to " + text + " page");
-            Assert.assertEquals(browser.getPageTitle(), text);
-            Assert.assertEquals(element.getText(), "MY ACCOUNT");
-        } catch (AssertionError e) {
-            log.info("~~~ STEP: Failed !!! ~~~\n" + e.getMessage());
-            Assert.fail(e.getMessage());
-        }
+
+        log.info("STEP: Then user is redirected to " + text + " page");
+        Assert.assertEquals(browser.getPageTitle(), text);
+        Assert.assertEquals(element.getText(), "MY ACCOUNT");
+
     }
 
     @And("user full name is displayed in the top navigation bar")
@@ -133,6 +136,7 @@ public class CommonSteps {
         User user = userProviderService.getUser(registrationStatus);
         context.setContext(ContextKeys.CURRENT_USER, user);
         context.setContext(ContextKeys.USER_NOT_REGISTERED, user);
+        log.info("~~~ STEP: PASSED ~~~");
     }
 
     @When("user enters invalid username {string} and password {string}")
@@ -145,8 +149,10 @@ public class CommonSteps {
             user.setUserPassword(password);
 
             signIn.execute(user);
+
+            log.info("~~~ STEP: PASSED ~~~");
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.error("~~~ STEP: FAILED [{}] ~~~\n{}", e.getMessage(), e.getStackTrace());
         }
 
         signIn.execute(user);
@@ -155,14 +161,9 @@ public class CommonSteps {
 
     @Then("login error {string} is displayed")
     public void loginError(String errorText) {
-        try {
-            log.info("STEP: Then login error is displayed: [  " + errorText + " ]");
-            LoginPage loginPage = (LoginPage) context.getContext(ContextKeys.LOGIN_PAGE);
-            Assert.assertEquals(loginPage.getElementByName("loginErrorField").getText(), errorText);
-        } catch (AssertionError e) {
-            log.info("~~~ STEP: Failed ~~~ " + e.getMessage());
-            Assert.fail();
-        }
+        log.info("STEP: Then login error is displayed: [  " + errorText + " ]");
+        LoginPage loginPage = (LoginPage) context.getContext(ContextKeys.LOGIN_PAGE);
+        Assert.assertEquals(loginPage.getElementByName("loginErrorField").getText(), errorText);
     }
 
     @And("user is logged in")
@@ -173,8 +174,9 @@ public class CommonSteps {
             context.setContext(ContextKeys.CURRENT_USER, user);
             context.setContext(ContextKeys.USER_REGISTERED, user);
             signIn.execute(user);
+            log.info("~~~ STEP: PASSED ~~~");
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.error("~~~ STEP: FAILED [{}] ~~~\n{}", e.getMessage(), e.getStackTrace());
         }
     }
 
@@ -183,35 +185,24 @@ public class CommonSteps {
         try {
             log.info("STEP: When user clicks sign out button");
             signOut.execute();
+            log.info("~~~ STEP: PASSED ~~~");
         } catch (Exception e) {
-            log.error(e.getMessage());
-            Assert.fail(e.getMessage());
+            log.error("~~~ STEP: FAILED [{}] ~~~\n{}", e.getMessage(), e.getStackTrace());
         }
     }
 
     @Then("user is logged out")
     public void verifyUserSignedOut() {
-        Page currentPage = (Page) context.getContext(ContextKeys.CURRENT_PAGE);
+        LoginPage loginPage = (LoginPage) context.getContext(ContextKeys.CURRENT_PAGE);
 
-        try {
-            log.info("STEP: Then user is logged out");
-            Assert.assertEquals(browser.getPageUrl(), "http://automationpractice.com/index.php?controller=authentication&back=my-account");
-            log.info("User is redirected to Sign In page");
-        } catch (AssertionError e) {
-            log.info("~~~ STEP: Failed ~~~ \nUser is not redirected to Sign In page - " + e.getMessage());
-        }
+        log.info("STEP: Then user is logged out");
+        Assert.assertEquals(browser.getPageUrl(), "http://automationpractice.com/index.php?controller=authentication&back=my-account");
 
-        if (browser.getPageTitle().equals("MY ACCOUNT")) {
-            log.info("~~~ STEP: FAIL ~~~ \nMy Account is still present");
-            Assert.fail();
-        }
+        Assert.assertTrue(!browser.getPageTitle().equals("MY ACCOUNT"));
+        log.info("User is redirected to Sign In page");
 
-        try {
-            currentPage.getElementByName("userFullName");
-            Assert.fail();
-        } catch (IllegalStateException e) {
-            log.info("~~~ STEP: PASSED ~~~");
-        }
+        Assert.assertNoSuchElement(loginPage.getHeader().getUserFullName());
+
     }
 
     // == Spring JDBC test steps See SignInWithDatabasePulledUser.feature ==
@@ -220,22 +211,26 @@ public class CommonSteps {
         User user = userProviderService.getUser(userRegistrationStatus);
         context.setContext(ContextKeys.CURRENT_USER, user);
         context.setContext(ContextKeys.USER_REGISTERED, user);
+        log.info("~~~ STEP: PASSED ~~~");
     }
 
     @And("user signs in")
     public void userSignsIn() {
         signIn.execute((User) context.getContext(ContextKeys.USER_REGISTERED));
+        log.info("~~~ STEP: PASSED ~~~");
     }
 
     @And("user adds {string} to cart")
     public void userAddsItemToCart(String productName) {
         searchProduct.addToCart(productName);
+        log.info("~~~ STEP: PASSED ~~~");
     }
 
     @When("user searches for {string} item")
     public void userSearchesForItem(String productName) {
         log.info("Step: When user searches for " + productName + " item");
         searchProduct.execute(productName);
+        log.info("~~~ STEP: PASSED ~~~");
     }
 
     @Then("{string} is present in search results")
@@ -243,15 +238,11 @@ public class CommonSteps {
         log.info("STEP: Then " + productName + " is present in search results");
         SearchPage searchPage = (SearchPage) context.getContext(ContextKeys.SEARCH_PAGE);
 
-        try {
-            WebElement element = searchPage.getProductListItem().getProductItemNameElement();
-            Assert.assertTrue(searchProduct.getIsProductFound());
-            Assert.assertEquals(productName, element.getText());
-            log.info("~~~ STEP: PASSED ~~~");
-        } catch (AssertionError | NullPointerException e) {
-            log.info("~~~ STEP: Failed ~~~ \nThe product has not been found in search results: [{}]\n{}", e.getMessage(), e.getStackTrace());
-            Assert.fail(e.getStackTrace().toString());
-        }
+        WebElement element = searchPage.getProductListItem().getProductItemNameElement();
+
+        Assert.assertTrue(searchProduct.getIsProductFound());
+        Assert.assertEquals(productName, element.getText());
+
     }
 
     @Then("failed search message is displayed with text {string}")
@@ -263,15 +254,8 @@ public class CommonSteps {
                 .getText()
                 .replace("\"", "");
 
-        try {
-            log.info("Expecting search error message: " + expectedMessage);
-            log.info("Received search error message: " + actualMessage);
-            Assert.assertEquals(actualMessage, expectedMessage);
-            log.info("~~~ STEP: PASSED ~~~");
-        } catch (AssertionError e) {
-            log.info("~~~ STEP: Failed ~~~ \nBad Failed Search Message - " + e.getMessage());
-            Assert.fail();
-        }
+        Assert.assertEquals(actualMessage, expectedMessage);
+
     }
 
     @And("user adds the found item to cart")
@@ -279,35 +263,25 @@ public class CommonSteps {
         SearchPage searchPage = (SearchPage) context.getContext(ContextKeys.SEARCH_PAGE);
         ProductListItem productListItem = searchPage.getProductListItem();
         addToCart.addSingleItemFromSearchPage(productListItem);
+        log.info("~~~ STEP: PASSED ~~~");
     }
 
     @And("user navigates to the cart page")
     public void userNavigatesToCartPage() {
         browser.getWebDriver().navigate().to("http://automationpractice.com/index.php?controller=order");
         context.setContext(ContextKeys.CART_PAGE, new CartPage(browser));
+        log.info("~~~ STEP: PASSED ~~~");
     }
 
     @Then("{string} page is loaded")
     public void shoppingCartSummaryPageIsLoaded(String pageHeadingName) {
         CartPage cartPage = (CartPage) context.getContext(ContextKeys.CART_PAGE);
-        try {
-            Assert.assertTrue(cartPage.getElementByName("cartTitleElement").getText().contains(pageHeadingName));
-            log.info("~~~ STEP: PASSED ~~~");
-        } catch (AssertionError e) {
-            log.info("~~~ STEP: Failed ~~~ \nBad Cart Page heading - " + e.getMessage());
-            Assert.fail();
-        }
+        Assert.assertTrue(cartPage.getElementByName("cartTitleElement").getText().contains(pageHeadingName));
     }
 
     @And("the {string} item is present in the list")
     public void itemPresentInTheCart(String productName) {
         CartPage cartPage = (CartPage) context.getContext(ContextKeys.CART_PAGE);
-        try {
-            Assert.assertEquals(cartPage.getElementByName("productItemName").getText(),
-                    productName);
-        } catch (AssertionError e) {
-            log.info("~~~ STEP: Failed ~~~ \nBad product name in the Cart - " + e.getMessage());
-            Assert.fail();
-        }
+        Assert.assertEquals(cartPage.getElementByName("productItemName").getText(), productName);
     }
 }

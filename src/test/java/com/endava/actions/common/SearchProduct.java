@@ -1,20 +1,20 @@
 package com.endava.actions.common;
 
 import com.endava.helpers.util.actionsUtil.ObjectManipulator;
+import com.endava.helpers.util.actionsUtil.PageFactory;
 import com.endava.helpers.util.actionsUtil.ProductListUtil;
-import com.endava.helpers.util.browser.Browser;
 import com.endava.pageObjects.HomePage;
 import com.endava.pageObjects.SearchPage;
 import com.endava.pageObjects.modules.Header;
 import com.endava.pageObjects.modules.ProductListItem;
 import com.endava.steps.context.ContextKeys;
 import com.endava.steps.context.StepContext;
+import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.NoSuchElementException;
 
 @Component
@@ -26,40 +26,31 @@ public class SearchProduct {
     private ObjectManipulator executor;
 
     @Autowired
-    private Browser browser;
-
-    @Autowired
     private StepContext context;
 
-    private HomePage homePage;
-    private Header header;
+    @Autowired
+    PageFactory pageFactory;
 
     private ProductListItem productListItem;
     private boolean isProductFound = false;
 
-    @PostConstruct
-    private void init() {
-        this.homePage = new HomePage(browser);
-        this.header = homePage.getHeader();
-    }
 
     public void execute(String productName) {
 
-        log.debug("Updating Step Context: Current page is Search Page");
+        log.debug("Updating Step Context: Current page is Home Page");
+        HomePage homePage = (HomePage) pageFactory.getPage(ContextKeys.HOME_PAGE);
         context.setContext(ContextKeys.CURRENT_PAGE, homePage);
-        context.setContext(ContextKeys.HOME_PAGE, homePage);
 
         log.debug("Entering product name to search for: " + productName);
-        executor.sendKeys(header.getHeaderSearchBox(), productName);
+        executor.sendKeys(homePage.getHeader().getHeaderSearchBox(), productName);
 
         log.debug("Clicking Search button");
-        executor.click(header.getHeaderSearchButton());
+        executor.click(homePage.getHeader().getHeaderSearchButton());
 
-        SearchPage searchPage = new SearchPage(browser);
+        SearchPage searchPage = (SearchPage) pageFactory.getPage(ContextKeys.SEARCH_PAGE);
 
         log.debug("Updating Step Context: Current page is Search Page");
         context.setContext(ContextKeys.CURRENT_PAGE, searchPage);
-        context.setContext(ContextKeys.SEARCH_PAGE, searchPage);
 
         ProductListUtil productListUtil = new ProductListUtil(searchPage.getProductList());
 
