@@ -6,6 +6,7 @@ import com.endava.actions.common.SignIn;
 import com.endava.actions.common.SignOut;
 import com.endava.helpers.util.actionsUtil.Assert;
 import com.endava.helpers.util.browser.Browser;
+import com.endava.helpers.util.customExceptions.ElementStillPresentException;
 import com.endava.pageObjects.CartPage;
 import com.endava.pageObjects.LoginPage;
 import com.endava.pageObjects.MyAccountPage;
@@ -59,14 +60,10 @@ public class CommonSteps {
 
     @Given("user navigates to website")
     public void userNavigatesToWebsite() {
-        try {
-            String homePage = environment.getProperty("url");
-            log.info("STEP: Given user navigates to " + homePage + " website");
-            browser.goToUrl(homePage);
-            log.info("~~~ STEP: PASSED ~~~");
-        } catch (Exception e) {
-            log.error("~~~ STEP: FAILED [{}] ~~~\n{}", e.getMessage(), e.getStackTrace());
-        }
+        String homePage = environment.getProperty("url");
+        log.info("STEP: Given user navigates to " + homePage + " website");
+        browser.goToUrl(homePage);
+        log.info("~~~ STEP: PASSED ~~~");
     }
 
     @And("{string} user  is pulled from the Database")
@@ -85,29 +82,22 @@ public class CommonSteps {
 
     @When("specific user signs in with valid credentials:")
     public void userSignIn(DataTable userCredentials) {
+        Map<String, String> data = userCredentials.asMap(String.class, String.class);
+        data.forEach((k, v) -> log.debug("User Credentials datatable -> Key: " + k + " Value: " + v));
+        User user = new User();
 
-        try {
-            Map<String, String> data = userCredentials.asMap(String.class, String.class);
-            data.forEach((k, v) -> log.debug("User Credentials datatable -> Key: " + k + " Value: " + v));
+        log.info("STEP: When specific user signs in with valid credentials");
+        user.setUserFullName(data.get("userFullName"));
+        log.debug("Assigned userFullName to value: " + data.get("userFullName"));
+        user.setUserEmail(data.get("userEmail"));
+        log.debug("Assigned userEmail to value: " + data.get("userEmail"));
+        user.setUserPassword(data.get("userPassword"));
+        log.debug("Assigned userPassword to value: " + data.get("userPassword"));
+        context.setContext(ContextKeys.CURRENT_USER, user);
 
-            User user = new User();
+        signIn.execute(user);
 
-            log.info("STEP: When specific user signs in with valid credentials");
-            user.setUserFullName(data.get("userFullName"));
-            log.debug("Assigned userFullName to value: " + data.get("userFullName"));
-            user.setUserEmail(data.get("userEmail"));
-            log.debug("Assigned userEmail to value: " + data.get("userEmail"));
-            user.setUserPassword(data.get("userPassword"));
-            log.debug("Assigned userPassword to value: " + data.get("userPassword"));
-            context.setContext(ContextKeys.CURRENT_USER, user);
-
-            signIn.execute(user);
-
-            log.info("~~~ STEP: PASSED ~~~");
-        } catch (Exception | Error e) {
-            log.error("~~~ STEP: FAILED [{}] ~~~\n{}", e.getMessage(), e.getStackTrace());
-            e.printStackTrace();
-        }
+        log.info("~~~ STEP: PASSED ~~~");
     }
 
     @Then("user is redirected to {string} page")
@@ -143,20 +133,12 @@ public class CommonSteps {
     public void invalidUserSignIn(String username, String password) {
         User user = new User();
 
-        try {
-            log.info("STEP: When user enters invalid username: " + username + " and password:" + password);
-            user.setUserEmail(username);
-            user.setUserPassword(password);
-
-            signIn.execute(user);
-
-            log.info("~~~ STEP: PASSED ~~~");
-        } catch (Exception e) {
-            log.error("~~~ STEP: FAILED [{}] ~~~\n{}", e.getMessage(), e.getStackTrace());
-        }
+        log.info("STEP: When user enters invalid username: " + username + " and password:" + password);
+        user.setUserEmail(username);
+        user.setUserPassword(password);
 
         signIn.execute(user);
-
+        log.info("~~~ STEP: PASSED ~~~");
     }
 
     @Then("login error {string} is displayed")
@@ -168,31 +150,23 @@ public class CommonSteps {
 
     @And("user is logged in")
     public void userLoggedIn() {
-        try {
-            log.info("STEP: And user is logged in");
-            User user = userProviderService.getUser("registered");
-            context.setContext(ContextKeys.CURRENT_USER, user);
-            context.setContext(ContextKeys.USER_REGISTERED, user);
-            signIn.execute(user);
-            log.info("~~~ STEP: PASSED ~~~");
-        } catch (Exception e) {
-            log.error("~~~ STEP: FAILED [{}] ~~~\n{}", e.getMessage(), e.getStackTrace());
-        }
+        log.info("STEP: And user is logged in");
+        User user = userProviderService.getUser("registered");
+        context.setContext(ContextKeys.CURRENT_USER, user);
+        context.setContext(ContextKeys.USER_REGISTERED, user);
+        signIn.execute(user);
+        log.info("~~~ STEP: PASSED ~~~");
     }
 
     @When("user clicks sign out button")
     public void userSignOut() {
-        try {
-            log.info("STEP: When user clicks sign out button");
-            signOut.execute();
-            log.info("~~~ STEP: PASSED ~~~");
-        } catch (Exception e) {
-            log.error("~~~ STEP: FAILED [{}] ~~~\n{}", e.getMessage(), e.getStackTrace());
-        }
+        log.info("STEP: When user clicks sign out button");
+        signOut.execute();
+        log.info("~~~ STEP: PASSED ~~~");
     }
 
     @Then("user is logged out")
-    public void verifyUserSignedOut() {
+    public void verifyUserSignedOut() throws ElementStillPresentException {
         LoginPage loginPage = (LoginPage) context.getContext(ContextKeys.CURRENT_PAGE);
 
         log.info("STEP: Then user is logged out");
@@ -202,10 +176,8 @@ public class CommonSteps {
         log.info("User is redirected to Sign In page");
 
         Assert.assertNoSuchElement(loginPage.getHeader().getUserFullName());
-
     }
 
-    // == Spring JDBC test steps See SignInWithDatabasePulledUser.feature ==
     @When("user status is {string}")
     public void getRegisteredUserFromDatabase(String userRegistrationStatus) {
         User user = userProviderService.getUser(userRegistrationStatus);
@@ -242,7 +214,6 @@ public class CommonSteps {
 
         Assert.assertTrue(searchProduct.getIsProductFound());
         Assert.assertEquals(productName, element.getText());
-
     }
 
     @Then("failed search message is displayed with text {string}")
