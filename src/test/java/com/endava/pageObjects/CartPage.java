@@ -36,6 +36,8 @@ public class CartPage extends Page {
             case "productItemName":
                 element = productItemName;
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + elementName);
         }
         return element;
     }

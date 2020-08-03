@@ -15,7 +15,6 @@ import java.lang.reflect.Field;
 public class Header {
 
     private static final Logger log = LoggerFactory.getLogger(Header.class);
-    private static WebDriver driver;
 
     @FindBy(how = How.LINK_TEXT, using = "Sign in")
     private WebElement signInLink;
@@ -47,7 +46,6 @@ public class Header {
     private WebElement headerCartItem;
 
     public Header(WebDriver driver) {
-        Header.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
@@ -56,10 +54,6 @@ public class Header {
             return headerCartItem;
         }
         else throw new NoSuchElementException("Item is not present in the cart.");
-    }
-
-    public void setHeaderCartItem(WebElement headerCartItem) {
-        this.headerCartItem = driver.findElement(By.xpath("//*[@id=\"header\"]/div[3]/div/div/div[3]/div/div/div/div/dl/dt/div/div[1]/a"));
     }
 
     public WebElement getSignInLink() {
