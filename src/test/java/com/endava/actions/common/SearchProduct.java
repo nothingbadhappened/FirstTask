@@ -58,7 +58,7 @@ public class SearchProduct {
             e.getStackTrace();
         }
 
-        isProductFound = productListUtil.getIsProductFound();
+        isProductFound = productListUtil.isProductFound();
 
         // Store the found product list item object within search page
         if (isProductFound) {
@@ -66,7 +66,7 @@ public class SearchProduct {
         }
     }
 
-    public boolean getIsProductFound() {
+    public boolean isProductFound() {
         return isProductFound;
     }
 

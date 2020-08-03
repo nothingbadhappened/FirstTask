@@ -20,7 +20,7 @@ public class ProductListUtil {
         this.productList = productList;
     }
 
-    public boolean getIsProductFound() {
+    public boolean isProductFound() {
         return isProductFound;
     }
 

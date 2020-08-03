@@ -212,7 +212,7 @@ public class CommonSteps {
 
         WebElement element = searchPage.getProductListItem().getProductItemNameElement();
 
-        Assert.assertTrue(searchProduct.getIsProductFound());
+        Assert.assertTrue(searchProduct.isProductFound());
         Assert.assertEquals(productName, element.getText());
     }
 

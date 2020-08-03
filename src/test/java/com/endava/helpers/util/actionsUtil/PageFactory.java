@@ -3,7 +3,6 @@ package com.endava.helpers.util.actionsUtil;
 import com.endava.helpers.util.browser.Browser;
 import com.endava.pageObjects.*;
 import com.endava.steps.context.ContextKeys;
-import com.endava.steps.context.StepContext;
 import org.openqa.selenium.InvalidArgumentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +15,7 @@ public class PageFactory {
     private static final Logger log = LoggerFactory.getLogger(PageFactory.class);
 
     @Autowired
-    StepContext context;
-
-    @Autowired
-    Browser browser;
+    private Browser browser;
 
     public Page getPage(ContextKeys pageName) {
 

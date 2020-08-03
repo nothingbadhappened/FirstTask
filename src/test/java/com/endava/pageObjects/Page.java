@@ -17,7 +17,6 @@ public abstract class Page {
         PageFactory.initElements(driver, this);
     }
 
-    //TODO: convert to default methods
     public abstract WebElement getElementByName(String elementName);
     public abstract WebElement getHeaderElementByName(String elementName);
 
