@@ -1,7 +1,6 @@
 package com.endava.actions.common;
 
 import com.endava.helpers.util.actionsUtil.ObjectManipulator;
-import com.endava.helpers.util.actionsUtil.PageFactory;
 import com.endava.pageObjects.ProductPage;
 import com.endava.pageObjects.SearchPage;
 import com.endava.pageObjects.modules.ProductListItem;
@@ -22,12 +21,9 @@ public class AddToCart {
     @Autowired
     private StepContext context;
 
-    @Autowired
-    PageFactory pageFactory;
-
     public void addSingleItemFromProductPage(ProductListItem productListItem) {
         executor.click(productListItem.getProductItemNameElement());
-        ProductPage productPage = (ProductPage) pageFactory.getPage(ContextKeys.PRODUCT_PAGE);
+        ProductPage productPage = (ProductPage) context.getContext(ContextKeys.PRODUCT_PAGE);
         log.info("Updating Step Context: Current page is Product Page");
         context.setContext(ContextKeys.CURRENT_PAGE, productPage);
 
@@ -36,7 +32,7 @@ public class AddToCart {
     }
 
     public void addSingleItemFromSearchPage(ProductListItem productListItem) {
-        SearchPage searchPage = (SearchPage) pageFactory.getPage(ContextKeys.SEARCH_PAGE);
+        SearchPage searchPage = (SearchPage) context.getContext(ContextKeys.SEARCH_PAGE);
         log.info("Updating Step Context: Current page is Search Page");
         context.setContext(ContextKeys.CURRENT_PAGE, searchPage);
 

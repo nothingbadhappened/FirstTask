@@ -21,45 +21,24 @@ public class PageFactory {
     @Autowired
     Browser browser;
 
-    public Object getPage(ContextKeys pageName) {
-        Object page;
-        // returns existing page
-        if (context.getContext(pageName) != null) {
-            log.debug("Page [{}] has been already created, returning existing instance", pageName);
-            page = context.getContext(pageName);
-        } else {
-            // returns new page instance
-            log.debug("There is no existing page [{}] present, creating new instance", pageName);
-            switch (pageName) {
-                case CART_PAGE:
-                    page = new CartPage(browser);
-                    context.setContext(ContextKeys.CART_PAGE, page);
-                    break;
-                case HOME_PAGE:
-                    page = new HomePage(browser);
-                    context.setContext(ContextKeys.HOME_PAGE, page);
-                    break;
-                case LOGIN_PAGE:
-                    page = new LoginPage(browser);
-                    context.setContext(ContextKeys.LOGIN_PAGE, page);
-                    break;
-                case MY_ACCOUNT_PAGE:
-                    page = new MyAccountPage(browser);
-                    context.setContext(ContextKeys.MY_ACCOUNT_PAGE, page);
-                    break;
-                case PRODUCT_PAGE:
-                    page = new ProductPage(browser);
-                    context.setContext(ContextKeys.PRODUCT_PAGE, page);
-                    break;
-                case SEARCH_PAGE:
-                    page = new SearchPage(browser);
-                    context.setContext(ContextKeys.SEARCH_PAGE, page);
-                    break;
-                default:
-                    log.debug("Could not create requested page [{}]: bad argument", pageName);
-                    throw new InvalidArgumentException("Could not create requested page [" + pageName + "]: bad argument");
-            }
+    public Page getPage(ContextKeys pageName) {
+
+        switch (pageName) {
+            case CART_PAGE:
+                return new CartPage(browser);
+            case HOME_PAGE:
+                return new HomePage(browser);
+            case LOGIN_PAGE:
+                return new LoginPage(browser);
+            case MY_ACCOUNT_PAGE:
+                return new MyAccountPage(browser);
+            case PRODUCT_PAGE:
+                return new ProductPage(browser);
+            case SEARCH_PAGE:
+                return new SearchPage(browser);
+            default:
+                log.debug("Could not create requested page [{}]: bad argument", pageName);
+                throw new InvalidArgumentException("Could not create requested page [" + pageName + "]: bad argument");
         }
-        return page;
     }
 }

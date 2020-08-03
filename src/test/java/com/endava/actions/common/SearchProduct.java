@@ -1,15 +1,12 @@
 package com.endava.actions.common;
 
 import com.endava.helpers.util.actionsUtil.ObjectManipulator;
-import com.endava.helpers.util.actionsUtil.PageFactory;
 import com.endava.helpers.util.actionsUtil.ProductListUtil;
 import com.endava.pageObjects.HomePage;
 import com.endava.pageObjects.SearchPage;
-import com.endava.pageObjects.modules.Header;
 import com.endava.pageObjects.modules.ProductListItem;
 import com.endava.steps.context.ContextKeys;
 import com.endava.steps.context.StepContext;
-import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +25,6 @@ public class SearchProduct {
     @Autowired
     private StepContext context;
 
-    @Autowired
-    PageFactory pageFactory;
-
     private ProductListItem productListItem;
     private boolean isProductFound = false;
 
@@ -38,7 +32,7 @@ public class SearchProduct {
     public void execute(String productName) {
 
         log.debug("Updating Step Context: Current page is Home Page");
-        HomePage homePage = (HomePage) pageFactory.getPage(ContextKeys.HOME_PAGE);
+        HomePage homePage = (HomePage) context.getContext(ContextKeys.HOME_PAGE);
         context.setContext(ContextKeys.CURRENT_PAGE, homePage);
 
         log.debug("Entering product name to search for: " + productName);
@@ -47,7 +41,7 @@ public class SearchProduct {
         log.debug("Clicking Search button");
         executor.click(homePage.getHeader().getHeaderSearchButton());
 
-        SearchPage searchPage = (SearchPage) pageFactory.getPage(ContextKeys.SEARCH_PAGE);
+        SearchPage searchPage = (SearchPage) context.getContext(ContextKeys.SEARCH_PAGE);
 
         log.debug("Updating Step Context: Current page is Search Page");
         context.setContext(ContextKeys.CURRENT_PAGE, searchPage);

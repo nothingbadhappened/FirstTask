@@ -1,7 +1,6 @@
 package com.endava.actions.common;
 
 import com.endava.helpers.util.actionsUtil.ObjectManipulatorImpl;
-import com.endava.helpers.util.actionsUtil.PageFactory;
 import com.endava.pageObjects.MyAccountPage;
 import com.endava.steps.context.ContextKeys;
 import com.endava.steps.context.StepContext;
@@ -20,13 +19,10 @@ public class SignOut {
     private ObjectManipulatorImpl executor;
 
     @Autowired
-    private PageFactory pageFactory;
-
-    @Autowired
     private StepContext context;
 
     public void execute() {
-        MyAccountPage myAccountPage = (MyAccountPage) pageFactory.getPage(ContextKeys.MY_ACCOUNT_PAGE);
+        MyAccountPage myAccountPage = (MyAccountPage) context.getContext(ContextKeys.MY_ACCOUNT_PAGE);
 
         log.debug("Updating Step Context: Current page is My Account Page");
         context.setContext(ContextKeys.CURRENT_PAGE, myAccountPage);
@@ -35,7 +31,7 @@ public class SignOut {
         executor.click(myAccountPage.getHeader().getSignOutButton());
 
         log.debug("Updating Step Context: Current page is Login Page");
-        context.setContext(ContextKeys.CURRENT_PAGE, pageFactory.getPage(ContextKeys.LOGIN_PAGE));
+        context.setContext(ContextKeys.CURRENT_PAGE, context.getContext(ContextKeys.LOGIN_PAGE));
         log.info("   -> SIGN OUT: ACTION COMPLETE");
     }
 }

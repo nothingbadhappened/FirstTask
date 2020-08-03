@@ -1,14 +1,24 @@
 package com.endava.steps.context;
 
 public enum ContextKeys {
-    CURRENT_PAGE,
-    HOME_PAGE,
-    LOGIN_PAGE,
-    MY_ACCOUNT_PAGE,
-    PRODUCT_PAGE,
-    SEARCH_PAGE,
-    CART_PAGE,
-    CURRENT_USER,
-    USER_REGISTERED,
-    USER_NOT_REGISTERED
+    CURRENT_PAGE ("CURRENT PAGE"),
+    HOME_PAGE ("PAGE"),
+    LOGIN_PAGE ("PAGE"),
+    MY_ACCOUNT_PAGE ("PAGE"),
+    PRODUCT_PAGE ("PAGE"),
+    SEARCH_PAGE ("PAGE"),
+    CART_PAGE ("PAGE"),
+    CURRENT_USER ("CURRENT USER"),
+    USER_REGISTERED ("USER"),
+    USER_NOT_REGISTERED ("USER");
+
+    private String type;
+
+    ContextKeys(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
 }

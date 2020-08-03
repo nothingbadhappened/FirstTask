@@ -71,7 +71,7 @@ public class Hooks {
         }
 
         log.debug("Resetting Step Context");
-        context.reset();
+        context.resetContext();
 
         log.debug("----- AFTER HOOK END -----");
         log.info("Completed scenario:"
@@ -84,7 +84,7 @@ public class Hooks {
     @After
     public void teardown() {
         log.debug("Resetting Step Context");
-        context.reset();
+        context.resetContext();
     }
 
 }

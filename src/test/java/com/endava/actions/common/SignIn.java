@@ -1,7 +1,6 @@
 package com.endava.actions.common;
 
 import com.endava.helpers.util.actionsUtil.ObjectManipulator;
-import com.endava.helpers.util.actionsUtil.PageFactory;
 import com.endava.pageObjects.LoginPage;
 import com.endava.pageObjects.MyAccountPage;
 import com.endava.steps.context.ContextKeys;
@@ -24,14 +23,11 @@ public class SignIn {
     @Autowired
     private StepContext context;
 
-    @Autowired
-    private PageFactory pageFactory;
-
     public void execute(@NotNull User user) {
         log.info("----> Sign In Action Start: ");
 
         log.debug("Updating Step Context: Current page is Login Page");
-        LoginPage loginPage = (LoginPage) pageFactory.getPage(ContextKeys.LOGIN_PAGE);
+        LoginPage loginPage = (LoginPage) context.getContext(ContextKeys.LOGIN_PAGE);
         context.setContext(ContextKeys.CURRENT_PAGE, loginPage);
 
         log.info("   -> Clicking My Account link");
@@ -47,7 +43,7 @@ public class SignIn {
         executor.click(loginPage.getSignInButton());
 
         log.debug("Updating Step Context: Current page is My Account Page");
-        MyAccountPage myAccountPage = (MyAccountPage) pageFactory.getPage(ContextKeys.MY_ACCOUNT_PAGE);
+        MyAccountPage myAccountPage = (MyAccountPage) context.getContext(ContextKeys.MY_ACCOUNT_PAGE);
         context.setContext(ContextKeys.CURRENT_PAGE, myAccountPage);
 
         log.info("----> Sign In action complete");
