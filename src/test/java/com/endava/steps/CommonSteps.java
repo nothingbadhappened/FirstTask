@@ -6,7 +6,6 @@ import com.endava.actions.common.SignIn;
 import com.endava.actions.common.SignOut;
 import com.endava.helpers.util.actionsUtil.Assert;
 import com.endava.helpers.util.browser.Browser;
-import com.endava.helpers.util.customExceptions.ElementStillPresentException;
 import com.endava.pageObjects.CartPage;
 import com.endava.pageObjects.LoginPage;
 import com.endava.pageObjects.MyAccountPage;
@@ -175,7 +174,7 @@ public class CommonSteps {
         Assert.assertTrue(!browser.getPageTitle().equals("MY ACCOUNT"));
         log.info("User is redirected to Sign In page");
 
-        Assert.assertNoSuchElement(loginPage.getHeader().getUserFullName());
+        Assert.assertTrue(!loginPage.getHeader().getUserFullName().isDisplayed());
     }
 
     @When("user status is {string}")
