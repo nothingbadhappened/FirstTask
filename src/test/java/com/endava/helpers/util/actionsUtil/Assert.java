@@ -30,10 +30,8 @@ public class Assert {
     }
 
     public static void assertNoSuchElement(WebElement element) {
-        boolean isElementPresent;
         try {
-            isElementPresent = element.isDisplayed();
-            org.testng.Assert.assertFalse(isElementPresent);
+            org.testng.Assert.assertFalse(element.isDisplayed());
             log.info("~~~ STEP: PASSED ~~~");
         } catch ( Exception | AssertionError e) {
             if (e.getClass().equals(AssertionError.class)) {
