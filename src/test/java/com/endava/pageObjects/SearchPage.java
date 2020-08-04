@@ -77,6 +77,10 @@ public class SearchPage extends Page {
         this.productListItem = productListItem;
     }
 
+    public Header getHeader() {
+        return header;
+    }
+
     @Override
     public WebElement getHeaderElementByName(String elementName) {
         return header.getHeaderElementByName(elementName);

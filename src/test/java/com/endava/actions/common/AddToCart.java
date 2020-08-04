@@ -1,6 +1,7 @@
 package com.endava.actions.common;
 
 import com.endava.helpers.util.actionsUtil.ObjectManipulator;
+import com.endava.pageObjects.CartPage;
 import com.endava.pageObjects.ProductPage;
 import com.endava.pageObjects.SearchPage;
 import com.endava.pageObjects.modules.ProductListItem;
@@ -38,6 +39,9 @@ public class AddToCart {
 
         executor.click(productListItem);
         executor.click(searchPage.getProceedToCheckoutBtn());
+
+        log.info("Updating Step Context: Current page is Cart Page");
+        context.setContext(ContextKeys.CURRENT_PAGE, context.getContext(ContextKeys.CART_PAGE));
     }
 
     public void addSingleItemFromSearch(ProductListItem productListItem) throws InterruptedException {

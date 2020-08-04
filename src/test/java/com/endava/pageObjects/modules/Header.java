@@ -42,6 +42,7 @@ public class Header {
     @FindBy(how = How.XPATH, using = "//*[@id=\"header\"]/div[2]/div/div/nav/div[1]/a/span")
     private WebElement userFullName;
 
+    @FindBy(how = How.XPATH, using = "//div[@class='header-container']/.//b[contains(text(),'Cart')]")
     private WebElement headerCartItem;
 
     public Header(WebDriver driver) {

@@ -235,7 +235,8 @@ public class CommonSteps {
 
     @And("user navigates to the cart page")
     public void userNavigatesToCartPage() {
-        browser.getWebDriver().navigate().to("http://automationpractice.com/index.php?controller=order");
+        SearchPage searchPage = (SearchPage) context.getContext(ContextKeys.SEARCH_PAGE);
+        searchPage.getHeader().getHeaderCartItem();
         context.setContext(ContextKeys.CART_PAGE, new CartPage(browser));
         log.info("~~~ STEP: PASSED ~~~");
     }
