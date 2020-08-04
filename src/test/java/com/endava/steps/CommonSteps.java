@@ -165,7 +165,7 @@ public class CommonSteps {
     }
 
     @Then("user is logged out")
-    public void verifyUserSignedOut() throws ElementStillPresentException {
+    public void verifyUserSignedOut() {
         LoginPage loginPage = (LoginPage) context.getContext(ContextKeys.CURRENT_PAGE);
 
         log.info("STEP: Then user is logged out");
