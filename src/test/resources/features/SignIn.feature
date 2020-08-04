@@ -13,12 +13,12 @@ Feature: Sign In
     Then user is redirected to "My account - My Store" page
     And user full name is displayed in the top navigation bar
 
-#  Scenario: User login with invalid credentials
-#    And user is "not registered"
-#    When user enters invalid username "ratatui@ne.em" and password "badPassword"
-#    Then login error "Authentication failed." is displayed
-#
-#  Scenario: Registered user sign out
-#    And user is logged in
-#    When user clicks sign out button
-#    Then user is logged out
+  Scenario: User login with invalid credentials
+    And user is "not registered"
+    When user enters invalid username "ratatui@ne.em" and password "badPassword"
+    Then login error "Authentication failed." is displayed
+
+  Scenario: Registered user sign out
+    And user is logged in
+    When user clicks sign out button
+    Then user is logged out
