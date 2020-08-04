@@ -31,7 +31,7 @@ public class ProductListUtil {
         for (ProductListItem currentItem : productList) {
             String currentItemName = currentItem.getProductItemNameElement().getText();
 
-            if (currentItemName.contains(productName)) {
+            if (currentItemName.equalsIgnoreCase(productName)) {
                 isProductFound = true;
                 item = currentItem;
             }

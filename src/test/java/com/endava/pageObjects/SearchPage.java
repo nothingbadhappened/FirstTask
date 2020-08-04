@@ -15,12 +15,17 @@ public class SearchPage extends Page {
 
     private Header header;
     private ProductList productList;
+
+    // Defaults product list item to the first element in the list. This can be overwritten.
     private ProductListItem productListItem;
 
     public SearchPage(Browser browser) {
         super(browser);
         this.header = new Header(browser.getWebDriver());
         this.productList = new ProductList(browser.getWebDriver());
+        if (productList.getProductList().size() > 0) {
+            this.productListItem = productList.getProductList().get(0);
+        }
     }
 
     @FindBy(how = How.XPATH, using = "//*[@id=\"grid\"]/a/i")

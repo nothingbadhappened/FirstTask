@@ -4,8 +4,6 @@ import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Field;
-
 public class ProductListItem {
 
     //Product list item POJO
@@ -61,17 +59,21 @@ public class ProductListItem {
         return productItemAddToCartBtn;
     }
 
+    @Override
     public String toString() {
-        log.debug("Header Page Object toString() method invoked");
-
-        for (Field f : this.getClass().getFields()) {
-            try {
-                log.debug(f.getGenericType() + " " + f.getName() + " = " + f.get(this));
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
+        String description;
+        if (productItemDiscountElement != null) {
+            description = " | productItemNameElement: " + productItemNameElement.getText()
+                    + " | productItemPriceElement: " + productItemPriceElement.getText()
+                    + " | productItemDiscountElement: " + productItemDiscountElement.getText()
+                    + " | productItemAddToCartBtn: " + productItemAddToCartBtn.getText();
+            log.debug("Product List Item Object toString() method invoked: \n{}", description);
+        } else {
+            description = " | productItemNameElement: " + productItemNameElement.getText()
+                    + " | productItemPriceElement: " + productItemPriceElement.getText()
+                    + " | productItemAddToCartBtn: " + productItemAddToCartBtn.getText();
+            log.debug("Product List Item Object toString() method invoked: \n{}", description);
         }
-        return "[PRODUCT LIST ITEM OBJECT]";
+        return "[PRODUCT LIST ITEM OBJECT]\n" + description;
     }
-
 }

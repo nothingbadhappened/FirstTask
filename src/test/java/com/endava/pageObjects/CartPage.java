@@ -53,7 +53,7 @@ public class CartPage extends Page {
 
     @Override
     public String toString() {
-        log.debug("Body Page Object toString() method invoked");
+        log.debug("Cart Page Object toString() method invoked");
 
         for (Field f : this.getClass().getFields()) {
             try {

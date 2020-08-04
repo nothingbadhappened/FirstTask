@@ -31,12 +31,12 @@ public class AddToCart {
         executor.click(productPage.getProceedToCheckoutBtn());
     }
 
-    public void addSingleItemFromSearchPage(ProductListItem productListItem) {
+    public void addSingleItemFromSearchPage(ProductListItem productListItem) throws InterruptedException {
         SearchPage searchPage = (SearchPage) context.getContext(ContextKeys.SEARCH_PAGE);
         log.info("Updating Step Context: Current page is Search Page");
         context.setContext(ContextKeys.CURRENT_PAGE, searchPage);
 
-        executor.click(productListItem.getProductItemAddToCartBtn());
+        executor.click(productListItem);
         executor.click(searchPage.getProceedToCheckoutBtn());
     }
 

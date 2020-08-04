@@ -61,7 +61,7 @@ public class HomePage extends Page {
 
     @Override
     public String toString() {
-        log.debug("Body Page Object toString() method invoked");
+        log.debug("Home Page Object toString() method invoked");
 
         for (Field f : this.getClass().getFields()) {
             try {

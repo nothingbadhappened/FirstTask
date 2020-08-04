@@ -102,7 +102,7 @@ public class CommonSteps {
     @Then("user is redirected to {string} page")
     public void myAccountPageLoaded(String text) {
         MyAccountPage myAccountPage = (MyAccountPage) context.getContext(ContextKeys.MY_ACCOUNT_PAGE);
-        WebElement element = myAccountPage.getElementByName("myAccountHeading");
+        WebElement element = myAccountPage.getMyAccountHeading();
 
         log.info("STEP: Then user is redirected to " + text + " page");
         Assert.assertEquals(browser.getPageTitle(), text);
@@ -113,7 +113,7 @@ public class CommonSteps {
     @And("user full name is displayed in the top navigation bar")
     public void userFullNameIsPresentInTheTopNavbar() {
         MyAccountPage myAccountPage = (MyAccountPage) context.getContext(ContextKeys.MY_ACCOUNT_PAGE);
-        WebElement element = myAccountPage.getHeaderElementByName("userFullName");
+        WebElement element = myAccountPage.getHeader().getUserFullName();
         User user = (User) context.getContext(ContextKeys.CURRENT_USER);
         Assert.assertEquals(element.getText(), user.getUserFullName());
         log.info("STEP: Passed");
@@ -124,7 +124,6 @@ public class CommonSteps {
         log.info("STEP: And user is " + registrationStatus + " on the website");
         User user = userProviderService.getUser(registrationStatus);
         context.setContext(ContextKeys.CURRENT_USER, user);
-        context.setContext(ContextKeys.USER_NOT_REGISTERED, user);
         log.info("~~~ STEP: PASSED ~~~");
     }
 
@@ -174,7 +173,7 @@ public class CommonSteps {
         Assert.assertTrue(!browser.getPageTitle().equals("MY ACCOUNT"));
         log.info("User is redirected to Sign In page");
 
-        Assert.assertTrue(!loginPage.getHeader().getUserFullName().isDisplayed());
+        Assert.assertNoSuchElement(loginPage.getHeader().getUserFullName());
     }
 
     @When("user status is {string}")
@@ -208,10 +207,8 @@ public class CommonSteps {
     public void productNameIsFound(String productName) {
         log.info("STEP: Then " + productName + " is present in search results");
         SearchPage searchPage = (SearchPage) context.getContext(ContextKeys.SEARCH_PAGE);
-
-        WebElement element = searchPage.getProductListItem().getProductItemNameElement();
-
         Assert.assertTrue(searchProduct.isProductFound());
+        WebElement element = searchPage.getProductListItem().getProductItemNameElement();
         Assert.assertEquals(productName, element.getText());
     }
 
@@ -229,7 +226,7 @@ public class CommonSteps {
     }
 
     @And("user adds the found item to cart")
-    public void userAddsFoundItemToCart() {
+    public void userAddsFoundItemToCart() throws InterruptedException {
         SearchPage searchPage = (SearchPage) context.getContext(ContextKeys.SEARCH_PAGE);
         ProductListItem productListItem = searchPage.getProductListItem();
         addToCart.addSingleItemFromSearchPage(productListItem);

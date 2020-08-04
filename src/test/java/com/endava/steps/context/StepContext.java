@@ -32,7 +32,7 @@ public class StepContext {
                 return context.get(key);
         } else // Filter USER context
             if (key.getType().equals("USER")
-                    || key.getType().equals("CURRENT_USER")) {
+                    || key.getType().equals("CURRENT USER")) {
                 return context.get(key);
             } else throw new IllegalArgumentException("Cannot get context. Bad argument: " + key);
 
