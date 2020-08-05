@@ -12,14 +12,13 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PreDestroy;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class Browser {
 
     private static final Logger log = LoggerFactory.getLogger(Browser.class);
-
     private final WebDriver webDriver;
-
     private final WebDriverWait webDriverWait;
 
     public Browser(Environment environment) {
@@ -31,6 +30,7 @@ public class Browser {
 
         log.info("Setting WebDriver Wait for " + webDriver.toString());
         webDriverWait = new WebDriverWait(webDriver, 10, 1000);
+        webDriver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
     }
 
     @PreDestroy

@@ -23,7 +23,7 @@ public class SearchPage extends Page {
         super(browser);
         this.header = new Header(browser.getWebDriver());
         this.productList = new ProductList(browser.getWebDriver());
-        if (productList.getProductList().size() > 0) {
+        if (productList.getProductList().size() > 0 && this.productListItem == null) {
             this.productListItem = productList.getProductList().get(0);
         }
     }
@@ -70,7 +70,9 @@ public class SearchPage extends Page {
     }
 
     public ProductListItem getProductListItem() {
-        return productListItem;
+        if (productListItem != null) {
+            return productListItem;
+        } else throw new NullPointerException("ProductListItem has not been initialised yet...");
     }
 
     public void setProductListItem(ProductListItem productListItem) {
