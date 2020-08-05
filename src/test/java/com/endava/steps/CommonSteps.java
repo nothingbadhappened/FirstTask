@@ -87,7 +87,6 @@ public class CommonSteps {
         data.forEach((k, v) -> log.debug("User Credentials datatable -> Key: " + k + " Value: " + v));
         User user = new User();
 
-        log.info("STEP: When specific user signs in with valid credentials [START]");
         user.setUserFullName(data.get("userFullName"));
         log.debug("Assigned userFullName to value: " + data.get("userFullName"));
         user.setUserEmail(data.get("userEmail"));
