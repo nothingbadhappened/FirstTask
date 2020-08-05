@@ -1,6 +1,7 @@
 package com.endava.users;
 
 import com.endava.helpers.util.database.UserDaoImpl;
+import com.endava.steps.context.ContextKeys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +35,22 @@ public class UserProviderService {
             log.info("Generating user with status \"not registered\"");
             user = userDaoImpl.getNotRegisteredUser();
         } else {
-            log.error("Invalid user parameter, cannot create user");
-            return null;
+            log.error("Invalid user parameter, cannot create user with status [{}]", userRegistrationStatus);
+            throw new IllegalArgumentException("Invalid user parameter, cannot create user with status " + userRegistrationStatus);
         }
 
         log.info("User object is ready: " + user.getRegistrationStatus());
         return user;
+    }
+
+    public User getUser(ContextKeys key) {
+        if (key == ContextKeys.USER_REGISTERED) {
+            return userDaoImpl.getRegisteredUser();
+        } else if (key == ContextKeys.USER_NOT_REGISTERED) {
+            return userDaoImpl.getNotRegisteredUser();
+        } else {
+            log.error("Invalid user parameter, cannot create user with status [{}]", key);
+            throw new IllegalArgumentException("Invalid user parameter, cannot create user with status " + key);
+        }
     }
 }

@@ -2,6 +2,8 @@ package com.endava.steps.context;
 
 import com.endava.helpers.util.actionsUtil.PageFactory;
 import com.endava.pageObjects.Page;
+import com.endava.users.User;
+import com.endava.users.UserProviderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class StepContext {
     @Autowired
     PageFactory pageFactory;
 
+    @Autowired
+    UserProviderService userProviderService;
+
     public Object getContext(ContextKeys key) {
         //Filter PAGE context
         if (key.getType().equals("PAGE")
@@ -33,9 +38,14 @@ public class StepContext {
         } else // Filter USER context
             if (key.getType().equals("USER")
                     || key.getType().equals("CURRENT USER")) {
-                return context.get(key);
+                // Create USER if not yet present in the context
+                if (context.get(key) == null) {
+                    User user = userProviderService.getUser(key);
+                    context.put(key, user);
+                    return user;
+                } else //Pull existing USER
+                    return context.get(key);
             } else throw new IllegalArgumentException("Cannot get context. Bad argument: " + key);
-
     }
 
     public void setContext(ContextKeys key, Object object) {
@@ -53,3 +63,4 @@ public class StepContext {
     }
 
 }
+//userProviderService.getUser(registrationStatus)
