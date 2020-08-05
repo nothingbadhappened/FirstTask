@@ -30,7 +30,7 @@ public class Browser {
 
         log.info("Setting WebDriver Wait for " + webDriver.toString());
         webDriverWait = new WebDriverWait(webDriver, 10, 1000);
-        webDriver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+        webDriver.manage().timeouts().implicitlyWait(250, TimeUnit.MILLISECONDS);
     }
 
     @PreDestroy
