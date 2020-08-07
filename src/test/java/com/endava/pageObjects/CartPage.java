@@ -13,7 +13,7 @@ import java.lang.reflect.Field;
 public class CartPage extends Page {
     public static final Logger log = LoggerFactory.getLogger(CartPage.class);
 
-    @FindBy(how = How.XPATH, using = "//*[@id=\"cart_title\"]")
+    @FindBy(how = How.ID, using = "cart_title")
     private WebElement cartTitleElement;
 
     @FindBy(how = How.XPATH, using = "//td[@class='cart_description']//p/a")

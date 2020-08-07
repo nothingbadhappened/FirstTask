@@ -40,7 +40,7 @@ public class SearchPage extends Page {
     @FindBy(how = How.XPATH, using = "//*[@id=\"center_column\"]/p")
     private WebElement failedSearchMessageElement;
 
-    @FindBy(how = How.XPATH, using = "//div[@class='layer_cart_cart col-xs-12 col-md-6']//div[@class='button-container']")
+    @FindBy(how = How.XPATH, using = "//div[@class='button-container']")
     private WebElement proceedToCheckoutBtn;
 
 

@@ -13,7 +13,6 @@ public class ProductListUtil {
 
     private static final Logger log = LoggerFactory.getLogger(ProductListUtil.class);
     private boolean isProductFound = false;
-
     private List<ProductListItem> productList;
 
     public ProductListUtil(@NotNull List<ProductListItem> productList) {
