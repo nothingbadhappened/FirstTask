@@ -19,10 +19,10 @@ public class StepContext {
     private static Map<ContextKeys, Object> context = new HashMap<>();
 
     @Autowired
-    PageFactory pageFactory;
+    private PageFactory pageFactory;
 
     @Autowired
-    UserProviderService userProviderService;
+    private UserProviderService userProviderService;
 
     public Object getContext(ContextKeys key) {
         //Filter PAGE context
@@ -63,4 +63,3 @@ public class StepContext {
     }
 
 }
-//userProviderService.getUser(registrationStatus)
