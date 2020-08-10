@@ -41,6 +41,7 @@ public class HomePage extends Page {
                 break;
             case "bestsellersTabItem":
                 element = getBestsellersTabItem();
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + elementName);
         }

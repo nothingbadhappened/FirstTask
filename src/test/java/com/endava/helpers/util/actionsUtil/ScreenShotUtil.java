@@ -23,12 +23,6 @@ public class ScreenShotUtil {
     private static Screenshot screenshot;
 
     //Constructors
-    public ScreenShotUtil(WebDriver driver) throws IOException {
-        ScreenShotUtil.driver = driver;
-        doScreenshot();
-        captureFullScreenAsByte(screenshot);
-    }
-
     public ScreenShotUtil(WebDriver driver, Scenario scenario) throws IOException {
         ScreenShotUtil.driver = driver;
         fileName = "Screenshot" + System.currentTimeMillis() + "_" + scenario.getName() + ".png";

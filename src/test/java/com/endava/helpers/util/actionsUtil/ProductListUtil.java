@@ -45,14 +45,6 @@ public class ProductListUtil {
         }
     }
 
-    public ProductListItem getFirstProductListItem() {
-        return productList.get(0);
-    }
-
-    public ProductListItem getLastProductListItem() {
-        return productList.get(productList.size() - 1);
-    }
-
     @Override
     public String toString() {
         log.debug("Search Util Object toString() method invoked");

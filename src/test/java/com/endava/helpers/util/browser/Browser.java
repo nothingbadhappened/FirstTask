@@ -63,24 +63,16 @@ public class Browser {
         return webDriver;
     }
 
-    public WebDriverWait getWebDriverWait() {
-        return webDriverWait;
-    }
-
     public void goToUrl(String url) {
         webDriver.navigate().to(url);
     }
 
-    public void refreshPage() {
-        webDriver.navigate().refresh();
+    public String getPageUrl() {
+        return webDriver.getCurrentUrl();
     }
 
     public String getPageTitle() {
         return webDriver.getTitle();
-    }
-
-    public String getPageUrl() {
-        return webDriver.getCurrentUrl();
     }
 
     public void waitUntilElementIsVisible(WebElement element) {

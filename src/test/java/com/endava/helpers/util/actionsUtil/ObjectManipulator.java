@@ -10,12 +10,8 @@ public interface ObjectManipulator {
 
     void click(@NotNull WebElement element);
 
-    void click(@NotNull List<WebElement> dropdown, String option);
-
     void click(@NotNull ProductListItem productListItem) throws InterruptedException;
 
     void sendKeys(@NotNull WebElement field, String keys);
-
-    void sendKeysWithoutClearing(@NotNull WebElement field, String keys);
 
 }

@@ -10,8 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 public class ObjectManipulatorImpl implements ObjectManipulator {
 
@@ -46,34 +44,9 @@ public class ObjectManipulatorImpl implements ObjectManipulator {
     }
 
     @Override
-    public void click(@NotNull List<WebElement> dropdown, String optionName) {
-        WebElement currentOption;
-
-        log.debug("Looking for the option " + optionName + " in the dropdown " + dropdown.toString());
-        for (int i = 0; i < dropdown.size(); i++) {
-
-            currentOption = dropdown.get(i);
-            browser.waitUntilElementIsVisible(currentOption);
-
-            if (currentOption.getText().equalsIgnoreCase(optionName)) {
-                i = dropdown.size();
-                currentOption.click();
-                log.info("Option has been found and clicked: {}", currentOption);
-            }
-        }
-    }
-
-    @Override
     public void sendKeys(@NotNull WebElement field, String keys) {
         browser.waitUntilElementIsVisible(field);
         field.clear();
-        field.sendKeys(keys);
-        log.debug("Sent keys to element: {}", field);
-    }
-
-    @Override
-    public void sendKeysWithoutClearing(@NotNull WebElement field, String keys) {
-        browser.waitUntilElementIsVisible(field);
         field.sendKeys(keys);
         log.debug("Sent keys to element: {}", field);
     }

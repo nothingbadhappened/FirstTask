@@ -13,16 +13,6 @@ public class ProductListItem {
     private WebElement productItemDiscountElement;
     private WebElement productItemAddToCartBtn;
 
-    // Creates a deep copy object
-    public ProductListItem(ProductListItem productListItem) {
-        this.productItemNameElement = productListItem.getProductItemNameElement();
-        this.productItemPriceElement = productListItem.getProductItemPriceElement();
-        this.productItemAddToCartBtn = productListItem.getProductItemAddToCartBtn();
-        if (productListItem.getProductItemDiscountElement() != null) {
-            this.productItemDiscountElement = productListItem.getProductItemDiscountElement();
-        }
-    }
-
     // Creates an instance with discount
     public ProductListItem(WebElement productItemName,
                            WebElement productItemPriceElement,
@@ -67,13 +57,12 @@ public class ProductListItem {
                     + " | productItemPriceElement: " + productItemPriceElement.getText()
                     + " | productItemDiscountElement: " + productItemDiscountElement.getText()
                     + " | productItemAddToCartBtn: " + productItemAddToCartBtn.getText();
-            log.debug("Product List Item Object toString() method invoked: \n{}", description);
         } else {
             description = " | productItemNameElement: " + productItemNameElement.getText()
                     + " | productItemPriceElement: " + productItemPriceElement.getText()
                     + " | productItemAddToCartBtn: " + productItemAddToCartBtn.getText();
-            log.debug("Product List Item Object toString() method invoked: \n{}", description);
         }
+        log.debug("Product List Item Object toString() method invoked: \n{}", description);
         return "[PRODUCT LIST ITEM OBJECT]\n" + description;
     }
 }

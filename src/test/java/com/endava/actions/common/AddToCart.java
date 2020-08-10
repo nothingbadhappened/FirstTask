@@ -1,7 +1,6 @@
 package com.endava.actions.common;
 
 import com.endava.helpers.util.actionsUtil.ObjectManipulator;
-import com.endava.pageObjects.ProductPage;
 import com.endava.pageObjects.SearchPage;
 import com.endava.pageObjects.modules.ProductListItem;
 import com.endava.steps.context.ContextKeys;
@@ -21,16 +20,6 @@ public class AddToCart {
     @Autowired
     private StepContext context;
 
-    public void addSingleItemFromProductPage(ProductListItem productListItem) {
-        executor.click(productListItem.getProductItemNameElement());
-        ProductPage productPage = (ProductPage) context.getContext(ContextKeys.PRODUCT_PAGE);
-        log.info("Updating Step Context: Current page is Product Page");
-        context.setContext(ContextKeys.CURRENT_PAGE, productPage);
-
-        executor.click(productPage.getAddToCartButtonProductPage());
-        executor.click(productPage.getProceedToCheckoutBtn());
-    }
-
     public void addSingleItemFromSearchPage(ProductListItem productListItem) throws InterruptedException {
         SearchPage searchPage = (SearchPage) context.getContext(ContextKeys.SEARCH_PAGE);
         log.info("Updating Step Context: Current page is Search Page");
@@ -42,9 +31,4 @@ public class AddToCart {
         log.info("Updating Step Context: Current page is Cart Page");
         context.setContext(ContextKeys.CURRENT_PAGE, context.getContext(ContextKeys.CART_PAGE));
     }
-
-    public void addSingleItemFromSearch(ProductListItem productListItem) throws InterruptedException {
-        executor.click(productListItem);
-    }
-
 }
