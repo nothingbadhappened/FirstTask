@@ -4,8 +4,6 @@ import com.endava.pageObjects.modules.ProductListItem;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebElement;
 
-import java.util.List;
-
 public interface ObjectManipulator {
 
     void click(@NotNull WebElement element);

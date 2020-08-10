@@ -34,13 +34,8 @@ public class ScreenShotUtil {
     public String getScreenshotName() {
         return fileName;
     }
-
     public byte[] getByteScreenshotFullPage() {
         return byteScreenshot;
-    }
-
-    public Screenshot getScreenshotFullPage() {
-        return screenshot;
     }
 
     // Screen capture logic

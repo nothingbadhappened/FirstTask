@@ -5,8 +5,8 @@ import com.endava.helpers.util.customExceptions.InvalidPlatformException;
 public class PlatformHelper {
 
     private static String platform;
-    private static String chromeDriverBin;
-    private static String firefoxDriverBin;
+    private static String chromeDriverBinType;
+    private static String firefoxDriverBinType;
 
     private static void setPlatform() throws InvalidPlatformException {
 
@@ -31,11 +31,11 @@ public class PlatformHelper {
         }
 
         if (platform.equals("win")) {
-            chromeDriverBin = "chromedriver.exe";
-            firefoxDriverBin = "geckodriver.exe";
+            chromeDriverBinType = "chromedriver.exe";
+            firefoxDriverBinType = "geckodriver.exe";
         } else if (platform.equals("mac")) {
-            chromeDriverBin = "chromedriver";
-            firefoxDriverBin = "geckodriver";
+            chromeDriverBinType = "chromedriver";
+            firefoxDriverBinType = "geckodriver";
         } else {
             throw new InvalidPlatformException(platform);
         }
@@ -44,12 +44,12 @@ public class PlatformHelper {
 
     public static String getChromeDriverBinType() throws InvalidPlatformException {
         setPlatform();
-        return chromeDriverBin;
+        return chromeDriverBinType;
     }
 
     public static String getFirefoxDriverBinType() throws InvalidPlatformException {
         setPlatform();
-        return firefoxDriverBin;
+        return firefoxDriverBinType;
     }
 
 }
