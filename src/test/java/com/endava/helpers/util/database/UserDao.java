@@ -3,9 +3,9 @@ import com.endava.users.User;
 
 public interface UserDao {
 
-    public User getRegisteredUser();
+    User getRegisteredUser();
 
-    public User getNotRegisteredUser();
+    User getNotRegisteredUser();
 }
 
 /**
