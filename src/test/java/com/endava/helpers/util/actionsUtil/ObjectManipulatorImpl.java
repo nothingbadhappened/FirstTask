@@ -31,7 +31,7 @@ public class ObjectManipulatorImpl implements ObjectManipulator {
 
     @Override
     public void click(@NotNull ProductListItem productListItem) {
-        Actions action = new Actions(browser.getWebDriver());
+        Actions action = new Actions(browser.getDriver());
 
         action.moveToElement(productListItem.getProductItemNameElement())
                 .moveToElement(productListItem.getProductItemPriceElement())

@@ -20,7 +20,7 @@ public class MyAccountPage extends Page {
 
     public MyAccountPage(Browser browser) {
         super(browser);
-        this.header = new Header(browser.getWebDriver());
+        this.header = new Header(browser.getDriver());
     }
 
     public Header getHeader() {

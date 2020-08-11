@@ -16,7 +16,7 @@ public class UserRowMapper implements RowMapper {
     private static final Logger log = LoggerFactory.getLogger(UserRowMapper.class);
 
     @Override
-    public User mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+    public User mapRow(@NotNull ResultSet resultSet, int rowNum) throws SQLException {
         User user = new User();
         log.debug("Mapping DB entry (rownum:" + rowNum + ")" + " data to User object: \n" + toString(resultSet));
         user.setUserId(resultSet.getInt("user_id"));

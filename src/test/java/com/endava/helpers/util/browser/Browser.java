@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 public class Browser {
 
     private static final Logger log = LoggerFactory.getLogger(Browser.class);
-    private final WebDriver webDriver;
+    private final WebDriver driver;
     private final WebDriverWait webDriverWait;
 
     public Browser(Environment environment) {
@@ -26,18 +26,18 @@ public class Browser {
         String driverName = environment.getProperty("driver");
 
         setDriverPath(environment);
-        webDriver = WebDriverFactory.getDriver(driverName);
+        driver = WebDriverFactory.getDriver(driverName);
 
-        log.info("Setting WebDriver Wait for " + webDriver.toString());
-        webDriverWait = new WebDriverWait(webDriver, 10, 1000);
-        webDriver.manage().timeouts().implicitlyWait(250, TimeUnit.MILLISECONDS);
+        log.info("Setting WebDriver Wait for " + driver.toString());
+        webDriverWait = new WebDriverWait(driver, 10, 1000);
+        driver.manage().timeouts().implicitlyWait(250, TimeUnit.MILLISECONDS);
     }
 
     @PreDestroy
     public void closeBrowser() {
-        if (webDriver != null) {
-            webDriver.close();
-            webDriver.quit();
+        if (driver != null) {
+            driver.close();
+            driver.quit();
         }
     }
 
@@ -53,26 +53,26 @@ public class Browser {
             System.setProperty("webdriver.gecko.driver", WEB_DRIVER_PATH + FIREFOX_DRIVER_BIN_TYPE);
 
         } catch (InvalidPlatformException invalidPlatform) {
-            invalidPlatform.getMessage();
+            log.debug("Could not set driver path: \n{}", invalidPlatform.getMessage());
             invalidPlatform.printStackTrace();
             System.exit(1);
         }
     }
 
-    public WebDriver getWebDriver() {
-        return webDriver;
+    public WebDriver getDriver() {
+        return driver;
     }
 
     public void goToUrl(String url) {
-        webDriver.navigate().to(url);
+        driver.navigate().to(url);
     }
 
     public String getPageUrl() {
-        return webDriver.getCurrentUrl();
+        return driver.getCurrentUrl();
     }
 
     public String getPageTitle() {
-        return webDriver.getTitle();
+        return driver.getTitle();
     }
 
     public void waitUntilElementIsVisible(WebElement element) {

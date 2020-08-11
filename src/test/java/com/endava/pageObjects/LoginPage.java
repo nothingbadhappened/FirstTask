@@ -39,7 +39,7 @@ public class LoginPage extends Page {
 
     public LoginPage(Browser browser) {
         super(browser);
-        this.header = new Header(browser.getWebDriver());
+        this.header = new Header(browser.getDriver());
     }
 
     public WebElement getUserEmailField() {

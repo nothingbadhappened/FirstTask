@@ -4,12 +4,12 @@ import com.endava.helpers.util.customExceptions.InvalidPlatformException;
 
 public class PlatformHelper {
 
-    private static String platform;
     private static String chromeDriverBinType;
     private static String firefoxDriverBinType;
 
     private static void setPlatform() throws InvalidPlatformException {
 
+        String platform;
         if (System.getProperty("platform") == null) {
             System.out.println("Platform has not been specified, trying to auto-detect your system:");
 

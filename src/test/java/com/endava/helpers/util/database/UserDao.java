@@ -1,15 +1,7 @@
 package com.endava.helpers.util.database;
-
-
 import com.endava.users.User;
 
-import javax.sql.DataSource;
-import java.util.List;
-
 public interface UserDao {
-
-    // == methods ==
-    public void setDataSource(DataSource dataSource);
 
     public User getRegisteredUser();
 

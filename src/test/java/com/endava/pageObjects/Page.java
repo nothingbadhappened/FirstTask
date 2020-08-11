@@ -12,7 +12,7 @@ public abstract class Page {
     private static final Logger log = LoggerFactory.getLogger(Page.class);
 
     public Page(Browser browser) {
-        WebDriver driver = browser.getWebDriver();
+        WebDriver driver = browser.getDriver();
         log.debug("Instantiating Page Object: \"" + this.getClass().getSimpleName() + "\"" + " with webdriver instance: " + driver.toString());
         PageFactory.initElements(driver, this);
     }

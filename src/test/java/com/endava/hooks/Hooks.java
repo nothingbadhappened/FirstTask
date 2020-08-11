@@ -35,7 +35,7 @@ public class Hooks {
         );
 
         log.info("BROWSER: Clean start:");
-        WebDriver driver = browser.getWebDriver();
+        WebDriver driver = browser.getDriver();
         log.info("Browser has started with following params {}", WebDriverFactory.getWebDriverInstanceInfo());
 
         log.info("   -> Deleting Cookies");
@@ -50,7 +50,7 @@ public class Hooks {
     @After
     public void embedScreenshot(Scenario scenario) {
         log.debug("----- AFTER HOOK START -----");
-        WebDriver driver = browser.getWebDriver();
+        WebDriver driver = browser.getDriver();
 
         if (scenario.isFailed() && driver != null) {
             try {

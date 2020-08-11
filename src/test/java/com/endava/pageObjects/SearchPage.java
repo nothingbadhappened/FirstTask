@@ -21,8 +21,8 @@ public class SearchPage extends Page {
 
     public SearchPage(Browser browser) {
         super(browser);
-        this.header = new Header(browser.getWebDriver());
-        this.productList = new ProductList(browser.getWebDriver());
+        this.header = new Header(browser.getDriver());
+        this.productList = new ProductList(browser.getDriver());
         if (productList.getProductList().size() > 0 && this.productListItem == null) {
             this.productListItem = productList.getProductList().get(0);
         }
@@ -59,10 +59,6 @@ public class SearchPage extends Page {
 
     public WebElement getProceedToCheckoutBtn() {
         return proceedToCheckoutBtn;
-    }
-
-    public List<WebElement> getSortByDropdown() {
-        return sortByDropdown;
     }
 
     public List<ProductListItem> getProductList(){

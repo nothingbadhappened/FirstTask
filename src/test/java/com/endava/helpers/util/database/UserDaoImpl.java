@@ -12,8 +12,8 @@ import javax.sql.DataSource;
 @Repository
 public class UserDaoImpl implements UserDao {
 
-    private static Logger log = LoggerFactory.getLogger(UserDaoImpl.class);
-    private UserRowMapper userRowMapper = new UserRowMapper();
+    private static final Logger log = LoggerFactory.getLogger(UserDaoImpl.class);
+    private final UserRowMapper userRowMapper = new UserRowMapper();
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
