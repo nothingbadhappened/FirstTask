@@ -4,6 +4,8 @@ import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Field;
+
 public class ProductListItem {
 
     //Product list item POJO
@@ -52,6 +54,16 @@ public class ProductListItem {
     @Override
     public String toString() {
         String description;
+
+        log.debug("Product List Item Object toString() method invoked");
+        for (Field f : this.getClass().getFields()) {
+            try {
+                log.debug(f.getGenericType() + " " + f.getName() + " = " + f.get(this));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
         if (productItemDiscountElement != null) {
             description = " | productItemNameElement: " + productItemNameElement.getText()
                     + " | productItemPriceElement: " + productItemPriceElement.getText()

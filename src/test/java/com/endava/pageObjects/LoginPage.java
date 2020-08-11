@@ -70,6 +70,14 @@ public class LoginPage extends Page {
         return pageHeading;
     }
 
+    public WebElement getHeaderElementByName(String elementName) {
+        return header.getHeaderElementByName(elementName);
+    }
+
+    public Header getHeader() {
+        return header;
+    }
+
     @Override
     public WebElement getElementByName(String elementName) {
 
@@ -100,14 +108,6 @@ public class LoginPage extends Page {
                 throw new IllegalStateException("Unexpected value: " + elementName);
         }
         return element;
-    }
-
-    public WebElement getHeaderElementByName(String elementName) {
-        return header.getHeaderElementByName(elementName);
-    }
-
-    public Header getHeader() {
-        return header;
     }
 
     @Override

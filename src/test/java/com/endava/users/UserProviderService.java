@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserProviderService {
 
-    private UserDaoImpl userDaoImpl;
+    private final UserDaoImpl userDaoImpl;
     private static final Logger log = LoggerFactory.getLogger(UserProviderService.class);
 
     @Autowired

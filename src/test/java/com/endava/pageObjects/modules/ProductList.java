@@ -17,13 +17,6 @@ public class ProductList {
 
     private final List<ProductListItem> mappedList = new ArrayList<>();
 
-    public List<ProductListItem> getProductList() {
-        if (mappedList.size() == 0) {
-            populateProductList();
-        }
-        return mappedList;
-    }
-
     public ProductList(WebDriver driver) {
         this.driver = driver;
     }
@@ -65,6 +58,13 @@ public class ProductList {
                 log.debug("Current ListItem in the mappedList: \n" + mappedItem.toString() + "\n");
             }
         }
+    }
+
+    public List<ProductListItem> getProductList() {
+        if (mappedList.size() == 0) {
+            populateProductList();
+        }
+        return mappedList;
     }
 
     public String toString() {

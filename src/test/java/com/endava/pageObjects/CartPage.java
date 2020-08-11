@@ -26,6 +26,10 @@ public class CartPage extends Page {
         this.header = new Header(browser.getWebDriver());
     }
 
+    public WebElement getCartTitleElement() {
+        return cartTitleElement;
+    }
+
     @Override
     public WebElement getElementByName(String elementName) {
         WebElement element;
@@ -45,10 +49,6 @@ public class CartPage extends Page {
     @Override
     public WebElement getHeaderElementByName(String elementName) {
         return header.getHeaderElementByName(elementName);
-    }
-
-    public WebElement getCartTitleElement() {
-        return cartTitleElement;
     }
 
     @Override

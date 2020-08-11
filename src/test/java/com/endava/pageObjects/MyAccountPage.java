@@ -27,6 +27,10 @@ public class MyAccountPage extends Page {
         return header;
     }
 
+    public WebElement getMyAccountHeading() {
+        return myAccountHeading;
+    }
+
     @Override
     public WebElement getElementByName(String elementName) {
         WebElement element;
@@ -36,10 +40,6 @@ public class MyAccountPage extends Page {
             throw new InvalidArgumentException("Invalid body element: " + elementName);
         }
         return element;
-    }
-
-    public WebElement getMyAccountHeading() {
-        return myAccountHeading;
     }
 
     @Override

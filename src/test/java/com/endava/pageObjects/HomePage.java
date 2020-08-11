@@ -31,6 +31,18 @@ public class HomePage extends Page {
         return header.getHeaderElementByName(elementName);
     }
 
+    public Header getHeader() {
+        return header;
+    }
+
+    public WebElement getPopularTabItem() {
+        return popularTabItem;
+    }
+
+    public WebElement getBestsellersTabItem() {
+        return bestsellersTabItem;
+    }
+
     @Override
     public WebElement getElementByName(String elementName) {
         WebElement element;
@@ -46,18 +58,6 @@ public class HomePage extends Page {
                 throw new IllegalStateException("Unexpected value: " + elementName);
         }
         return element;
-    }
-
-    public Header getHeader() {
-        return header;
-    }
-
-    public WebElement getPopularTabItem() {
-        return popularTabItem;
-    }
-
-    public WebElement getBestsellersTabItem() {
-        return bestsellersTabItem;
     }
 
     @Override
