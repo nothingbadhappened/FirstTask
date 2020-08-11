@@ -30,7 +30,7 @@ public class UserDaoImpl implements UserDao {
                 "limit 1 ";
         log.debug("Getting registered user. SQL: " + SQL);
 
-        return (User) jdbcTemplate.queryForObject(SQL, userRowMapper);
+        return jdbcTemplate.queryForObject(SQL, userRowMapper);
     }
 
     @Override
@@ -40,7 +40,6 @@ public class UserDaoImpl implements UserDao {
                 "where  is_registered = 0 " +
                 "limit 1 ";
         log.debug("Getting not registered user. SQL: " + SQL);
-        return (User) jdbcTemplate.queryForObject(SQL, userRowMapper);
+        return jdbcTemplate.queryForObject(SQL, userRowMapper);
     }
-
 }

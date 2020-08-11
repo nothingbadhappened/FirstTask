@@ -11,13 +11,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Component
-public class UserRowMapper implements RowMapper {
+public class UserRowMapper implements RowMapper<User> {
 
     private static final Logger log = LoggerFactory.getLogger(UserRowMapper.class);
+    private final User user = new User();
 
     @Override
     public User mapRow(@NotNull ResultSet resultSet, int rowNum) throws SQLException {
-        User user = new User();
+
         log.debug("Mapping DB entry (rownum:" + rowNum + ")" + " data to User object: \n" + toString(resultSet));
         user.setUserId(resultSet.getInt("user_id"));
         user.setUserEmail(resultSet.getString("user_email"));
