@@ -13,8 +13,7 @@ import org.slf4j.LoggerFactory;
 public class MyAccountPage extends Page {
 
     private static final Logger log = LoggerFactory.getLogger(LoginPage.class);
-    private Header header;
-    private WebElement element;
+    private final Header header;
 
     @FindBy(how = How.XPATH, using = "//*[@id=\"center_column\"]/h1")
     WebElement myAccountHeading;
@@ -30,12 +29,11 @@ public class MyAccountPage extends Page {
 
     @Override
     public WebElement getElementByName(String elementName) {
-        switch (elementName) {
-            case "myAccountHeading":
-                element = getMyAccountHeading();
-                break;
-            default:
-                throw new InvalidArgumentException("Invalid body element: " + elementName);
+        WebElement element;
+        if ("myAccountHeading".equals(elementName)) {
+            element = getMyAccountHeading();
+        } else {
+            throw new InvalidArgumentException("Invalid body element: " + elementName);
         }
         return element;
     }

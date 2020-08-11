@@ -12,22 +12,20 @@ import java.util.List;
 
 public class ProductList {
 
-    public ProductList(WebDriver driver) {
-        this.driver = driver;
-    }
-
     private static final Logger log = LoggerFactory.getLogger(ProductList.class);
-    private WebDriver driver;
+    private final WebDriver driver;
 
-    //Collection of product list items
-    private List<WebElement> rawList;
-    private List<ProductListItem> mappedList = new ArrayList<>();
+    private final List<ProductListItem> mappedList = new ArrayList<>();
 
     public List<ProductListItem> getProductList() {
         if (mappedList.size() == 0) {
             populateProductList();
         }
         return mappedList;
+    }
+
+    public ProductList(WebDriver driver) {
+        this.driver = driver;
     }
 
     // This will be used to init page with available products
@@ -38,7 +36,8 @@ public class ProductList {
 
         // Populate the rawList with unmapped [li] objects
         String basePath = "//ul[@class='product_list grid row']/li/*";
-        rawList = driver.findElements(By.xpath(basePath));
+        //Collection of product list items
+        List<WebElement> rawList = driver.findElements(By.xpath(basePath));
 
         log.debug("STARTING MAPPING OF ELEMENTS: List<WebElement> rawList -> List<ProductListItem> mappedList...");
 

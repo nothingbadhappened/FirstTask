@@ -14,7 +14,7 @@ public class HomePage extends Page {
 
     private static final Logger log = LoggerFactory.getLogger(HomePage.class);
 
-    private Header header;
+    private final Header header;
 
     @FindBy(how = How.XPATH, using = "//*[@id=\"home-page-tabs\"]/li[1]/a")
     private WebElement popularTabItem;

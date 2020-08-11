@@ -40,9 +40,11 @@ public class Hooks {
 
         log.info("   -> Deleting Cookies");
         driver.manage().deleteAllCookies();
+
         log.info("   -> Maximizing browser window");
         driver.manage().window().maximize();
-        log.debug(" ----- BEFORE HOOK END -----");
+
+        log.debug("\n ----- BEFORE HOOK END -----");
     }
 
     @After
@@ -77,8 +79,7 @@ public class Hooks {
         log.info("Completed scenario:"
                 + "\n##################################################################################################"
                 + "\n     Completed scenario: [" + scenario.getName() + "] --> Status:" + scenario.getStatus()
-                + "\n##################################################################################################\n\n\n"
-        );
+                + "\n##################################################################################################\n\n\n");
     }
 
     @After

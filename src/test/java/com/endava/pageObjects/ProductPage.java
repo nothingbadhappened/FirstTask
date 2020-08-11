@@ -7,8 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 public class ProductPage extends Page {
-    private Header header;
-    private WebElement element;
+    private final Header header;
 
     @FindBy(how = How.XPATH, using = "//button[@name='Submit']")
     private WebElement addToCartButtonProductPage;

@@ -16,7 +16,7 @@ import java.util.Map;
 public class StepContext {
 
     private static final Logger log = LoggerFactory.getLogger(StepContext.class);
-    private static Map<ContextKeys, Object> context = new HashMap<>();
+    private static final Map<ContextKeys, Object> context = new HashMap<>();
 
     @Autowired
     private PageFactory pageFactory;

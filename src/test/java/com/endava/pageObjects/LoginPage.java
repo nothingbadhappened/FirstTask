@@ -14,7 +14,7 @@ public class LoginPage extends Page {
 
     private static final Logger log = LoggerFactory.getLogger(LoginPage.class);
 
-    private Header header;
+    private final Header header;
 
     @FindBy(how = How.ID, using = "email")
     private WebElement userEmailField;

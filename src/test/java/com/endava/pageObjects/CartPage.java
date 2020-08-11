@@ -19,8 +19,7 @@ public class CartPage extends Page {
     @FindBy(how = How.XPATH, using = "//td[@class='cart_description']//p/a")
     WebElement productItemName;
 
-    private WebElement element;
-    private Header header;
+    private final Header header;
 
     public CartPage(Browser browser) {
         super(browser);
@@ -29,6 +28,7 @@ public class CartPage extends Page {
 
     @Override
     public WebElement getElementByName(String elementName) {
+        WebElement element;
         switch (elementName) {
             case "cartTitleElement":
                 element = getCartTitleElement();

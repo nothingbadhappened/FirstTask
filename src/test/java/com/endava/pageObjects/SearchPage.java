@@ -13,8 +13,8 @@ import java.util.List;
 
 public class SearchPage extends Page {
 
-    private Header header;
-    private ProductList productList;
+    private final Header header;
+    private final ProductList productList;
 
     // Defaults product list item to the first element in the list. This can be overwritten.
     private ProductListItem productListItem;

@@ -8,10 +8,10 @@ public class ProductListItem {
 
     //Product list item POJO
     private static final Logger log = LoggerFactory.getLogger(ProductListItem.class);
-    private WebElement productItemNameElement;
-    private WebElement productItemPriceElement;
+    private final WebElement productItemNameElement;
+    private final WebElement productItemPriceElement;
     private WebElement productItemDiscountElement;
-    private WebElement productItemAddToCartBtn;
+    private final WebElement productItemAddToCartBtn;
 
     // Creates an instance with discount
     public ProductListItem(WebElement productItemName,
