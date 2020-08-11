@@ -22,7 +22,7 @@ public class UserProviderService {
     public User getUser(String userRegistrationStatus) {
         log.info("Received get user request for user status: " + userRegistrationStatus);
 
-        User user = null;
+        User user;
 
         if (userRegistrationStatus.equals("1") ||
                 userRegistrationStatus.toLowerCase().equals("registered") ||
