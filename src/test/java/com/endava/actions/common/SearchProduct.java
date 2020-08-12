@@ -66,16 +66,6 @@ public class SearchProduct {
         }
     }
 
-    public void addToCart(String productName) {
-        log.debug("Searching for an item to add to cart: " + productName);
-        execute(productName);
-
-        if (isProductFound) {
-            log.debug("Item has been found. Clicking ADD TO CART button...");
-            executor.click(productListItem.getProductItemAddToCartBtn());
-        }
-    }
-
     public boolean isProductFound() {
         return isProductFound;
     }

@@ -197,13 +197,6 @@ public class CommonSteps {
         log.info("~~~ STEP: And user signs in [COMPLETE] ~~~");
     }
 
-    @And("user adds {string} to cart")
-    public void userAddsItemToCart(String productName) {
-        log.info("~~~ STEP: And user adds {} to cart [START] ~~~", productName);
-        searchProduct.addToCart(productName);
-        log.info("~~~ STEP: And user adds {} to cart [COMPLETE] ~~~", productName);
-    }
-
     @When("user searches for {string} item")
     public void userSearchesForItem(String productName) {
         log.info("~~~ STEP: When user searches for {} item [START] ~~~", productName);
