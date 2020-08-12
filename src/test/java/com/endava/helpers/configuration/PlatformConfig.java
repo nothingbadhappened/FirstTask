@@ -2,7 +2,7 @@ package com.endava.helpers.configuration;
 
 import com.endava.helpers.util.customExceptions.InvalidPlatformException;
 
-public class PlatformHelper {
+public class PlatformConfig {
 
     private static String chromeDriverBinType;
     private static String firefoxDriverBinType;

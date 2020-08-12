@@ -1,6 +1,6 @@
 package com.endava.helpers.util.browser;
 
-import com.endava.helpers.configuration.PlatformHelper;
+import com.endava.helpers.configuration.PlatformConfig;
 import com.endava.helpers.util.customExceptions.InvalidPlatformException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -41,24 +41,6 @@ public class Browser {
         }
     }
 
-    private static void setDriverPath(Environment environment){
-        final String WEB_DRIVER_PATH = System.getProperty("user.dir") + environment.getProperty("webdriver.path");
-
-        try {
-            final String CHROME_DRIVER_BIN_TYPE = PlatformHelper.getChromeDriverBinType();
-            final String FIREFOX_DRIVER_BIN_TYPE = PlatformHelper.getFirefoxDriverBinType();
-
-            //set driver path
-            System.setProperty("webdriver.chrome.driver", WEB_DRIVER_PATH + CHROME_DRIVER_BIN_TYPE);
-            System.setProperty("webdriver.gecko.driver", WEB_DRIVER_PATH + FIREFOX_DRIVER_BIN_TYPE);
-
-        } catch (InvalidPlatformException invalidPlatform) {
-            log.debug("Could not set driver path: \n{}", invalidPlatform.getMessage());
-            invalidPlatform.printStackTrace();
-            System.exit(1);
-        }
-    }
-
     public WebDriver getDriver() {
         return driver;
     }
@@ -77,5 +59,23 @@ public class Browser {
 
     public void waitUntilElementIsVisible(WebElement element) {
         webDriverWait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    private static void setDriverPath(Environment environment){
+        final String WEB_DRIVER_PATH = System.getProperty("user.dir") + environment.getProperty("webdriver.path");
+
+        try {
+            final String CHROME_DRIVER_BIN_TYPE = PlatformConfig.getChromeDriverBinType();
+            final String FIREFOX_DRIVER_BIN_TYPE = PlatformConfig.getFirefoxDriverBinType();
+
+            //set driver path
+            System.setProperty("webdriver.chrome.driver", WEB_DRIVER_PATH + CHROME_DRIVER_BIN_TYPE);
+            System.setProperty("webdriver.gecko.driver", WEB_DRIVER_PATH + FIREFOX_DRIVER_BIN_TYPE);
+
+        } catch (InvalidPlatformException invalidPlatform) {
+            log.debug("Could not set driver path: \n{}", invalidPlatform.getMessage());
+            invalidPlatform.printStackTrace();
+            System.exit(1);
+        }
     }
 }
