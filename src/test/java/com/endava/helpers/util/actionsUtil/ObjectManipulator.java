@@ -8,7 +8,7 @@ public interface ObjectManipulator {
 
     void click(@NotNull WebElement element);
 
-    void click(@NotNull ProductListItem productListItem) throws InterruptedException;
+    void click(@NotNull ProductListItem productListItem);
 
     void sendKeys(@NotNull WebElement field, String keys);
 
