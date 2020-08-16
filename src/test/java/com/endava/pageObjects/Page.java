@@ -6,13 +6,14 @@ import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class Page {
+public class Page {
 
     private static final Logger log = LoggerFactory.getLogger(Page.class);
 
     public Page(Browser browser) {
         WebDriver driver = browser.getDriver();
-        log.debug("Instantiating Page Object: \"" + this.getClass().getSimpleName() + "\"" + " with webdriver instance: " + driver.toString());
+        log.debug("Instantiating Page Object: \"" + this.getClass().getSimpleName() +
+                  "\"" + " with webdriver instance: " + driver.toString());
         PageFactory.initElements(driver, this);
     }
 
