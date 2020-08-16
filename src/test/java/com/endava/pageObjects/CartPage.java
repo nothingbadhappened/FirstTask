@@ -17,7 +17,7 @@ public class CartPage extends Page {
     private WebElement cartTitleElement;
 
     @FindBy(how = How.XPATH, using = "//td[@class='cart_description']//p/a")
-    WebElement productItemName;
+    private WebElement productItemName;
 
     private final Header header;
 
@@ -30,25 +30,12 @@ public class CartPage extends Page {
         return cartTitleElement;
     }
 
-    @Override
-    public WebElement getElementByName(String elementName) {
-        WebElement element;
-        switch (elementName) {
-            case "cartTitleElement":
-                element = getCartTitleElement();
-                break;
-            case "productItemName":
-                element = productItemName;
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + elementName);
-        }
-        return element;
+    public WebElement getProductItemName() {
+        return productItemName;
     }
 
-    @Override
-    public WebElement getHeaderElementByName(String elementName) {
-        return header.getHeaderElementByName(elementName);
+    public Header getHeader() {
+        return header;
     }
 
     @Override

@@ -27,10 +27,6 @@ public class HomePage extends Page {
         this.header = new Header(browser.getDriver());
     }
 
-    public WebElement getHeaderElementByName(String elementName) {
-        return header.getHeaderElementByName(elementName);
-    }
-
     public Header getHeader() {
         return header;
     }
@@ -41,23 +37,6 @@ public class HomePage extends Page {
 
     public WebElement getBestsellersTabItem() {
         return bestsellersTabItem;
-    }
-
-    @Override
-    public WebElement getElementByName(String elementName) {
-        WebElement element;
-        switch (elementName) {
-
-            case "popularTabItem":
-                element = getPopularTabItem();
-                break;
-            case "bestsellersTabItem":
-                element = getBestsellersTabItem();
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + elementName);
-        }
-        return element;
     }
 
     @Override

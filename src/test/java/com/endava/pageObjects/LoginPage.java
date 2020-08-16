@@ -70,44 +70,8 @@ public class LoginPage extends Page {
         return pageHeading;
     }
 
-    public WebElement getHeaderElementByName(String elementName) {
-        return header.getHeaderElementByName(elementName);
-    }
-
     public Header getHeader() {
         return header;
-    }
-
-    @Override
-    public WebElement getElementByName(String elementName) {
-
-        WebElement element;
-        switch (elementName) {
-            case "pageHeading":
-                element = getPageHeading();
-                break;
-            case "loginErrorField":
-                element = getLoginErrorField();
-                break;
-            case "emailCreateField":
-                element = getEmailCreateField();
-                break;
-            case "submitCreateUserButton":
-                element = getSubmitCreateUserButton();
-                break;
-            case "userEmailField":
-                element = getUserEmailField();
-                break;
-            case "userPasswordField":
-                element = getUserPasswordField();
-                break;
-            case "signInButton":
-                element = getSignInButton();
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + elementName);
-        }
-        return element;
     }
 
     @Override

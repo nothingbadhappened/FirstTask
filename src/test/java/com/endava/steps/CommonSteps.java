@@ -144,7 +144,7 @@ public class CommonSteps {
     public void loginError(String errorText) {
         log.info("~~~ STEP: Then login error is displayed: [{}] [START] ~~~", errorText);
         LoginPage loginPage = (LoginPage) context.getContext(ContextKeys.LOGIN_PAGE);
-        Assert.assertEquals(loginPage.getElementByName("loginErrorField").getText(), errorText);
+        Assert.assertEquals(loginPage.getLoginErrorField().getText(), errorText);
         log.info("~~~ STEP: Then login error is displayed: [{}] [COMPLETE] ~~~", errorText);
     }
 
@@ -218,9 +218,9 @@ public class CommonSteps {
     public void productNameIsNotFound(String expectedMessage) {
         log.info("~~~ STEP: Then failed search message is displayed with text {} [START]", expectedMessage);
         SearchPage searchPage = (SearchPage) context.getContext(ContextKeys.SEARCH_PAGE);
-        browser.waitUntilElementIsVisible(searchPage.getElementByName("failedSearchMessageElement"));
+        browser.waitUntilElementIsVisible(searchPage.getFailedSearchMessageElement());
         String actualMessage = searchPage
-                .getElementByName("failedSearchMessageElement")
+                .getFailedSearchMessageElement()
                 .getText()
                 .replace("\"", "");
 
@@ -250,7 +250,7 @@ public class CommonSteps {
     public void shoppingCartSummaryPageIsLoaded(String pageHeadingName) {
         log.info("~~~ STEP: Then {} page is loaded [START] ~~~", pageHeadingName);
         CartPage cartPage = (CartPage) context.getContext(ContextKeys.CART_PAGE);
-        Assert.assertTrue(cartPage.getElementByName("cartTitleElement").getText().contains(pageHeadingName));
+        Assert.assertTrue(cartPage.getCartTitleElement().getText().contains(pageHeadingName));
         log.info("~~~ STEP: Then {} page is loaded [COMPLETE] ~~~", pageHeadingName);
     }
 
@@ -258,7 +258,7 @@ public class CommonSteps {
     public void itemPresentInTheCart(String productName) {
         log.info("~~~ STEP: And the {} item is present in the list [START] ~~~", productName);
         CartPage cartPage = (CartPage) context.getContext(ContextKeys.CART_PAGE);
-        Assert.assertEquals(cartPage.getElementByName("productItemName").getText(), productName);
+        Assert.assertEquals(cartPage.getProductItemName().getText(), productName);
         log.info("~~~ STEP: And the {} item is present in the list [COMPLETE] ~~~", productName);
     }
 }

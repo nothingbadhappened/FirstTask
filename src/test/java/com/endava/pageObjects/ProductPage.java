@@ -28,25 +28,8 @@ public class ProductPage extends Page {
         return proceedToCheckoutBtn;
     }
 
-    @Override
-    public WebElement getElementByName(String elementName) {
-        WebElement element;
-        switch (elementName) {
-            case "addToCartButtonProductPage":
-                element = addToCartButtonProductPage;
-                break;
-            case "proceedToCheckoutBtn":
-                element = proceedToCheckoutBtn;
-                break;
-            default:
-                throw new IllegalArgumentException("Unexpected element name: " + elementName);
-        }
-        return element;
-    }
-
-    @Override
-    public WebElement getHeaderElementByName(String elementName) {
-        return null;
+    public Header getHeader() {
+        return header;
     }
 
     @Override

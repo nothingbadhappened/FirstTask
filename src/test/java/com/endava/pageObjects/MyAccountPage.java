@@ -9,6 +9,8 @@ import org.openqa.selenium.support.How;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Field;
+
 
 public class MyAccountPage extends Page {
 
@@ -16,7 +18,7 @@ public class MyAccountPage extends Page {
     private final Header header;
 
     @FindBy(how = How.XPATH, using = "//*[@id=\"center_column\"]/h1")
-    WebElement myAccountHeading;
+    private WebElement myAccountHeading;
 
     public MyAccountPage(Browser browser) {
         super(browser);
@@ -32,23 +34,16 @@ public class MyAccountPage extends Page {
     }
 
     @Override
-    public WebElement getElementByName(String elementName) {
-        WebElement element;
-        if ("myAccountHeading".equals(elementName)) {
-            element = getMyAccountHeading();
-        } else {
-            throw new InvalidArgumentException("Invalid body element: " + elementName);
-        }
-        return element;
-    }
-
-    @Override
-    public WebElement getHeaderElementByName(String elementName) {
-        return header.getHeaderElementByName(elementName);
-    }
-
-    @Override
     public String toString() {
+        log.debug("My Account Page Object toString() method invoked");
+
+        for (Field f : this.getClass().getFields()) {
+            try {
+                log.debug(f.getGenericType() + " " + f.getName() + " = " + f.get(this));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
         return "[MY ACCOUNT PAGE OBJECT]";
     }
 }

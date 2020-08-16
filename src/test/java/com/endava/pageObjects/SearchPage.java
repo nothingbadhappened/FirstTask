@@ -4,7 +4,6 @@ import com.endava.helpers.util.browser.Browser;
 import com.endava.pageObjects.modules.Header;
 import com.endava.pageObjects.modules.ProductList;
 import com.endava.pageObjects.modules.ProductListItem;
-import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -43,8 +42,6 @@ public class SearchPage extends Page {
     @FindBy(how = How.XPATH, using = "//div[@class='button-container']")
     private WebElement proceedToCheckoutBtn;
 
-
-
     public WebElement getGridModeBtn() {
         return gridModeBtn;
     }
@@ -79,44 +76,8 @@ public class SearchPage extends Page {
         return header;
     }
 
-    @Override
-    public WebElement getHeaderElementByName(String elementName) {
-        return header.getHeaderElementByName(elementName);
-    }
-
-    @Override
-    public WebElement getElementByName(String elementName) {
-        WebElement element;
-        switch (elementName) {
-            case "gridModeBtn":
-                element = getGridModeBtn();
-                break;
-            case "listModeBtn":
-                element = getListModeBtn();
-                break;
-            case "failedSearchMessageElement":
-                element = failedSearchMessageElement;
-                break;
-            case "proceedToCheckoutBtn":
-                element = proceedToCheckoutBtn;
-                break;
-            // This is specific to product list item only
-            case "productItemNameElement":
-                element = productListItem.getProductItemNameElement();
-                break;
-            case "productItemPriceElement":
-                element = productListItem.getProductItemPriceElement();
-                break;
-            case "productItemDiscountElement":
-                element = productListItem.getProductItemDiscountElement();
-                break;
-            case "productItemAddToCartBtn":
-                element = productListItem.getProductItemAddToCartBtn();
-                break;
-            default:
-                throw new InvalidArgumentException("Invalid Search Page element: " + elementName);
-        }
-        return element;
+    public List<WebElement> getSortByDropdown() {
+        return sortByDropdown;
     }
 
     @Override
