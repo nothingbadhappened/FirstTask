@@ -21,7 +21,7 @@
         <commons-io.version>2.6</commons-io.version>
         <apache-poi.version>3.9</apache-poi.version>
         <spring-jdbc.version>5.2.5.RELEASE</spring-jdbc.version>
-        <mysql-jdbc-driver.version>8.0.19</mysql-jdbc-driver.version>
+        <mysql-jdbc-driver.version>8.0.28</mysql-jdbc-driver.version>
     </properties>
 
 
